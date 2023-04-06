@@ -12,55 +12,57 @@ import torch.nn as nn
 import torchvision.models as models
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-# Import the model
+
+# Load the model
 model = torchvision.models.resnet18(pretrained=True)
 num_ftrs = model.fc.in_features
-model.fc = nn.Linear(num_ftrs, 16)
+model.fc = torch.nn.Linear(num_ftrs, 16)
 model.to(device)
-model_path = "epoch-81.pt"
-model = torch.load(model_path, map_location=torch.device('cpu'))
+
+checkpoint_path = "epoch-81.pt"
+checkpoint = torch.load(checkpoint_path, map_location=torch.device('cpu'))
+model.load_state_dict(checkpoint['model_state_dict'])
 model.eval()
 
-# Define the classes
 classes = {
-    0:'The above leaf is Cassava (Cassava Mosaic)',
-    1:'The above leaf is Cassava CB (Cassava Bacterial Blight)',
-    2:'The above leaf is Cassava Healthy leaf',
-    3:'The above leaf is Tomato Bacterial spot',
-    4:'The above leaf is Tomato early blight',
-    5:'The above leaf is Tomato Late blight',
-    6:'The above leaf is Tomato Leaf Mold',
-    7:'The above leaf is Tomato Septoria leaf spot',
-    8:'The above leaf is Tomato Spider mites Two-spotted spider mite',
-    9:'The above leaf is Tomato Target Spot',
-    10:'The above leaf is Tomato Yellow Leaf Curl Virus',
-    11:'The above leaf is Tomato mosaic virus',
-    12:'The above leaf is Tomato healthy',
-    13:'The above leaf is bean angular leaf spot',
-    14:'The above leaf is bean healthy',
-    15:'The above leaf is bean rust'
+    0: 'The above leaf is Cassava (Cassava Mosaic)',
+    1: 'The above leaf is Cassava CB (Cassava Bacterial Blight)',
+    2: 'The above leaf is Cassava Healthy leaf',
+    3: 'The above leaf is Tomato Bacterial spot',
+    4: 'The above leaf is Tomato early blight',
+    5: 'The above leaf is Tomato Late blight',
+    6: 'The above leaf is Tomato Leaf Mold',
+    7: 'The above leaf is Tomato Septoria leaf spot',
+    8: 'The above leaf is Tomato Spider mites Two-spotted spider mite',
+    9: 'The above leaf is Tomato Target Spot',
+    10: 'The above leaf is Tomato Yellow Leaf Curl Virus',
+    11: 'The above leaf is Tomato mosaic virus',
+    12: 'The above leaf is Tomato healthy',
+    13: 'The above leaf is bean angular leaf spot',
+    14: 'The above leaf is bean healthy',
+    15: 'The above leaf is bean rust'
 }
 
-# Define the image transformation
-transform=transforms.Compose([
+# Image transformation
+transform = transforms.Compose([
     transforms.ToTensor(),
-    transforms.Resize((224,224)),
+    transforms.Resize((224, 224)),
     transforms.ColorJitter(brightness=0.2, contrast=0.1, saturation=0.1, hue=0.1),
     transforms.RandomAffine(degrees=40, translate=None, scale=(1, 2), shear=15),
     transforms.RandomHorizontalFlip(),
     transforms.RandomVerticalFlip(),
-    transforms.Normalize((0.485, 0.456, 0.406),(0.229, 0.224, 0.225))
+    transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
 ])
 
-def model_predict(img_path, model_func, transform):
-    image=Image.open(img_path)
-    image_tensor=transform(image).float()
-    image_tensor=image_tensor.unsqueeze(0)
-    output=model_func(image_tensor)
-    index=torch.argmax(output)
-    pred=classes[index.item()]
+def model_predict(image, model_func, transform):
+    image_tensor = transform(image).float()
+    image_tensor = image_tensor.unsqueeze(0)
+    output = model_func(image_tensor.to(device))
+    index = torch.argmax(output)
+    pred = classes[index.item()]
     probs, _ = torch.max(F.softmax(output, dim=1), 1)
-    return pred
+    return pred, probs
+
 
 def main():
     st.title("Plant Disease Detection App")
