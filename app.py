@@ -10,6 +10,7 @@ from werkzeug.utils import secure_filename
 import streamlit as st
 import torch.nn as nn
 import torchvision.models as models
+from torchsummary import summary
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -19,9 +20,26 @@ num_ftrs = model.fc.in_features
 model.fc = torch.nn.Linear(num_ftrs, 16)
 model.to(device)
 
+# Print the model summary
+summary(model, (3, 224, 224))
+
 checkpoint_path = "epoch-81.pt"
 checkpoint = torch.load(checkpoint_path, map_location=torch.device('cpu'))
-model.load_state_dict(checkpoint['model_state_dict'])
+
+# Get the state dict keys for the model and checkpoint
+model_state_dict_keys = set(model.state_dict().keys())
+checkpoint_keys = set(checkpoint['model_state_dict'].keys())
+
+# Check if all the keys in the checkpoint are present in the model's state dict
+missing_keys = model_state_dict_keys - checkpoint_keys
+unexpected_keys = checkpoint_keys - model_state_dict_keys
+if len(missing_keys) > 0:
+    print(f"Missing keys in model's state dict: {missing_keys}")
+if len(unexpected_keys) > 0:
+    print(f"Unexpected keys in checkpoint: {unexpected_keys}")
+
+# Load the checkpoint
+model.load_state_dict(checkpoint['model_state_dict'], strict=False)
 model.eval()
 
 classes = {
