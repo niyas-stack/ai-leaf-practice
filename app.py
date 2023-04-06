@@ -1,6 +1,5 @@
 import os
 import numpy as np
-
 import torch
 import PIL
 import torchvision
@@ -57,6 +56,19 @@ def model_predict(image, model_func, transform):
     pred = classes[index.item()]
     probs, _ = torch.max(F.softmax(output, dim=1), 1)
     return pred, probs
+def pred(image,path,transform):
+    image_tensor=transform(image).float()
+    image_tensor=image_tensor.unsqueeze(0)
+    image_tensor=image_tensor.to(device)
+    output=model(image_tensor)
+    index=torch.argmax(output)
+    pred=test_data.classes[index]
+    probs, _ = torch.max(F.softmax(output,dim=1),1)
+    print(probs)
+    if probs <0.93:
+        print("not defined")
+    else:    
+        return pred
 
 def main():
     st.title("AI Leaf Disease Detection")
