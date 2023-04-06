@@ -10,7 +10,6 @@ from werkzeug.utils import secure_filename
 import streamlit as st
 import torch.nn as nn
 import torchvision.models as models
-from torchsummary import summary
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -20,27 +19,23 @@ num_ftrs = model.fc.in_features
 model.fc = torch.nn.Linear(num_ftrs, 16)
 model.to(device)
 
-# Print the model summary
-summary(model, (3, 224, 224))
-
 checkpoint_path = "epoch-81.pt"
-checkpoint = torch.load(checkpoint_path, map_location=torch.device('cpu'))
 
-# Get the state dict keys for the model and checkpoint
-model_state_dict_keys = set(model.state_dict().keys())
-checkpoint_keys = set(checkpoint['model_state_dict'].keys())
-
-# Check if all the keys in the checkpoint are present in the model's state dict
-missing_keys = model_state_dict_keys - checkpoint_keys
-unexpected_keys = checkpoint_keys - model_state_dict_keys
-if len(missing_keys) > 0:
-    print(f"Missing keys in model's state dict: {missing_keys}")
-if len(unexpected_keys) > 0:
-    print(f"Unexpected keys in checkpoint: {unexpected_keys}")
-
-# Load the checkpoint
-model.load_state_dict(checkpoint['model_state_dict'], strict=False)
-model.eval()
+try:
+    checkpoint = torch.load(checkpoint_path, map_location=torch.device('cpu'))
+    checkpoint_keys = set(checkpoint['model_state_dict'].keys())
+    model_keys = set(model.state_dict().keys())
+    # Make sure that the checkpoint dict is a subset of the model dict
+    assert checkpoint_keys.issubset(model_keys), "Checkpoint keys do not match model keys"
+    # Load the checkpoint weights into the model
+    model.load_state_dict(checkpoint['model_state_dict'])
+    model.eval()
+except FileNotFoundError:
+    st.error("Error: Could not find checkpoint file")
+except KeyError:
+    st.error("Error: Checkpoint file does not contain 'model_state_dict'")
+except Exception as e:
+    st.error(f"Error: {str(e)}")
 
 classes = {
     0: 'The above leaf is Cassava (Cassava Mosaic)',
@@ -63,9 +58,12 @@ classes = {
 
 # Image transformation
 transform = transforms.Compose([
-    transforms.Resize((224, 224)),
-    transforms.CenterCrop(224),
     transforms.ToTensor(),
+    transforms.Resize((224, 224)),
+    transforms.ColorJitter(brightness=0.2, contrast=0.1, saturation=0.1, hue=0.1),
+    transforms.RandomAffine(degrees=40, translate=None, scale=(1, 2), shear=15),
+    transforms.RandomHorizontalFlip(),
+    transforms.RandomVerticalFlip(),
     transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
 ])
 
