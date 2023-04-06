@@ -45,12 +45,9 @@ classes = {
 
 # Image transformation
 transform = transforms.Compose([
-    transforms.ToTensor(),
     transforms.Resize((224, 224)),
-    transforms.ColorJitter(brightness=0.2, contrast=0.1, saturation=0.1, hue=0.1),
-    transforms.RandomAffine(degrees=40, translate=None, scale=(1, 2), shear=15),
-    transforms.RandomHorizontalFlip(),
-    transforms.RandomVerticalFlip(),
+    transforms.CenterCrop(224),
+    transforms.ToTensor(),
     transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
 ])
 
@@ -72,16 +69,15 @@ def main():
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
     if uploaded_file is not None:
-        # Save image
-        with open(os.path.join("uploads", uploaded_file.name), "wb") as f:
-            f.write(uploaded_file.getbuffer())
-        img_path = os.path.join("uploads", uploaded_file.name)
+        # Open and preprocess image
+        image = Image.open(uploaded_file)
+        image = transform(image)
 
         # Make prediction
-        prediction = model_predict(img_path=img_path, model_func=model, transform=transform)
+        prediction = model_predict(image=image, model_func=model, transform=transform)
 
         # Show result
-        st.image(uploaded_file, caption=prediction, use_column_width=True)
+        st.image(image.permute(1, 2, 0), caption=prediction, use_column_width=True)
 
 if __name__ == "__main__":
     main()
