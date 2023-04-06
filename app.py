@@ -10,8 +10,12 @@ from PIL import Image
 import streamlit as st
 
 # Load the model
+model=torchvision.models.resnet18(pretrained=True)
+num_ftrs=model.fc.in_features
+model.fc=nn.Linear(num_ftrs,16)
+model=model.to(device)
 model_path = "epoch-81.pt"
-model = torchvision.models.resnet18(pretrained=True)
+
 classes = {
     0: 'The above leaf is Cassava (Cassava Mosaic)',
     1: 'The above leaf is Cassava CB (Cassava Bacterial Blight)',
@@ -30,8 +34,7 @@ classes = {
     14: 'The above leaf is bean healthy',
     15: 'The above leaf is bean rust'
 }
-num_ftrs = model.fc.in_features
-model.fc = torch.nn.Linear(num_ftrs, len(classes))
+
 model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
 model.eval()
 
