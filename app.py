@@ -8,6 +8,8 @@ import torch.nn.functional as F
 from PIL import Image
 from werkzeug.utils import secure_filename
 import streamlit as st
+import torch.nn as nn
+import torchvision.models as models
 
 # Import the model
 model = torchvision.models.resnet18(pretrained=True)
