@@ -11,6 +11,7 @@ import streamlit as st
 import torch.nn as nn
 import torchvision.models as models
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Import the model
 model = torchvision.models.resnet18(pretrained=True)
 num_ftrs = model.fc.in_features
