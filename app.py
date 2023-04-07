@@ -10,7 +10,7 @@ from PIL import Image
 import streamlit as st
 
 # Load the model
-model_path = "epoch-64.pt"
+model_path = "epoch-81.pt"
 model = torchvision.models.resnet18(pretrained=True)
 classes = {
     0: 'The above leaf is Cassava (Cassava Mosaic)',
