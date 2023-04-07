@@ -57,7 +57,6 @@ def model_predict(image, model_func, transform):
     return pred, probs
 
 def main():
-    st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:", layout="wide")
     st.title("AI Leaf Disease Detection")
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
     if uploaded_file is not None:
@@ -71,4 +70,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
