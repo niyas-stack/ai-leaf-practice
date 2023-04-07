@@ -36,15 +36,15 @@ model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
 summary(model,input_size=(3,224,224))
 model.eval()
 
-# Image transformation
-transform = transforms.Compose([
+#pre processing
+transform=transforms.Compose([
     transforms.ToTensor(),
-    transforms.Resize((224, 224)),
-    transforms.ColorJitter(brightness=0.2, contrast=0.1, saturation=0.1, hue=0.1),
-    transforms.RandomAffine(degrees=40, translate=None, scale=(1, 2), shear=15),
-    transforms.RandomHorizontalFlip(),
-    transforms.RandomVerticalFlip(),
-    transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
+    transforms.Resize((224,224)),
+     transforms.RandomAffine(degrees=(25)),
+     transforms.RandomRotation(25),
+     transforms.RandomHorizontalFlip(0.5),
+     transforms.RandomVerticalFlip(0.5),
+     transforms.Normalize((0.5,0.5,0.5),(1,1,1))
 ])
 
 def model_predict(image, model_func, transform):
