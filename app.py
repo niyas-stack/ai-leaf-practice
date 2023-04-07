@@ -1,6 +1,6 @@
 import os
 import numpy as np
-
+from torchsummary import summary
 import torch
 import PIL
 import torchvision
@@ -10,7 +10,6 @@ from PIL import Image
 import streamlit as st
 
 # Load the model
-model_path = "epoch-81.pt"
 model = torchvision.models.resnet18(pretrained=True)
 classes = {
     0: 'The above leaf is Cassava (Cassava Mosaic)',
@@ -32,7 +31,9 @@ classes = {
 }
 num_ftrs = model.fc.in_features
 model.fc = torch.nn.Linear(num_ftrs, len(classes))
+model_path = "epoch-81.pt"
 model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
+summary(model,input_size=(3,224,224))
 model.eval()
 
 # Image transformation
