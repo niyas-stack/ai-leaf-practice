@@ -54,25 +54,39 @@ def model_predict(image, model_func, transform):
     index = torch.argmax(output)
     pred = classes[index.item()]
     probs, _ = torch.max(F.softmax(output, dim=1), 1)
-    return pred, probs
+    if probs <0.93:
+        print("not defined",probs)
+    else:    
+        return pred,probs
+    
+def pred(img_path,transform):
+    image=Image.open(img_path)
+    image_tensor=transform(image).float()
+    image_tensor=image_tensor.unsqueeze(0)
+    image_tensor=image_tensor.to(device)
+    output=model(image_tensor)
+    index=torch.argmax(output)
+    pred=test_data.classes[index]
+    plt.imshow(cv2.imread(img_path))
+    probs, _ = torch.max(F.softmax(output,dim=1),1)
+    print(probs)
+    if probs <0.93:
+        print("not defined",probs)
+    else:    
+        return pred,probs
 
 def main():
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
     st.title("AI Leaf Disease Detection")
-    st.write("This web application is designed to identify the disease present in a leaf image.")
-    st.write("It can identify the following plant diseases:")
-    st.write('''1.Tomato
-    2.Bean
-    3.Cassava''')
-    uploaded_file = st.file_uploader("Upload an image for classification", type=["jpg", "jpeg", "png"])
+    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
-        st.write("Uploaded image:")
-        st.image(image, caption='Uploaded Image', width=300, use_column_width=False)
+        st.image(image, caption='Uploaded Image', use_column_width=True)
+        st.write("")
         st.write("Classifying...")
         pred, probs = model_predict(image, model, transform)
         st.write(f"Prediction: {pred}")
-        st.write(f"Probability: {probs.item():.2%}")
+        st.write(f"Probability: {probs.item()}")
 
 if __name__ == "__main__":
     main()
