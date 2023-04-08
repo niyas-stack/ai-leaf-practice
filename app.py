@@ -59,21 +59,6 @@ def model_predict(image, model_func, transform):
     else:    
         return pred,probs
     
-def pred(img_path,transform):
-    image=Image.open(img_path)
-    image_tensor=transform(image).float()
-    image_tensor=image_tensor.unsqueeze(0)
-    image_tensor=image_tensor.to(device)
-    output=model(image_tensor)
-    index=torch.argmax(output)
-    pred=test_data.classes[index]
-    plt.imshow(cv2.imread(img_path))
-    probs, _ = torch.max(F.softmax(output,dim=1),1)
-    print(probs)
-    if probs <0.93:
-        print("not defined",probs)
-    else:    
-        return pred,probs
 
 def main():
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
