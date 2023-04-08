@@ -60,9 +60,10 @@ def main():
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
     st.title("AI Leaf Disease Detection")
     st.write("This web application is designed to identify the disease present in a leaf image.")
-    st.write("It can identify the following diseases:")
-    for c in classes.values():
-        st.write(f"- {c}")
+    st.write("It can identify the following plant diseases:")
+    st.write('''1.Tomato
+    2.Bean
+    3.Cassava''')
     uploaded_file = st.file_uploader("Upload an image for classification", type=["jpg", "jpeg", "png"])
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
