@@ -59,15 +59,19 @@ def model_predict(image, model_func, transform):
 def main():
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
     st.title("AI Leaf Disease Detection")
-    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+    st.write("This web application is designed to identify the disease present in a leaf image.")
+    st.write("It can identify the following diseases:")
+    for c in classes.values():
+        st.write(f"- {c}")
+    uploaded_file = st.file_uploader("Upload an image for classification", type=["jpg", "jpeg", "png"])
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
-        st.image(image, caption='Uploaded Image', use_column_width=True)
-        st.write("")
+        st.write("Uploaded image:")
+        st.image(image, caption='Uploaded Image', width=300, use_column_width=False)
         st.write("Classifying...")
         pred, probs = model_predict(image, model, transform)
         st.write(f"Prediction: {pred}")
-        st.write(f"Probability: {probs.item()}")
+        st.write(f"Probability: {probs.item():.2%}")
 
 if __name__ == "__main__":
     main()
