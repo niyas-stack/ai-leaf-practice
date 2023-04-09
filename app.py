@@ -55,11 +55,10 @@ def model_predict(image, model_func, transform):
     pred = classes[index.item()]
     probs, _ = torch.max(F.softmax(output, dim=1), 1)
     if probs < 0.93:
-        return "Not defined", probs.item()
+        return "not defined", 0
     else:
         return pred, probs.item()
 
-    
 
 def main():
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
