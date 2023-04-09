@@ -60,8 +60,21 @@ def model_predict(image, model_func, transform):
         return pred, probs
 
 
+
+
 def main():
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
+
+    # Add CSS styling
+    main_bg = "rgb(232, 237, 246)"
+    st.markdown(f"""
+        <style>
+        .reportview-container {{
+            background-color: {main_bg};
+        }}
+        </style>
+        """, unsafe_allow_html=True)
+
     st.title("AI Leaf Disease Detection")
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
     if uploaded_file is not None:
@@ -69,9 +82,13 @@ def main():
         st.image(image, caption='Uploaded Image', width=500)
         st.write("")
         st.write("Classifying...")
-        pred, probs = model_predict(image, model, transform)
+
+        # Add CSS styling to loading message
+        with st.spinner('Wait for it...'):
+            pred, probs = model_predict(image, model, transform)
+
         st.write(f"Prediction: {pred}")
-        st.write(f"Probability: {probs.item()}")
+        st.write(f"Probability: {probs.item()}
 
 if __name__ == "__main__":
     main()
