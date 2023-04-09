@@ -63,17 +63,44 @@ def model_predict(image, model_func, transform):
 
 
 def main():
-    st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
+  st.set_page_config(
+    page_title="AI Leaf Disease Detection",
+    page_icon=":leaves:",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
 
-    # Add CSS styling
-    main_bg = "rgb(232, 237, 246)"
-    st.markdown(f"""
-        <style>
-        .reportview-container {{
-            background-color: {main_bg};
-        }}
-        </style>
-        """, unsafe_allow_html=True)
+background = """
+<style>
+body {
+background-image: url("https://cdn.pixabay.com/photo/2017/03/26/14/57/hexagon-2172469_960_720.png");
+background-size: cover;
+}
+</style>
+"""
+
+st.markdown(background, unsafe_allow_html=True)
+
+# Add more styling to the button
+button_style = """
+<style>
+    .stFileUploader {
+        background-color: #6EBBFF;
+        color: white;
+        border-radius: 50px;
+        padding: 10px 20px;
+        font-size: 20px;
+        font-weight: bold;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+        transition: all 0.2s ease;
+    }
+    .stFileUploader:hover {
+        background-color: #4D8FFF;
+    }
+</style>
+"""
+
+st.markdown(button_style, unsafe_allow_html=True)
 
     st.title("AI Leaf Disease Detection")
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
