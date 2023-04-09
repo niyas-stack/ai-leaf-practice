@@ -88,7 +88,7 @@ def main():
             pred, probs = model_predict(image, model, transform)
 
         st.write(f"Prediction: {pred}")
-        st.write(f"Probability: {probs.item()}
+        st.write(f"Probability: {probs.item()}")
 
 if __name__ == "__main__":
     main()
