@@ -60,62 +60,18 @@ def model_predict(image, model_func, transform):
         return pred, probs
 
 
-
-
 def main():
-  st.set_page_config(
-    page_title="AI Leaf Disease Detection",
-    page_icon=":leaves:",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
-
-background = """
-<style>
-body {
-background-image: url("https://cdn.pixabay.com/photo/2017/03/26/14/57/hexagon-2172469_960_720.png");
-background-size: cover;
-}
-</style>
-"""
-
-st.markdown(background, unsafe_allow_html=True)
-
-# Add more styling to the button
-button_style = """
-<style>
-    .stFileUploader {
-        background-color: #6EBBFF;
-        color: white;
-        border-radius: 50px;
-        padding: 10px 20px;
-        font-size: 20px;
-        font-weight: bold;
-        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
-        transition: all 0.2s ease;
-    }
-    .stFileUploader:hover {
-        background-color: #4D8FFF;
-    }
-</style>
-"""
-
-st.markdown(button_style, unsafe_allow_html=True)
-
+    st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:", layout="wide")
     st.title("AI Leaf Disease Detection")
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
         st.image(image, caption='Uploaded Image', width=500)
         st.write("")
-        st.write("Classifying...")
-
-        # Add CSS styling to loading message
-        with st.spinner('Wait for it...'):
+        if st.button("Classify", key="classify_btn"):
             pred, probs = model_predict(image, model, transform)
-
-        st.write(f"Prediction: {pred}")
-        st.write(f"Probability: {probs.item()}")
+            st.write(f"Prediction: {pred}")
+            st.write(f"Probability: {probs.item()}")
 
 if __name__ == "__main__":
     main()
