@@ -54,10 +54,11 @@ def model_predict(image, model_func, transform):
     index = torch.argmax(output)
     pred = classes[index.item()]
     probs, _ = torch.max(F.softmax(output, dim=1), 1)
-    if probs <0.93:
-        st.write("not defined")
-    else:    
-        return pred,probs
+    if probs < 0.93:
+        return "Not defined", probs.item()
+    else:
+        return pred, probs.item()
+
     
 
 def main():
