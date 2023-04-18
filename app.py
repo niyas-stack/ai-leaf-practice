@@ -66,7 +66,7 @@ def main():
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
-        st.image(image, caption='Uploaded Image', width=500)
+        st.image(image, caption='Uploaded Image', width=300)
         st.write("")
         if st.button("Classify", key="classify_btn"):
             pred, probs = model_predict(image, model, transform)
