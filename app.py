@@ -31,7 +31,7 @@ classes = {
 }
 num_ftrs = model.fc.in_features
 model.fc = torch.nn.Linear(num_ftrs, len(classes))
-model_path = "epoch-81.pt"
+model_path = "epoch-90.pt"
 model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
 summary(model,input_size=(3,224,224))
 model.eval()
