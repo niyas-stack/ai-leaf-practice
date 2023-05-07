@@ -12,8 +12,22 @@ import streamlit as st
 # Load the model
 model = torchvision.models.resnet18(pretrained=True)
 classes = {
-    0: 'The above leaf is Cassava (Cassava Mosaic)',
-    1: 'The above leaf is Cassava CB (Cassava Bacterial Blight)'
+   0: 'The above leaf is Cassava (Cassava Mosaic)',
+    1: 'The above leaf is Cassava CB (Cassava Bacterial Blight)',
+    2: 'The above leaf is Cassava Healthy leaf',
+    3: 'The above leaf is Tomato Bacterial spot',
+    4: 'The above leaf is Tomato early blight',
+    5: 'The above leaf is Tomato Late blight',
+    6: 'The above leaf is Tomato Leaf Mold',
+    7: 'The above leaf is Tomato Septoria leaf spot',
+    8: 'The above leaf is Tomato Spider mites Two-spotted spider mite',
+    9: 'The above leaf is Tomato Target Spot',
+    10: 'The above leaf is Tomato Yellow Leaf Curl Virus',
+    11: 'The above leaf is Tomato mosaic virus',
+    12: 'The above leaf is Tomato healthy',
+    13: 'The above leaf is bean angular leaf spot',
+    14: 'The above leaf is bean healthy',
+    15: 'The above leaf is bean rust'
 }
 remedies = {
     'Cassava (Cassava Mosaic)': 'Remedy for Cassava Mosaic',
