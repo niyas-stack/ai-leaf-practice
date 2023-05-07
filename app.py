@@ -67,8 +67,7 @@ def display_remedies(pred):
     remedy = remedies.get(pred)
     if remedy:
         st.write("remedy:")
-        st.info(f"Remedy:{remedy}")
-        st.info("Please note that the remedies suggested are for educational purposes only. Consult a professional before using them.")
+        st.info(f": {remedy}")
 def main():
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
     st.title("AI Leaf Disease Detection")
