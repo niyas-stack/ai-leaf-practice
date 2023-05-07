@@ -30,8 +30,8 @@ classes = {
     15: 'The above leaf is bean rust'
 }
 remedies = {
-    'Cassava (Cassava Mosaic)': 'Remedy for Cassava Mosaic',
-    'Cassava CB (Cassava Bacterial Blight)': 'Remedy for Cassava Bacterial Blight'
+    'The above leaf is Cassava (Cassava Mosaic)': 'Remedy for Cassava Mosaic',
+    'The above leaf is Cassava CB (Cassava Bacterial Blight)': 'Remedy for Cassava Bacterial Blight'
 }
 num_ftrs = model.fc.in_features
 model.fc = torch.nn.Linear(num_ftrs, len(classes))
