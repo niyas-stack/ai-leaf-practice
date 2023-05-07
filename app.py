@@ -30,8 +30,8 @@ classes = {
     15: 'The above leaf is bean rust'
 }
 remedies = {
-    'The above leaf is Cassava (Cassava Mosaic)': 'Remedy for Cassava Mosaic',
-    'The above leaf is Cassava CB (Cassava Bacterial Blight)': 'Remedy for Cassava Bacterial Blight'
+    'Cassava (Cassava Mosaic)': 'Remedy for Cassava Mosaic',
+    'Cassava CB (Cassava Bacterial Blight)': 'Remedy for Cassava Bacterial Blight'
 }
 num_ftrs = model.fc.in_features
 model.fc = torch.nn.Linear(num_ftrs, len(classes))
@@ -66,7 +66,7 @@ def model_predict(image, model_func, transform):
 def display_remedies(pred):
     remedy = remedies.get(pred)
     if remedy:
-        st.write(f"Remedy: {remedy}")
+        st.info(f"Remedy: {remedy}")
         st.info("Please note that the remedies suggested are for educational purposes only. Consult a professional before using them.")
 
 def main():
