@@ -30,8 +30,8 @@ classes = {
     15: 'The above leaf is bean rust'
 }
 remedies = {
-    'Cassava (Cassava Mosaic)': 'Remedy for Cassava Mosaic',
-    'Cassava CB (Cassava Bacterial Blight)': 'Remedy for Cassava Bacterial Blight'
+    'The above leaf is Cassava (Cassava Mosaic)': 'Remedy for Cassava Mosaic',
+    'The above leaf is Cassava CB (Cassava Bacterial Blight)': 'Remedy for Cassava Bacterial Blight'
 }
 num_ftrs = model.fc.in_features
 model.fc = torch.nn.Linear(num_ftrs, len(classes))
@@ -68,7 +68,6 @@ def display_remedies(pred):
     if remedy:
         st.write(f"Remedy: {remedy}")
         st.info("Please note that the remedies suggested are for educational purposes only. Consult a professional before using them.")
-
 def main():
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
     st.title("AI Leaf Disease Detection")
