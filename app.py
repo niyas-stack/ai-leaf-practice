@@ -13,21 +13,11 @@ import streamlit as st
 model = torchvision.models.resnet18(pretrained=True)
 classes = {
     0: 'The above leaf is Cassava (Cassava Mosaic)',
-    1: 'The above leaf is Cassava CB (Cassava Bacterial Blight)',
-    2: 'The above leaf is Cassava Healthy leaf',
-    3: 'The above leaf is Tomato Bacterial spot',
-    4: 'The above leaf is Tomato early blight',
-    5: 'The above leaf is Tomato Late blight',
-    6: 'The above leaf is Tomato Leaf Mold',
-    7: 'The above leaf is Tomato Septoria leaf spot',
-    8: 'The above leaf is Tomato Spider mites Two-spotted spider mite',
-    9: 'The above leaf is Tomato Target Spot',
-    10: 'The above leaf is Tomato Yellow Leaf Curl Virus',
-    11: 'The above leaf is Tomato mosaic virus',
-    12: 'The above leaf is Tomato healthy',
-    13: 'The above leaf is bean angular leaf spot',
-    14: 'The above leaf is bean healthy',
-    15: 'The above leaf is bean rust'
+    1: 'The above leaf is Cassava CB (Cassava Bacterial Blight)'
+}
+remedies = {
+    'Cassava (Cassava Mosaic)': 'Remedy for Cassava Mosaic',
+    'Cassava CB (Cassava Bacterial Blight)': 'Remedy for Cassava Bacterial Blight'
 }
 num_ftrs = model.fc.in_features
 model.fc = torch.nn.Linear(num_ftrs, len(classes))
@@ -59,6 +49,11 @@ def model_predict(image, model_func, transform):
     else:
         return pred, probs
 
+def display_remedies(pred):
+    remedy = remedies.get(pred)
+    if remedy:
+        st.write(f"Remedy: {remedy}")
+        st.info("Please note that the remedies suggested are for educational purposes only. Consult a professional before using them.")
 
 def main():
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
@@ -72,6 +67,7 @@ def main():
             pred, probs = model_predict(image, model, transform)
             st.write(f"Prediction: {pred}")
             st.write(f"Probability: {probs.item()}")
+            display_remedies(pred)
 
 if __name__ == "__main__":
     main()
