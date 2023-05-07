@@ -66,7 +66,8 @@ def model_predict(image, model_func, transform):
 def display_remedies(pred):
     remedy = remedies.get(pred)
     if remedy:
-        st.info(f"Remedy: {remedy}")
+        st.write("remedy:")
+        st.info("{remedy}")
         st.info("Please note that the remedies suggested are for educational purposes only. Consult a professional before using them.")
 def main():
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
