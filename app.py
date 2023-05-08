@@ -86,6 +86,7 @@ def display_remedies(pred):
       
 def main():
    st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
+   st.title("AI Leaf Disease Detection")
    add_bg_from_local('background.jpg')  
    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
    if uploaded_file is not None:
