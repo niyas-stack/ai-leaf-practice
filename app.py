@@ -72,6 +72,17 @@ def display_remedies(pred):
 
 def main():
    st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
+   
+   # add CSS to set background color
+   page_bg_color = """
+   <style>
+   body {
+   background-color: #F0F0F0;
+   }
+   </style>
+   """
+   st.markdown(page_bg_color, unsafe_allow_html=True)
+   
    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
    if uploaded_file is not None:
        image = Image.open(uploaded_file)
@@ -82,16 +93,7 @@ def main():
            st.write(f"Prediction: {pred}")
            st.write(f"Probability: {probs.item()}")
            display_remedies(pred)
-          
-   # add CSS to set background image
-   page_bg_color = """
-   <style>
-   body {
-   background-color: #F0F0F0;
-   }
-   </style>
-   """
-   st.markdown(page_bg_color, unsafe_allow_html=True)
+
 
 if __name__ == "__main__":
     main()
