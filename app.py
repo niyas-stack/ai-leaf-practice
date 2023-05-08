@@ -87,7 +87,7 @@ def main():
    page_bg_img = '''
    <style>
    body {
-   background-image: url("https://github.com/niyas-stack/ai-leaf-practice/blob/main/background.jpg?raw=true");
+   background-image: url("https://github.com/niyas-stack/ai-leaf-practice/blob/main/background.jpg");
    background-size: cover;
    }
    </style>
