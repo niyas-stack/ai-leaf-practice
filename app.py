@@ -77,7 +77,7 @@ def main():
    page_bg_color = """
    <style>
    body {
-   background-color: #F0F0F0;
+   background-color: #F1F1F1;
    }
    </style>
    """
