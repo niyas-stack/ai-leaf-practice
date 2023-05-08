@@ -82,6 +82,19 @@ def main():
            st.write(f"Prediction: {pred}")
            st.write(f"Probability: {probs.item()}")
            display_remedies(pred)
+          
+   # add CSS to set background image
+   page_bg_img = '''
+   <style>
+   body {
+   background-image: url();
+   background-size: cover;
+   }
+   </style>
+   '''
+
+   st.markdown(page_bg_img, unsafe_allow_html=True)
 
 if __name__ == "__main__":
-    main() 
+    main()
+
