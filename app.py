@@ -86,8 +86,9 @@ def display_remedies(pred):
       
 def main():
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
+    st.markdown("<style>h1{font-family: Arial, sans-serif;}</style>", unsafe_allow_html=True)
     st.markdown("<h1 style='color: green;'>AI Leaf Disease Detection</h1>", unsafe_allow_html=True)
-    add_bg_from_local('background.jpg')  
+    add_bg_from_local('background.jpg')
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
