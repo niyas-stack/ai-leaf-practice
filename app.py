@@ -75,7 +75,7 @@ def main():
     f"""
     <style>
     .reportview-container {{
-        background: 
+        background: "background (2).jpg"
     }}
     </style>
     """,
