@@ -85,19 +85,19 @@ def display_remedies(pred):
         st.info(f" {remedy}")
       
 def main():
-   st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
-   st.markdown("<h1 style='color: green;'>AI Leaf Disease Detection</h1>", unsafe_allow_html=True)
-   add_bg_from_local('background.jpg')  
-   uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
-   if uploaded_file is not None:
-       image = Image.open(uploaded_file)
-       st.image(image, caption='Uploaded Image', width=300)
-       st.write("")
-       if st.button("Classify", key="classify_btn"):
-           pred, probs = model_predict(image, model, transform)
-           st.write(f"Prediction: {pred}")
-           st.write(f"Probability: {probs.item()}")
-           display_remedies(pred)
+    st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
+    st.markdown("<h1 style='color: green;'>AI Leaf Disease Detection</h1>", unsafe_allow_html=True)
+    add_bg_from_local('background.jpg')  
+    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+    if uploaded_file is not None:
+        image = Image.open(uploaded_file)
+        st.image(image, caption='Uploaded Image', width=300)
+        st.write("")
+        if st.button("Classify", key="classify_btn"):
+            pred, probs = model_predict(image, model, transform)
+            st.markdown(f"<p style='color: green;'>Prediction: {pred}</p>", unsafe_allow_html=True)
+            st.markdown(f"<p style='color: green;'>Probability: {probs.item()}</p>", unsafe_allow_html=True)
+            display_remedies(pred)
 
 
 
