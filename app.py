@@ -69,7 +69,6 @@ def display_remedies(pred):
         st.write("remedy:")
         st.info(f" {remedy}")
       
-
 def main():
    st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
@@ -82,7 +81,7 @@ def main():
            st.write(f"Prediction: {pred}")
            st.write(f"Probability: {probs.item()}")
            display_remedies(pred)
-          
+
    # add CSS to set background image
    page_bg_img = '''
    <style>
