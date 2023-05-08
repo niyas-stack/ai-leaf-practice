@@ -69,7 +69,7 @@ def display_remedies(pred):
         st.write("remedy:")
         st.info(f" {remedy}")
 def main():
-    st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:", page_bg_img="background.jpg")
+    st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:", page_bg_img="background (2).jpg")
     st.title("AI Leaf Disease Detection")
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
     if uploaded_file is not None:
