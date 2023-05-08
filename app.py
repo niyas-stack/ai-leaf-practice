@@ -68,19 +68,36 @@ def display_remedies(pred):
     if remedy:
         st.write("remedy:")
         st.info(f" {remedy}")
+      
+def add_bg_from_local(image_file):
+    with open(image_file, "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read())
+    st.markdown(
+    f"""
+    <style>
+    .stApp {{
+        background-image: url(data:image/{"jpg"};base64,{encoded_string.decode()});
+        background-size: cover
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+    )
+
 def main():
-    st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
-    st.title("AI Leaf Disease Detection")
-    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
-    if uploaded_file is not None:
-        image = Image.open(uploaded_file)
-        st.image(image, caption='Uploaded Image', width=300)
-        st.write("")
-        if st.button("Classify", key="classify_btn"):
-            pred, probs = model_predict(image, model, transform)
-            st.write(f"Prediction: {pred}")
-            st.write(f"Probability: {probs.item()}")
-            display_remedies(pred)
+   add_bg_from_local('background.jpg')  
+   st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
+   st.title("AI Leaf Disease Detection")
+   uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+   if uploaded_file is not None:
+       image = Image.open(uploaded_file)
+       st.image(image, caption='Uploaded Image', width=300)
+       st.write("")
+       if st.button("Classify", key="classify_btn"):
+           pred, probs = model_predict(image, model, transform)
+           st.write(f"Prediction: {pred}")
+           st.write(f"Probability: {probs.item()}")
+           display_remedies(pred)
 
 if __name__ == "__main__":
     main() 
