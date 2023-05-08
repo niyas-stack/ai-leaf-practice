@@ -69,19 +69,9 @@ def display_remedies(pred):
         st.write("Remedy:")
         st.info(f" {remedy}")
 def main():
-    st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
+    st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:,page_bg_img="background.jpg")
     st.title("AI Leaf Disease Detection")
-    page_bg_img = '''
-    <style>
-    body {
-    background-image: url("https://github.com/niyas-stack/ai-leaf-practice/blob/main/background%20(2).jpg");
-    background-size: cover;
-    }
-    </style>
-    '''
 
-    # Add the background image to the page
-    st.markdown(page_bg_img, unsafe_allow_html=True)
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
