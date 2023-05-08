@@ -84,15 +84,13 @@ def main():
            display_remedies(pred)
           
    # add CSS to set background image
-   page_bg_img = '''
+   page_bg_color = """
    <style>
    body {
-   background-image: url("https://github.com/niyas-stack/ai-leaf-practice/blob/main/background.jpg");
-   background-size: cover;
+   background-color: #F0F0F0;
    }
    </style>
-   '''
-
+   """
    st.markdown(page_bg_img, unsafe_allow_html=True)
 
 if __name__ == "__main__":
