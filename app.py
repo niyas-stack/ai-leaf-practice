@@ -81,7 +81,7 @@ def add_bg_from_local(image_file):
 def display_remedies(pred):
     remedy = remedies.get(pred)
     if remedy:
-        st.markdown("<p style= 'color:green;'>Remedy:</p>" ,unsafe_allow_html=True)
+        st.markdown("<p style= 'color:red;'>Remedy:</p>" ,unsafe_allow_html=True)
         st.info(f" {remedy}")
       
 def main():
@@ -95,8 +95,8 @@ def main():
         st.write("")
         if st.button("Classify", key="classify_btn"):
             pred, probs = model_predict(image, model, transform)
-            st.markdown(f"<p style='color: green;'>Prediction: {pred}</p>", unsafe_allow_html=True)
-            st.markdown(f"<p style='color: green;'>Probability: {probs.item()}</p>", unsafe_allow_html=True)
+            st.markdown(f"<p style='color: red;'>Prediction: {pred}</p>", unsafe_allow_html=True)
+            st.markdown(f"<p style='color: red;'>Probability: {probs.item()}</p>", unsafe_allow_html=True)
             display_remedies(pred)
 
 
