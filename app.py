@@ -81,7 +81,7 @@ def add_bg_from_local(image_file):
 def display_remedies(pred):
     remedy = remedies.get(pred)
     if remedy:
-        st.write("remedy:")
+        st.markdown("<p style= 'color:green;'>Remedy:</p>" ,unsafe_allow_html=True)
         st.info(f" {remedy}")
       
 def main():
