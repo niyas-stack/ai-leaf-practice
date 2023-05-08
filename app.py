@@ -76,8 +76,8 @@ def main():
    # add CSS to set background color
    page_bg_color = """
    <style>
-   body {
-   background-color: #F1F1F1 !important;
+   #root{
+   background-color: #F1F1F1 ;
    }
    </style>
    """
