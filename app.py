@@ -76,7 +76,7 @@ def main():
    # add CSS to set background color
    page_bg_color = """
    <style>
-   body {
+   #root {
    background-color: #FF0000 ;
    }
    </style>
