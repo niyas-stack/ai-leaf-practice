@@ -74,7 +74,7 @@ def main():
     page_bg_img = '''
     <style>
     body {
-    background-image: url("https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPOSITORY/BRANCH_NAME/PATH/TO/IMAGE.png");
+    background-image: url("https://github.com/niyas-stack/ai-leaf-practice/blob/main/background%20(2).jpg");
     background-size: cover;
     }
     </style>
