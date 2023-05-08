@@ -62,6 +62,20 @@ def model_predict(image, model_func, transform):
         return "not defined",probs
     else:
         return pred, probs
+def add_bg_from_local(image_file):
+    with open(image_file, "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read())
+    st.markdown(
+    f"""
+    <style>
+    .stApp {{
+        background-image: url(data:image/{"jpg"};base64,{encoded_string.decode()});
+        background-size: cover
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+    )
 
 def display_remedies(pred):
     remedy = remedies.get(pred)
@@ -70,6 +84,7 @@ def display_remedies(pred):
         st.info(f" {remedy}")
       
 def main():
+   add_bg_from_local('background.jpg')  
    st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
    if uploaded_file is not None:
