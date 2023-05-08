@@ -71,7 +71,7 @@ def display_remedies(pred):
       
 
 def main():
-   st.beta_set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:", page_bg_image="IMG_3173.jpg")
+   st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:", page_bg_image="IMG_3173.jpg")
    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
    if uploaded_file is not None:
        image = Image.open(uploaded_file)
