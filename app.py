@@ -108,13 +108,7 @@ def add_bg_from_local(image_file):
     unsafe_allow_html=True
     )
 
-def display_remedies(pred, language):
-    remedy_dict = remedies.get(pred)
-    if remedy_dict:
-        remedy = remedy_dict.get(language)
-        if remedy:
-            st.markdown("<p style= 'color:red;'>Remedy:</p>" ,unsafe_allow_html=True)
-            st.info(f" {remedy}")
+
 def main():
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
     st.markdown("<style>h1{font-family: Arial, sans-serif;}</style>", unsafe_allow_html=True)
@@ -129,8 +123,17 @@ def main():
             pred, probs = model_predict(image, model, transform)
             st.markdown(f"<p style='color: red;'>Prediction: {pred}</p>", unsafe_allow_html=True)
             st.markdown(f"<p style='color: red;'>Probability: {probs.item()}</p>", unsafe_allow_html=True)
-            language = st.selectbox('Select language', ['English', 'Malayalam'])
-            display_remedies(pred,language)
+            # Create a dropdown widget to select the language
+            language = st.selectbox('Select a language', ['English', 'Malayalam'])
+
+             # Get the selected class and display the corresponding remedy in the selected language
+             selected_class = classes[prediction]
+             if selected_class in remedies:
+                  remedy = remedies[selected_class][language.lower()]
+                  st.write(remedy)
+             else:
+                  st.write('No remedy found for this class.')
+
 
 
 if __name__ == "__main__":
