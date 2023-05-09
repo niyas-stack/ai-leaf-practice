@@ -127,12 +127,12 @@ def main():
             language = st.selectbox('Select a language', ['English', 'Malayalam'])
 
              # Get the selected class and display the corresponding remedy in the selected language
-             selected_class = classes[prediction]
-             if selected_class in remedies:
-                  remedy = remedies[selected_class][language.lower()]
-                  st.write(remedy)
-             else:
-                  st.write('No remedy found for this class.')
+            selected_class = classes[prediction]
+            if selected_class in remedies:
+                 remedy = remedies[selected_class][language.lower()]
+                 st.write(remedy)
+            else:
+                 st.write('No remedy found for this class.')
 
 
 
