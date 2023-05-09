@@ -31,9 +31,17 @@ classes = {
     15: 'The above leaf is bean rust'
 }
 remedies = {
-    'The above leaf is Cassava (Cassava Mosaic)': 'Remedy for Cassava Mosaic',
-    'The above leaf is Cassava CB (Cassava Bacterial Blight)': 'Remedy for Cassava Bacterial Blight'
+    'The above leaf is Cassava (Cassava Mosaic)': {
+        'english': 'Remedy for Cassava Mosaic',
+        'malayalam': 'കാസവ മോസായികയുടെ പരിഹാരം'
+    },
+    'The above leaf is Cassava CB (Cassava Bacterial Blight)': {
+        'english': 'Remedy for Cassava Bacterial Blight',
+        'malayalam': 'കാസവ ബാക്ടീരിയൽ ബ്ലൈറ്റിന്റെ പരിഹാരം'
+    },
+    # add remedies for other diseases in both English and Malayalam
 }
+
 num_ftrs = model.fc.in_features
 model.fc = torch.nn.Linear(num_ftrs, len(classes))
 model_path = "epoch-90.pt"
@@ -78,18 +86,21 @@ def add_bg_from_local(image_file):
     unsafe_allow_html=True
     )
 
-def display_remedies(pred):
-    remedy = remedies.get(pred)
-    if remedy:
-        st.markdown("<p style= 'color:red;'>Remedy:</p>" ,unsafe_allow_html=True)
-        st.info(f" {remedy}")
+def display_remedies(pred, language):
+    remedy_dict = remedies.get(pred)
+    if remedy_dict:
+        remedy = remedy_dict.get(language)
+        if remedy:
+            st.markdown("<p style= 'color:red;'>Remedy:</p>" ,unsafe_allow_html=True)
+            st.info(f" {remedy}")
+
       
 def main():
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
-    st.markdown("<style>h1{font-family: Arial, sans-serif;}</style>", unsafe_allow_html=True)
     st.markdown("<h1 style='color: green;'>AI Leaf Disease Detection</h1>", unsafe_allow_html=True)
-    add_bg_from_local('background.jpg')
+    add_bg_from_local('background.jpg')  
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+    language = st.selectbox('Select language', ['English', 'Malayalam'])
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
         st.image(image, caption='Uploaded Image', width=300)
@@ -98,7 +109,7 @@ def main():
             pred, probs = model_predict(image, model, transform)
             st.markdown(f"<p style='color: red;'>Prediction: {pred}</p>", unsafe_allow_html=True)
             st.markdown(f"<p style='color: red;'>Probability: {probs.item()}</p>", unsafe_allow_html=True)
-            display_remedies(pred)
+            display_remedies(pred, language)
 
 
 
