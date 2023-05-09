@@ -110,6 +110,7 @@ def main():
             pred, probs = model_predict(image, model, transform)
             st.markdown(f"<p style='color: red;'>Prediction: {pred}</p>", unsafe_allow_html=True)
             st.markdown(f"<p style='color: red;'>Probability: {probs.item()}</p>", unsafe_allow_html=True)
+            language = st.selectbox('Select language', ['English', 'Malayalam'])
             display_remedies(pred, language)
 
 
