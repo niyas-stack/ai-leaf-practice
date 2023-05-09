@@ -101,7 +101,6 @@ def main():
     st.markdown("<h1 style='color: green;'>AI Leaf Disease Detection</h1>", unsafe_allow_html=True)
     add_bg_from_local('background.jpg')  
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
-    language = st.selectbox('Select language', ['English', 'Malayalam'])
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
         st.image(image, caption='Uploaded Image', width=300)
