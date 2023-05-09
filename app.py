@@ -31,9 +31,38 @@ classes = {
     15: 'The above leaf is bean rust'
 }
 remedies = {
-    'The above leaf is Cassava (Cassava Mosaic)': 'Remedy for Cassava Mosaic',
-    'The above leaf is Cassava CB (Cassava Bacterial Blight)': 'Remedy for Cassava Bacterial Blight'
-}
+    'The above leaf is Cassava (Cassava Mosaic)': {
+        'english': 'Remedy for Cassava Mosaic',
+        'malayalam': 'കാസവ മോസായികയുടെ പരിഹാരം'
+    },
+    'The above leaf is Cassava CB (Cassava Bacterial Blight)': {
+        'english': 'Remedy for Cassava Bacterial Blight',
+        'malayalam': 'കാസവ ബാക്ടീരിയൽ ബ്ലൈറ്റിന്റെ പരിഹാരം'
+    },
+    'The above leaf is Cassava Healthy leaf': {
+        'english': 'No Remedy Needed for Healthy Cassava Leaf',
+        'malayalam': 'ആരോഗ്യമായ കാസവ ഇല പരിഹാരം ആവശ്യമില്ല'
+    },
+    'The above leaf is Tomato Bacterial spot': {
+        'english': 'Remedy for Tomato Bacterial Spot',
+        'malayalam': 'ടൊമേറ്റോ ബാക്ടീരിയൽ സ്പോട്ട് പരിഹാരം'
+    },
+    'The above leaf is Tomato early blight': {
+        'english': 'Remedy for Tomato Early Blight',
+        'malayalam': 'ടൊമേറ്റോ എർളി ബ്ലൈറ്റിന്റെ പരിഹാരം'
+    },
+    'The above leaf is Tomato Late blight': {
+        'english': 'Remedy for Tomato Late Blight',
+        'malayalam': 'ടൊമേറ്റോ ലേറ്റ് ബ്ലൈറ്റിന്റെ പരിഹാരം'
+    },
+    'The above leaf is Tomato Leaf Mold': {
+        'english': 'Remedy for Tomato Leaf Mold',
+        'malayalam': 'ടൊമേറ്റോ ലീഫ് മോൾഡ് പരിഹാരം'
+    },
+    'The above leaf is Tomato Septoria leaf spot': {
+        'english': 'Remedy for Tomato Septoria Leaf Spot',
+        'malayalam': 'ടൊമേറ്റോ സെപ്റ്റോറിയ ലീഫ് സ്പോട്ട് പരിഹ'};
+    }
 num_ftrs = model.fc.in_features
 model.fc = torch.nn.Linear(num_ftrs, len(classes))
 model_path = "epoch-90.pt"
