@@ -124,7 +124,8 @@ def main():
             st.markdown(f"<p style='color: red;'>Prediction: {pred}</p>", unsafe_allow_html=True)
             st.markdown(f"<p style='color: red;'>Probability: {probs.item()}</p>", unsafe_allow_html=True)
             # Create a dropdown widget to select the language
-            language = st.selectbox('Select a language', ['English', 'Malayalam'])
+            language = st.radio("Select remedy's prefered language",('english', 'malayalam'))
+
 
              # Get the selected class and display the corresponding remedy in the selected language
             selected_class = classes[prediction]
