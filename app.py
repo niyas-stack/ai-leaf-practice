@@ -40,6 +40,10 @@ remedies = {
         'malayalam': 'കാസവ ബാക്ടീരിയൽ ബ്ലൈറ്റിന്റെ പരിഹാരം'
     },
     # add remedies for other diseases in both English and Malayalam
+    'The above leaf is Cassava Mosaic': {
+        'english': 'There is no known cure for Cassava Mosaic disease. However, farmers can prevent the spread of the disease by planting virus-free cassava cuttings and avoiding the use of infected planting material.',
+        'malayalam': 'കാസവ മോസായിക രോഗത്തിന് അന്യമായ പരിഹാരം അറിയില്ല. താഴെ പറയുന്ന രോഗനിർണ്ണയ പദ്ധതികൾ പാലിക്കുക, വൈറസ് മുക്തമായ കാസവ കട്ടിങ്ങൾ നടത്തുക എന്നിവ നടത്തുന്നതും കൂടുതൽ പിന്തുണയേക്കാം.'
+    },
 }
 
 num_ftrs = model.fc.in_features
