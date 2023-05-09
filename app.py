@@ -128,7 +128,7 @@ def main():
 
 
              # Get the selected class and display the corresponding remedy in the selected language
-            selected_class = classes[prediction]
+            selected_class = classes[pred]
             if selected_class in remedies:
                  remedy = remedies[selected_class][language.lower()]
                  st.write(remedy)
