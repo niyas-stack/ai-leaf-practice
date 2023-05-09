@@ -61,7 +61,8 @@ remedies = {
     },
     'The above leaf is Tomato Septoria leaf spot': {
         'english': 'Remedy for Tomato Septoria Leaf Spot',
-        'malayalam': 'ടൊമേറ്റോ സെപ്റ്റോറിയ ലീഫ് സ്പോട്ട് പരിഹ'};
+        'malayalam': 'ടൊമേറ്റോ സെപ്റ്റോറിയ ലീഫ് സ്പോട്ട് പരിഹ'
+    },
     }
 num_ftrs = model.fc.in_features
 model.fc = torch.nn.Linear(num_ftrs, len(classes))
