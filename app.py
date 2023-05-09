@@ -101,6 +101,5 @@ def main():
             display_remedies(pred)
 
 
-
 if _name_ == "_main_":
     main()
