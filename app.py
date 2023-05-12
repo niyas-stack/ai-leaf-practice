@@ -8,6 +8,7 @@ import torchvision.transforms as transforms
 import torch.nn.functional as F
 from PIL import Image
 import streamlit as st
+from streamlit import SessionState
 import base64
 
 # Load the model
