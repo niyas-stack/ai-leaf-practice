@@ -39,10 +39,10 @@ remedies = {
         'കാസവ മോസായികയുടെ പരിഹാരം',
         {
             'English': {
-                'audio': 'cassava(mosaic).mp3'
+                'audio': 'cassava.m4a'
             },
             'Malayalam': {
-                'audio': 'cassava(mosaic).mp3'
+                'audio': 'cassava.m4a'
             }
         }
     ],
