@@ -101,7 +101,7 @@ def display_remedies(pred):
             audio_file = remedy[3]
         with open(audio_file, 'rb') as audio:
             st.audio(audio.read(), format='audio/mp3')
-         if selected_language == 'English':
+        if selected_language == 'English':
             st.info(f" {remedy[0]}")
         else:
             st.info(f" {remedy[1]}")
