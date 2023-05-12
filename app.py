@@ -9,6 +9,8 @@ import torch.nn.functional as F
 from PIL import Image
 import streamlit as st
 import base64
+from pydub import AudioSegment
+from pydub.playback import play
 
 
 # Load the model
