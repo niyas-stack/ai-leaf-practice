@@ -144,8 +144,8 @@ def main():
             st.session_state.session_state['language_selected'] = False
 
     if st.session_state.session_state['pred'] is not None:
-      st.markdown(f"<p style='color: blue;'>Prediction: {st.session_state.session_state['pred']}</p>", unsafe_allow_html=True)
-      st.markdown(f"<p style='color: blue;'>Probability: {st.session_state.session_state['probs']}</p>", unsafe_allow_html=True)
+      st.markdown(f"<p style='color: red;'>Prediction: {st.session_state.session_state['pred']}</p>", unsafe_allow_html=True)
+      st.markdown(f"<p style='color: red;'>Probability: {st.session_state.session_state['probs']}</p>", unsafe_allow_html=True)
     if st.session_state.session_state['pred'] is not None:
       selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
       st.session_state.session_state['selected_language'] = selected_language
