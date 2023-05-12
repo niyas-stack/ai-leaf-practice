@@ -9,7 +9,7 @@ import torch.nn.functional as F
 from PIL import Image
 import streamlit as st
 import base64
-
+from IPython.display import Audio
 
 # Load the model
 model = torchvision.models.resnet18(pretrained=True)
@@ -103,17 +103,14 @@ def display_remedies(pred):
             audio_file = remedy[2]
         else:
             audio_file = remedy[3]
-        with open(audio_file, 'rb') as audio:
-            st.audio(audio.read(), format='audio/mp3')
+        st.audio(audio_file, format='audio/mp3')
 
 def display_remedies_malayalam(pred):
     remedy = remedies.get(pred)
     if remedy:
         st.markdown("<p style='color:red;'>Remedy (Malayalam):</p>", unsafe_allow_html=True)
         st.info(f" {remedy[1]}")
-        audio_file = remedy[3]
-        with open(audio_file, 'rb') as audio:
-            st.audio(audio.read(), format='audio/mp3')
+        st.audio(remedy[3], format='audio/mp3')
 
 # Initialize SessionState
 def init_session_state():
@@ -145,16 +142,17 @@ def main():
             st.session_state.session_state['language_selected'] = False
 
     if st.session_state.session_state['pred'] is not None:
-      st.markdown(f"<p style='color: red;'>Prediction: {st.session_state.session_state['pred']}</p>", unsafe_allow_html=True)
-      st.markdown(f"<p style='color: red;'>Probability: {st.session_state.session_state['probs']}</p>", unsafe_allow_html=True)
-    if st.session_state.session_state['pred'] is not None:
-      selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
-      st.session_state.session_state['selected_language'] = selected_language
-    if st.session_state.session_state['pred'] is not None:
-      if st.session_state.session_state['selected_language'] == 'Malayalam':
-         display_remedies_malayalam(st.session_state.session_state['pred'])
-      else:
-         display_remedies(st.session_state.session_state['pred'])
+        st.markdown(f"<p style='color: red;'>Prediction: {st.session_state.session_state['pred']}</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='color: red;'>Probability: {st.session_state.session_state['probs']}</p>", unsafe_allow_html=True)
+        selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
+        st.session_state.session_state['selected_language'] = selected_language
+        if st.session_state.session_state['selected_language'] == 'Malayalam':
+            display_remedies_malayalam(st.session_state.session_state['pred'])
+        else:
+            display_remedies(st.session_state.session_state['pred'])
 
 if __name__ == "__main__":
     main()
+      
+        
+
