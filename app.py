@@ -66,7 +66,6 @@ transform = transforms.Compose([
 
 def model_predict(image, model_func, transform):
     image_tensor = transform(image).float()
-    image_tensor = image_tensor
     image_tensor = image_tensor.unsqueeze(0)
     output = model_func(image_tensor)
     index = torch.argmax(output)
@@ -95,30 +94,26 @@ def add_bg_from_local(image_file):
 def display_remedies(pred):
     remedy = remedies.get(pred)
     if remedy:
-        if selected_language == 'English':
-            audio_file = remedy[2]
-        else:
-            audio_file = remedy[3]
-        with open(audio_file, 'rb') as audio:
-            st.audio(audio.read(), format='audio/mp3')
         st.markdown("<p style='color:red;'>Remedy:</p>", unsafe_allow_html=True)
         if selected_language == 'English':
             st.info(f" {remedy[0]}")
         else:
             st.info(f" {remedy[1]}")
-
-def display_remedies_malayalam(pred):
-    remedy = remedies.get(pred)
-    if remedy:
         if selected_language == 'English':
             audio_file = remedy[2]
         else:
             audio_file = remedy[3]
         with open(audio_file, 'rb') as audio:
             st.audio(audio.read(), format='audio/mp3')
+
+def display_remedies_malayalam(pred):
+    remedy = remedies.get(pred)
+    if remedy:
         st.markdown("<p style='color:red;'>Remedy (Malayalam):</p>", unsafe_allow_html=True)
         st.info(f" {remedy[1]}")
-
+        audio_file = remedy[3]
+        with open(audio_file, 'rb') as audio:
+            st.audio(audio.read(), format='audio/mp3')
 
 # Initialize SessionState
 def init_session_state():
@@ -150,15 +145,16 @@ def main():
             st.session_state.session_state['language_selected'] = False
 
     if st.session_state.session_state['pred'] is not None:
-        st.markdown(f"<p style='color: red;'>Prediction: {st.session_state.session_state['pred']}</p>", unsafe_allow_html=True)
-        st.markdown(f"<p style='color: red;'>Probability: {st.session_state.session_state['probs']}</p>", unsafe_allow_html=True)
+      st.markdown(f"<p style='color: red;'>Prediction: {st.session_state.session_state['pred']}</p>", unsafe_allow_html=True)
+      st.markdown(f"<p style='color: red;'>Probability: {st.session_state.session_state['probs']}</p>", unsafe_allow_html=True)
     if st.session_state.session_state['pred'] is not None:
-        selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
-        st.session_state.session_state['selected_language'] = selected_language
-        if selected_language == 'Malayalam':
-            display_remedies_malayalam(st.session_state.session_state['pred'])
-        else:
-            display_remedies(st.session_state.session_state['pred'])
+      selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
+      st.session_state.session_state['selected_language'] = selected_language
+    if st.session_state.session_state['pred'] is not None:
+      if st.session_state.session_state['selected_language'] == 'Malayalam':
+         display_remedies_malayalam(st.session_state.session_state['pred'])
+      else:
+         display_remedies(st.session_state.session_state['pred'])
 
-if __name__ == "__main__":
-    main()
+if _name_ == "_main_":
+    main()
