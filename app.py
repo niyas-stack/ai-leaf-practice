@@ -41,7 +41,7 @@ remedies = {
         },
         'Malayalam': {
             'text': 'കാസവ മോസായികയുടെ പരിഹാരം',
-            'audio': 'cassava(mosiac).mp3'
+            'audio': "cassava(mosiac).mp3"
         }
     },
     'The above leaf is Cassava CB (Cassava Bacterial Blight)': {
