@@ -66,6 +66,7 @@ transform = transforms.Compose([
 
 def model_predict(image, model_func, transform):
     image_tensor = transform(image).float()
+    image_tensor = image_tensor
     image_tensor = image_tensor.unsqueeze(0)
     output = model_func(image_tensor)
     index = torch.argmax(output)
@@ -148,6 +149,7 @@ def main():
       st.markdown(f"<p style='color: red;'>Prediction: {st.session_state.session_state['pred']}</p>", unsafe_allow_html=True)
       st.markdown(f"<p style='color: red;'>Probability: {st.session_state.session_state['probs']}</p>", unsafe_allow_html=True)
     if st.session_state.session_state['pred'] is not None:
+      selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0
       selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
       st.session_state.session_state['selected_language'] = selected_language
     if st.session_state.session_state['pred'] is not None:
@@ -158,4 +160,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
