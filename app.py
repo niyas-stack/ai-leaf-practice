@@ -38,19 +38,8 @@ remedies = {
        'Remedy for Cassava Bacterial Blight', 'കാസവ ബാക്ടീരിയൽ ബ്ലൈറ്റിന്റെ പരിഹാരം'
     ]
     # add remedies for other diseases in both English and Malayalam
+    
 }
-
-# Create or get the selected_language value from Streamlit's session state
-if 'selected_language' not in st.session_state:
-    st.session_state['selected_language'] = 'English'
-selected_language = st.session_state['selected_language']
-
-num_ftrs = model.fc.in_features
-model.fc = torch.nn.Linear(num_ftrs, len(classes))
-model_path = "epoch-90.pt"
-model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
-summary(model, input_size=(3, 224, 224))
-model.eval()
 
 # Preprocessing
 transform = transforms.Compose([
@@ -105,14 +94,13 @@ def get_remedy(pred, selected_language):
 
 
 def main():
-    global selected_language  # Make selected_language global
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
     st.markdown("<h1 style='color: green;'>AI Leaf Disease Detection</h1>", unsafe_allow_html=True)
     add_bg_from_local('background.jpg')
 
     # Check if session state already exists, otherwise initialize it
-    if not hasattr(session_state, 'selected_language'):
-        session_state.selected_language = 'English'
+    if not hasattr(st.session_state, 'selected_language'):
+        st.session_state.selected_language = 'English'
 
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
     if uploaded_file is not None:
@@ -126,7 +114,7 @@ def main():
 
             # Language selection for remedy
             selected_language = st.selectbox("Select Remedy Language", ['English', 'Malayalam'], index=0)
-            st.session_state['selected_language'] = selected_language
+            st.session_state.selected_language = selected_language
 
             remedy = get_remedy(pred, selected_language)
             st.markdown("<p style= 'color:red;'>Remedy:</p>", unsafe_allow_html=True)
@@ -135,3 +123,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
