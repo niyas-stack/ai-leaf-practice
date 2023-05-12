@@ -90,11 +90,10 @@ def add_bg_from_local(image_file):
         """,
         unsafe_allow_html=True
     )
-
 def display_remedies(pred):
     remedy = remedies.get(pred)
     if remedy:
-        st.markdown("<h5 style='color:red;'>Remedy:</h5>", unsafe_allow_html=True)
+        st.markdown("<h3 style='color:red;'>Remedy:</h3>", unsafe_allow_html=True)
         if selected_language == 'English':
             audio_file = remedy[2]
         else:
@@ -102,18 +101,17 @@ def display_remedies(pred):
         audio = open(audio_file, 'rb').read()
         st.audio(audio, format='audio/mp3')
         if selected_language == 'English':
-            st.info(f" {remedy[0]}")
+            st.info(f"<span style='color:blue;'>{remedy[0]}</span>", unsafe_allow_html=True)
         else:
-            st.info(f" {remedy[1]}") 
-
+            st.info(f"<span style='color:blue;'>{remedy[1]}</span>", unsafe_allow_html=True)
 def display_remedies_malayalam(pred):
     remedy = remedies.get(pred)
     if remedy:
-        st.markdown("<h5 style='color:red;'>Remedy (Malayalam):</h5>", unsafe_allow_html=True)
+        st.markdown("<h3 style='color:red;'>Remedy (Malayalam):</h3>", unsafe_allow_html=True)
         audio_file = remedy[3]
         audio = open(audio_file, 'rb').read()
         st.audio(audio, format='audio/mp3')
-        st.info(f" {remedy[1]}")
+        st.info(f"<span style='color:blue;'>{remedy[1]}</span>", unsafe_allow_html=True) 
 # Initialize SessionState
 def init_session_state():
     if 'session_state' not in st.session_state:
