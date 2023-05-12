@@ -123,11 +123,11 @@ def main():
 
     if classify_button_clicked:
         selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
-
-    if selected_language == 'Malayalam':
-        display_remedies_malayalam(pred)
-    else:
-        display_remedies(pred)
+        if selected_language == 'Malayalam':
+            display_remedies_malayalam(pred)
+        else:
+            display_remedies(pred)
 
 if __name__ == "__main__":
     main()
+
