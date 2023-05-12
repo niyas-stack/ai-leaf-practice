@@ -91,7 +91,7 @@ def display_remedies(pred):
     remedy = remedies.get(pred)
     if remedy:
         st.markdown("<p style= 'color:red;'>Remedy:</p>", unsafe_allow_html=True)
-        if selected_language == 'language 1':
+        if selected_language == 'English':
             st.info(f" {remedy[0]}")
         else:
             st.info(f" {remedy[1]}")
