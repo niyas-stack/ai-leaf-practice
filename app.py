@@ -39,10 +39,10 @@ remedies = {
         'കാസവ മോസായികയുടെ പരിഹാരം',
         {
             'English': {
-                'audio': 'cassava(masaic).mp3'
+                'audio': 'cassava(mosaic).mp3'
             },
             'Malayalam': {
-                'audio': 'cassava(masaic).mp3'
+                'audio': 'cassava(mosaic).mp3'
             }
         }
     ],
@@ -51,10 +51,10 @@ remedies = {
         'കാസവ ബാക്ടീരിയൽ ബ്ലൈറ്റിന്റെ പരിഹാരം',
         {
             'English': {
-                'audio': 'cassava(masaic).mp3'
+                'audio': 'cassava(mosaic).mp3'
             },
             'Malayalam': {
-                'audio': 'cassava(masaic).mp3'
+                'audio': 'cassava(mosaic).mp3'
             }
         }
     ],
