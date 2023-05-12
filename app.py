@@ -34,11 +34,11 @@ classes = {
 remedies = {
     'The above leaf is Cassava (Cassava Mosaic)': [
          'Remedy for Cassava Mosaic', 'കാസവ മോസായികയുടെ പരിഹാരം',
-         'remedy_cassava_english.mp3', 'remedy_cassava_malayalam.mp3'
+         '96_Songs_The_Life_of_Ram_Video_Song_Vijay_Sethupathi,_Trisha_Govind.mp3', 'cassava.m4a'
     ],
     'The above leaf is Cassava CB (Cassava Bacterial Blight)': [
        'Remedy for Cassava Bacterial Blight', 'കാസവ ബാക്ടീരിയൽ ബ്ലൈറ്റിന്റെ പരിഹാരം',
-       'remedy_cassava_cb_english.mp3', 'remedy_cassava_cb_malayalam.mp3'
+       'cassava.m4a', 'cassava.m4a'
     ]
     # add remedies for other diseases in both English and Malayalam
 }
