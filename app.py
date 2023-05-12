@@ -96,25 +96,24 @@ def display_remedies(pred):
     if remedy:
         st.markdown("<h4 style='color:red;'>Remedy:</h4>", unsafe_allow_html=True)
         if selected_language == 'English':
-            st.info(f" {remedy[0]}")
-        else:
-            st.info(f" {remedy[1]}")
-        if selected_language == 'English':
             audio_file = remedy[2]
         else:
             audio_file = remedy[3]
         audio = open(audio_file, 'rb').read()
         st.audio(audio, format='audio/mp3')
+        if selected_language == 'English':
+            st.info(f" {remedy[0]}")
+        else:
+            st.info(f" {remedy[1]}") 
 
 def display_remedies_malayalam(pred):
     remedy = remedies.get(pred)
     if remedy:
         st.markdown("<h4 style='color:red;'>Remedy (Malayalam):</h4>", unsafe_allow_html=True)
-        st.info(f" {remedy[1]}")
         audio_file = remedy[3]
         audio = open(audio_file, 'rb').read()
         st.audio(audio, format='audio/mp3')
-
+        st.info(f" {remedy[1]}")
 # Initialize SessionState
 def init_session_state():
     if 'session_state' not in st.session_state:
