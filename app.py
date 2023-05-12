@@ -114,7 +114,7 @@ def main():
         image = Image.open(uploaded_file)
         st.image(image, caption='Uploaded Image', width=300)
         st.write("")
-        
+
         if st.button("Classify", key="classify_btn"):
             classify_button_clicked = True
             pred, probs = model_predict(image, model, transform)
@@ -128,8 +128,11 @@ def main():
                 display_remedies_malayalam(pred)
             else:
                 display_remedies(pred)
+    else:
+        st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
 
 if __name__ == "__main__":
     main()
+
 
 
