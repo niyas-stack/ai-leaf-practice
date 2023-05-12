@@ -9,76 +9,59 @@ import torch.nn.functional as F
 from PIL import Image
 import streamlit as st
 import base64
-from pydub import AudioSegment
-from pydub.playback import play
+
 
 # Load the model
 model = torchvision.models.resnet18(pretrained=True)
 classes = {
    0: 'The above leaf is Cassava (Cassava Mosaic)',
-   1: 'The above leaf is Cassava CB (Cassava Bacterial Blight)',
-   2: 'The above leaf is Cassava Healthy leaf',
-   3: 'The above leaf is Tomato Bacterial spot',
-   4: 'The above leaf is Tomato early blight',
-   5: 'The above leaf is Tomato Late blight',
-   6: 'The above leaf is Tomato Leaf Mold',
-   7: 'The above leaf is Tomato Septoria leaf spot',
-   8: 'The above leaf is Tomato Spider mites Two-spotted spider mite',
-   9: 'The above leaf is Tomato Target Spot',
-   10: 'The above leaf is Tomato Yellow Leaf Curl Virus',
-   11: 'The above leaf is Tomato mosaic virus',
-   12: 'The above leaf is Tomato healthy',
-   13: 'The above leaf is bean angular leaf spot',
-   14: 'The above leaf is bean healthy',
-   15: 'The above leaf is bean rust'
+    1: 'The above leaf is Cassava CB (Cassava Bacterial Blight)',
+    2: 'The above leaf is Cassava Healthy leaf',
+    3: 'The above leaf is Tomato Bacterial spot',
+    4: 'The above leaf is Tomato early blight',
+    5: 'The above leaf is Tomato Late blight',
+    6: 'The above leaf is Tomato Leaf Mold',
+    7: 'The above leaf is Tomato Septoria leaf spot',
+    8: 'The above leaf is Tomato Spider mites Two-spotted spider mite',
+    9: 'The above leaf is Tomato Target Spot',
+    10: 'The above leaf is Tomato Yellow Leaf Curl Virus',
+    11: 'The above leaf is Tomato mosaic virus',
+    12: 'The above leaf is Tomato healthy',
+    13: 'The above leaf is bean angular leaf spot',
+    14: 'The above leaf is bean healthy',
+    15: 'The above leaf is bean rust'
 }
-
 remedies = {
     'The above leaf is Cassava (Cassava Mosaic)': [
-        'Remedy for Cassava Mosaic',
-        'കാസവ മോസായികയുടെ പരിഹാരം',
-        {
-            'English': {
-                'audio': 'cassava(mosaic).mp3'
-            },
-            'Malayalam': {
-                'audio': 'cassava(mosaic).mp3'
-            }
-        }
+         'Remedy for Cassava Mosaic', 'കാസവ മോസായികയുടെ പരിഹാരം',
+         {'English': 'cassava.m4a', 'Malayalam': 'cassava.m4a'}
     ],
     'The above leaf is Cassava CB (Cassava Bacterial Blight)': [
-        'Remedy for Cassava Bacterial Blight',
-        'കാസവ ബാക്ടീരിയൽ ബ്ലൈറ്റിന്റെ പരിഹാരം',
-        {
-            'English': {
-                'audio': 'cassava(mosaic).mp3'
-            },
-            'Malayalam': {
-                'audio': 'cassava(mosaic).mp3'
-            }
-        }
-    ],
-    # Add remedies for other diseases in both English and Malayalam with their corresponding audio paths
+       'Remedy for Cassava Bacterial Blight', 'കാസവ ബാക്ടീരിയൽ ബ്ലൈറ്റിന്റെ പരിഹാരം',
+       {'English': 'cassava.m4a', 'Malayalam': 'cassava.m4a'}
+    ]
+    # add remedies for other diseases in both English and Malayalam
 }
 
 selected_language = 'English'  # Set the default language
+
 
 num_ftrs = model.fc.in_features
 model.fc = torch.nn.Linear(num_ftrs, len(classes))
 model_path = "epoch-90.pt"
 model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
-summary(model, input_size=(3, 224, 224))
+summary(model,input_size=(3,224,224))
 model.eval()
 
-# Preprocessing
-transform = transforms.Compose([
+#pre processing
+transform=transforms.Compose([
     transforms.ToTensor(),
-    transforms.Resize((224, 224)),
+    transforms.Resize((224,224)),
     transforms.RandomAffine(degrees=(25)),
     transforms.RandomRotation(25),
     transforms.RandomHorizontalFlip(0.5),
     transforms.RandomVerticalFlip(0.5),
-    transforms.Normalize((0.5, 0.5, 0.5), (1, 1, 1))
+    transforms.Normalize((0.5,0.5,0.5),(1,1,1))
 ])
 
 def model_predict(image, model_func, transform):
@@ -89,7 +72,7 @@ def model_predict(image, model_func, transform):
     pred = classes[index.item()]
     probs, _ = torch.max(F.softmax(output, dim=1), 1)
     if probs < 0.93:
-        return "not defined", probs
+        return "not defined",probs
     else:
         return pred, probs
 
@@ -107,29 +90,29 @@ def add_bg_from_local(image_file):
         """,
         unsafe_allow_html=True
     )
-def play_audio(audio_path):
-    audio = AudioSegment.from_file(audio_path, format="mp3")
-    play(audio)
+
 def display_remedies(pred):
     remedy = remedies.get(pred)
     if remedy:
         st.markdown("<p style='color:red;'>Remedy:</p>", unsafe_allow_html=True)
         if selected_language == 'English':
             st.info(f" {remedy[0]}")
-            if 'English' in remedy[2]:
-                st.button("Play Audio (English)", key=f"audio_btn_eng_{pred}", on_click=lambda: play_audio(remedy[2]['English']['audio']))
         else:
             st.info(f" {remedy[1]}")
-            if 'Malayalam' in remedy[2]:
-                st.button("Play Audio (Malayalam)", key=f"audio_btn_mal_{pred}", on_click=lambda: play_audio(remedy[2]['Malayalam']['audio']))
+        if selected_language in remedy[2]:
+            audio_file = remedy[2][selected_language]
+            with open(audio_file, 'rb') as audio:
+                st.audio(audio.read(), format='audio/mp3')
 
 def display_remedies_malayalam(pred):
     remedy = remedies.get(pred)
     if remedy:
         st.markdown("<p style='color:red;'>Remedy (Malayalam):</p>", unsafe_allow_html=True)
         st.info(f" {remedy[1]}")
-        if 'Malayalam' in remedy[2]:
-            st.button("Play Audio (Malayalam)", key=f"audio_btn_mal_{pred}", on_click=lambda: play_audio(remedy[2]['Malayalam']['audio']))
+        if selected_language in remedy[2]:
+            audio_file = remedy[2][selected_language]
+            with open(audio_file, 'rb') as audio:
+                st.audio(audio.read(), format='audio/mp3')
 
 # Initialize SessionState
 def init_session_state():
@@ -168,7 +151,7 @@ def main():
         selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
         st.session_state.session_state['selected_language'] = selected_language
 
-    if st.session_state.session_state['pred'] is not None:
+    if st.session_state.session_state['pred'] is not None:        
         if st.session_state.session_state['selected_language'] == 'Malayalam':
             display_remedies_malayalam(st.session_state.session_state['pred'])
         else:
