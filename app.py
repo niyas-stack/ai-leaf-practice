@@ -9,7 +9,7 @@ import torch.nn.functional as F
 from PIL import Image
 import streamlit as st
 import base64
-from IPython.display import Audio
+
 
 # Load the model
 model = torchvision.models.resnet18(pretrained=True)
