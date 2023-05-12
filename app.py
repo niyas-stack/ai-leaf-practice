@@ -31,9 +31,18 @@ classes = {
     15: 'The above leaf is bean rust'
 }
 remedies = {
-    'The above leaf is Cassava (Cassava Mosaic)': 'Remedy for Cassava Mosaic',
-    'The above leaf is Cassava CB (Cassava Bacterial Blight)': 'Remedy for Cassava Bacterial Blight'
+    'The above leaf is Cassava (Cassava Mosaic)': [
+         'Remedy for Cassava Mosaic', 'കാസവ മോസായികയുടെ പരിഹാരം'
+    ],
+    'The above leaf is Cassava CB (Cassava Bacterial Blight)': [
+       'Remedy for Cassava Bacterial Blight', 'കാസവ ബാക്ടീരിയൽ ബ്ലൈറ്റിന്റെ പരിഹാരം'
+       ]
+    # add remedies for other diseases in both English and Malayalam
+    
 }
+selected_language = 'English'  # Set the default language
+
+
 num_ftrs = model.fc.in_features
 model.fc = torch.nn.Linear(num_ftrs, len(classes))
 model_path = "epoch-90.pt"
@@ -81,13 +90,20 @@ def add_bg_from_local(image_file):
 def display_remedies(pred):
     remedy = remedies.get(pred)
     if remedy:
-        st.markdown("<p style= 'color:red;'>Remedy:</p>" ,unsafe_allow_html=True)
-        st.info(f" {remedy}")
-      
+        st.markdown("<p style= 'color:red;'>Remedy:</p>", unsafe_allow_html=True)
+        if selected_language == 'English':
+            st.info(f" {remedy[0]}")
+        else:
+            st.info(f" {remedy[1]}")
+
 def main():
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
     st.markdown("<h1 style='color: green;'>AI Leaf Disease Detection</h1>", unsafe_allow_html=True)
     add_bg_from_local('background.jpg')  
+
+    # Language selection
+    selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0)
+
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
@@ -98,6 +114,7 @@ def main():
             st.markdown(f"<p style='color: red;'>Prediction: {pred}</p>", unsafe_allow_html=True)
             st.markdown(f"<p style='color: red;'>Probability: {probs.item()}</p>", unsafe_allow_html=True)
             display_remedies(pred)
+
 
 
 if __name__ == "__main__":
