@@ -8,7 +8,6 @@ import torchvision.transforms as transforms
 import torch.nn.functional as F
 from PIL import Image
 import streamlit as st
-from streamlit import SessionState
 import base64
 
 # Load the model
@@ -39,15 +38,12 @@ remedies = {
        'Remedy for Cassava Bacterial Blight', 'കാസവ ബാക്ടീരിയൽ ബ്ലൈറ്റിന്റെ പരിഹാരം'
     ]
     # add remedies for other diseases in both English and Malayalam
-    
 }
 
-# Create SessionState object
-class SessionState:
-    def __init__(self, **kwargs):
-        self.__dict__.update(kwargs)
-
-session_state = SessionState(selected_language='English')
+# Create or get the selected_language value from Streamlit's session state
+if 'selected_language' not in st.session_state:
+    st.session_state['selected_language'] = 'English'
+selected_language = st.session_state['selected_language']
 
 num_ftrs = model.fc.in_features
 model.fc = torch.nn.Linear(num_ftrs, len(classes))
@@ -66,6 +62,7 @@ transform = transforms.Compose([
     transforms.RandomVerticalFlip(0.5),
     transforms.Normalize((0.5, 0.5, 0.5), (1, 1, 1))
 ])
+
 @st.cache(allow_output_mutation=True)
 def model_predict(image, model_func, transform):
     image_tensor = transform(image).float()
@@ -129,7 +126,7 @@ def main():
 
             # Language selection for remedy
             selected_language = st.selectbox("Select Remedy Language", ['English', 'Malayalam'], index=0)
-            session_state.selected_language = selected_language
+            st.session_state['selected_language'] = selected_language
 
             remedy = get_remedy(pred, selected_language)
             st.markdown("<p style= 'color:red;'>Remedy:</p>", unsafe_allow_html=True)
