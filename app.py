@@ -114,6 +114,8 @@ def init_session_state():
             'language_selected': False
         }
 
+# Load the model and define classes and remedies
+# ...
 
 def main():
     init_session_state()
@@ -138,14 +140,11 @@ def main():
         st.markdown(f"<p style='color: red;'>Prediction: {st.session_state.session_state['pred']}</p>", unsafe_allow_html=True)
         st.markdown(f"<p style='color: red;'>Probability: {st.session_state.session_state['probs']}</p>", unsafe_allow_html=True)
 
-    if st.session_state.session_state['pred'] is not None and not st.session_state.session_state['language_selected']:
-        lang_button_clicked = st.button("Select Language", key="language_btn")
-        if lang_button_clicked:
-            selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
-            st.session_state.session_state['selected_language'] = selected_language
-            st.session_state.session_state['language_selected'] = True
+    if st.session_state.session_state['pred'] is not None:
+        selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
+        st.session_state.session_state['selected_language'] = selected_language
 
-    if st.session_state.session_state['pred'] is not None and st.session_state.session_state['language_selected']:
+    if st.session_state.session_state['pred'] is not None:
         if st.session_state.session_state['selected_language'] == 'Malayalam':
             display_remedies_malayalam(st.session_state.session_state['pred'])
         else:
@@ -153,4 +152,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
