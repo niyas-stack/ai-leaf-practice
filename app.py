@@ -102,9 +102,9 @@ def display_remedies(pred):
         with open(audio_file, 'rb') as audio:
             st.audio(audio.read(), format='audio/mp3')
         if selected_language == 'English':
-            st.info(f" {remedy[0]}")
+            st.info(f"<span style='color:blue;'>{remedy[0]}</span>", unsafe_allow_html=True)
         else:
-            st.info(f" {remedy[1]}")
+            st.info(f"<span style='color:blue;'>{remedy[1]}</span>", unsafe_allow_html=True)
 def display_remedies_malayalam(pred):
     remedy = remedies.get(pred)
     if remedy:
@@ -112,7 +112,7 @@ def display_remedies_malayalam(pred):
         audio_file = remedy[3]
         with open(audio_file, 'rb') as audio:
             st.audio(audio.read(), format='audio/mp3')
-        st.info(f" {remedy[1]}")
+        st.info(f"<span style='color:blue;'>{remedy[1]}</span>", unsafe_allow_html=True)
 # Initialize SessionState
 def init_session_state():
     if 'session_state' not in st.session_state:
