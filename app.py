@@ -107,7 +107,6 @@ def add_bg_from_local(image_file):
         """,
         unsafe_allow_html=True
     )
-
 def play_audio(audio_path):
     audio = AudioSegment.from_file(audio_path)
     play(audio)
