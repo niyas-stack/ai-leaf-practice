@@ -118,12 +118,13 @@ def main():
             st.markdown(f"<p style='color: red;'>Probability: {probs.item()}</p>", unsafe_allow_html=True)
             display_remedies(pred)
 
-    # Language selection
-    selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0)
+            # Language selection
+            selected_language = st.selectbox("Select Remedy Language", ['English', 'Malayalam'], index=0)
 
-    if pred and selected_language == 'Malayalam':
-        display_remedies_malayalam(pred)
+            if selected_language == 'Malayalam':
+                display_remedies_malayalam(pred)
 
 if __name__ == "__main__":
     main()
+
 
