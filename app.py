@@ -95,6 +95,11 @@ def display_remedies(pred):
             st.info(f" {remedy[0]}")
         else:
             st.info(f" {remedy[1]}")
+def display_remedies_malayalam(pred):
+    remedy = remedies.get(pred)
+    if remedy:
+        st.markdown("<p style= 'color:red;'>Remedy (Malayalam):</p>", unsafe_allow_html=True)
+        st.info(f" {remedy[1]}")
 
 def main():
     global selected_language  # Make selected_language global
@@ -110,10 +115,16 @@ def main():
             pred, probs = model_predict(image, model, transform)
             st.markdown(f"<p style='color: red;'>Prediction: {pred}</p>", unsafe_allow_html=True)
             st.markdown(f"<p style='color: red;'>Probability: {probs.item()}</p>", unsafe_allow_html=True)
-
-            # Language selection
-            selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0)
             display_remedies(pred)
+
+    # Language selection
+    selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0)
+
+    if pred and selected_language == 'Malayalam':
+        display_remedies_malayalam(pred)
+
+if __name__ == "__main__":
+    main()
 
 if __name__ == "__main__":
     main()
