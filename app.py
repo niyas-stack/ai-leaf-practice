@@ -117,11 +117,12 @@ def main():
 
             # Language selection
             selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0)
-
             if selected_language == 'Malayalam':
                 display_remedies_malayalam(pred)
             else:
                 display_remedies(pred)
+    else:
+        selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0)
 
 if __name__ == "__main__":
     main()
