@@ -95,26 +95,30 @@ def add_bg_from_local(image_file):
 def display_remedies(pred):
     remedy = remedies.get(pred)
     if remedy:
-        st.markdown("<p style='color:red;'>Remedy:</p>", unsafe_allow_html=True)
-        if selected_language == 'English':
-            st.info(f" {remedy[0]}")
-        else:
-            st.info(f" {remedy[1]}")
         if selected_language == 'English':
             audio_file = remedy[2]
         else:
             audio_file = remedy[3]
         with open(audio_file, 'rb') as audio:
             st.audio(audio.read(), format='audio/mp3')
+        st.markdown("<p style='color:red;'>Remedy:</p>", unsafe_allow_html=True)
+        if selected_language == 'English':
+            st.info(f" {remedy[0]}")
+        else:
+            st.info(f" {remedy[1]}")
 
 def display_remedies_malayalam(pred):
     remedy = remedies.get(pred)
     if remedy:
-        st.markdown("<p style='color:red;'>Remedy (Malayalam):</p>", unsafe_allow_html=True)
-        st.info(f" {remedy[1]}")
-        audio_file = remedy[3]
+        if selected_language == 'English':
+            audio_file = remedy[2]
+        else:
+            audio_file = remedy[3]
         with open(audio_file, 'rb') as audio:
             st.audio(audio.read(), format='audio/mp3')
+        st.markdown("<p style='color:red;'>Remedy (Malayalam):</p>", unsafe_allow_html=True)
+        st.info(f" {remedy[1]}")
+
 
 # Initialize SessionState
 def init_session_state():
