@@ -32,15 +32,29 @@ classes = {
     15: 'The above leaf is bean rust'
 }
 remedies = {
-    'The above leaf is Cassava (Cassava Mosaic)': [
-         'Remedy for Cassava Mosaic', 'കാസവ മോസായികയുടെ പരിഹാരം'
-    ],
-    'The above leaf is Cassava CB (Cassava Bacterial Blight)': [
-       'Remedy for Cassava Bacterial Blight', 'കാസവ ബാക്ടീരിയൽ ബ്ലൈറ്റിന്റെ പരിഹാരം'
-       ]
-    # add remedies for other diseases in both English and Malayalam
-    
+    'The above leaf is Cassava (Cassava Mosaic)': {
+        'English': {
+            'text': 'Remedy for Cassava Mosaic (English)',
+            'audio': 'path_to_audio_english'
+        },
+        'Malayalam': {
+            'text': 'കാസവ മോസായികയുടെ പരിഹാരം',
+            'audio': ''
+        }
+    },
+    'The above leaf is Cassava CB (Cassava Bacterial Blight)': {
+        'English': {
+            'text': 'Remedy for Cassava Bacterial Blight (English)',
+            'audio': 'path_to_audio_english'
+        },
+        'Malayalam': {
+            'text': 'കാസവ ബാക്ടീരിയൽ ബ്ലൈറ്റിന്റെ പരിഹാരം',
+            'audio': 'path_to_audio_malayalam'
+        }
+    },
+    # Add remedies for other diseases and their corresponding text and audio paths
 }
+
 selected_language = 'English'  # Set the default language
 
 
@@ -73,35 +87,39 @@ def model_predict(image, model_func, transform):
         return "not defined",probs
     else:
         return pred, probs
+
 def add_bg_from_local(image_file):
     with open(image_file, "rb") as image_file:
         encoded_string = base64.b64encode(image_file.read())
     st.markdown(
-    f"""
-    <style>
-    .stApp {{
-        background-image: url(data:image/{"jpg"};base64,{encoded_string.decode()});
-        background-size: cover
-    }}
-    </style>
-    """,
-    unsafe_allow_html=True
+        f"""
+        <style>
+        .stApp {{
+            background-image: url(data:image/{"jpg"};base64,{encoded_string.decode()});
+            background-size: cover
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
     )
 
 def display_remedies(pred):
     remedy = remedies.get(pred)
     if remedy:
-        st.markdown("<p style= 'color:red;'>Remedy:</p>", unsafe_allow_html=True)
+        st.markdown("<p style='color:red;'>Remedy:</p>", unsafe_allow_html=True)
         if selected_language == 'English':
-            st.info(f" {remedy[0]}")
+            st.info(f" {remedy['English']['text']}")
+            st.audio(remedy['English']['audio'], format='audio/mp3')
         else:
-            st.info(f" {remedy[1]}")
+            st.info(f" {remedy['Malayalam']['text']}")
+            st.audio(remedy['Malayalam']['audio'], format='audio/mp3')
+
 def display_remedies_malayalam(pred):
     remedy = remedies.get(pred)
     if remedy:
-        st.markdown("<p style= 'color:red;'>Remedy (Malayalam):</p>", unsafe_allow_html=True)
-        st.info(f" {remedy[1]}")
-
+        st.markdown("<p style='color:red;'>Remedy (Malayalam):</p>", unsafe_allow_html=True)
+        st.info(f" {remedy['Malayalam']['text']}")
+        st.audio(remedy['Malayalam']['audio'], format='audio/mp3')
 
 
 # Initialize SessionState
@@ -114,8 +132,6 @@ def init_session_state():
             'language_selected': False
         }
 
-# Load the model and define classes and remedies
-# ...
 
 def main():
     init_session_state()
