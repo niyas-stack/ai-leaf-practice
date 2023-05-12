@@ -31,18 +31,9 @@ classes = {
     15: 'The above leaf is bean rust'
 }
 remedies = {
-    'The above leaf is Cassava (Cassava Mosaic)': {
-        'english': 'Remedy for Cassava Mosaic',
-        'malayalam': 'കാസവ മോസായികയുടെ പരിഹാരം'
-    },
-    'The above leaf is Cassava CB (Cassava Bacterial Blight)': {
-        'english': 'Remedy for Cassava Bacterial Blight',
-        'malayalam': 'കാസവ ബാക്ടീരിയൽ ബ്ലൈറ്റിന്റെ പരിഹാരം'
-    },
-    # add remedies for other diseases in both English and Malayalam
-    
+    'The above leaf is Cassava (Cassava Mosaic)': 'Remedy for Cassava Mosaic',
+    'The above leaf is Cassava CB (Cassava Bacterial Blight)': 'Remedy for Cassava Bacterial Blight'
 }
-
 num_ftrs = model.fc.in_features
 model.fc = torch.nn.Linear(num_ftrs, len(classes))
 model_path = "epoch-90.pt"
@@ -68,7 +59,7 @@ def model_predict(image, model_func, transform):
     index = torch.argmax(output)
     pred = classes[index.item()]
     probs, _ = torch.max(F.softmax(output, dim=1), 1)
-    if probs.item() < 0.93:
+    if probs < 0.93:
         return "not defined",probs
     else:
         return pred, probs
@@ -87,14 +78,11 @@ def add_bg_from_local(image_file):
     unsafe_allow_html=True
     )
 
-def display_remedies(pred, language):
-    remedy_dict = remedies.get(pred)
-    if remedy_dict:
-        remedy = remedy_dict.get(language)
-        if remedy:
-            st.markdown("<p style= 'color:red;'>Remedy:</p>" ,unsafe_allow_html=True)
-            st.info(f" {remedy}")
-
+def display_remedies(pred):
+    remedy = remedies.get(pred)
+    if remedy:
+        st.markdown("<p style= 'color:red;'>Remedy:</p>" ,unsafe_allow_html=True)
+        st.info(f" {remedy}")
       
 def main():
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
@@ -109,6 +97,9 @@ def main():
             pred, probs = model_predict(image, model, transform)
             st.markdown(f"<p style='color: red;'>Prediction: {pred}</p>", unsafe_allow_html=True)
             st.markdown(f"<p style='color: red;'>Probability: {probs.item()}</p>", unsafe_allow_html=True)
-            language = st.selectbox('Select language', ['English', 'Malayalam'])
-            display_remedies(pred, language)
+            display_remedies(pred)
 
+
+
+if _name_ == "_main_":
+    main()
