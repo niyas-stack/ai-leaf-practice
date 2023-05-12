@@ -51,10 +51,10 @@ remedies = {
         'കാസവ ബാക്ടീരിയൽ ബ്ലൈറ്റിന്റെ പരിഹാരം',
         {
             'English': {
-                'audio': 'cassava(mosaic).mp3'
+                'audio': 'cassava.m4a'
             },
             'Malayalam': {
-                'audio': 'cassava(mosaic).mp3'
+                'audio': 'cassava.m4a'
             }
         }
     ],
