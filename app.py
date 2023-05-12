@@ -122,7 +122,8 @@ def display_remedies_malayalam(pred):
     if remedy:
         st.markdown("<p style='color:red;'>Remedy (Malayalam):</p>", unsafe_allow_html=True)
         st.info(f" {remedy['Malayalam']['text']}")
-        st.audio(remedy['Malayalam']['audio'], format='audio/mp3')
+        audio_path = remedy['Malayalam']['audio']  # Specify the correct audio path
+        st.audio(open(audio_path, 'rb').read(), format='audio/mp3')
 def play_audio(audio_path):
     audio = AudioSegment.from_file(audio_path)
     audio.export('temp.wav', format='wav')
