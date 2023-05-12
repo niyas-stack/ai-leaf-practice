@@ -126,8 +126,7 @@ def display_remedies_malayalam(pred):
 def play_audio(audio_path):
     audio = AudioSegment.from_file(audio_path)
     audio.export('temp.wav', format='wav')
-    play(AudioSegment.from_wav('temp.wav'))
-
+    play(AudioSegment.from_file('temp.wav'))
 
 # Initialize SessionState
 def init_session_state():
