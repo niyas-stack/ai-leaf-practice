@@ -164,7 +164,7 @@ def main():
 
     if st.session_state.session_state['pred'] is not None:
         if st.session_state.session_state['selected_language'] == 'Malayalam':
-            display_remedies_malayalam(st.session_state.session_state['pred'])
+           display_remedies_malayalam(st.session_state.session_state['pred'], selected_language)
         else:
             display_remedies(st.session_state.session_state['pred'])
 
