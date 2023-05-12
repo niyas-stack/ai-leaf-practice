@@ -15,21 +15,21 @@ import base64
 model = torchvision.models.resnet18(pretrained=True)
 classes = {
    0: 'The above leaf is Cassava (Cassava Mosaic)',
-    1: 'The above leaf is Cassava CB (Cassava Bacterial Blight)',
-    2: 'The above leaf is Cassava Healthy leaf',
-    3: 'The above leaf is Tomato Bacterial spot',
-    4: 'The above leaf is Tomato early blight',
-    5: 'The above leaf is Tomato Late blight',
-    6: 'The above leaf is Tomato Leaf Mold',
-    7: 'The above leaf is Tomato Septoria leaf spot',
-    8: 'The above leaf is Tomato Spider mites Two-spotted spider mite',
-    9: 'The above leaf is Tomato Target Spot',
-    10: 'The above leaf is Tomato Yellow Leaf Curl Virus',
-    11: 'The above leaf is Tomato mosaic virus',
-    12: 'The above leaf is Tomato healthy',
-    13: 'The above leaf is bean angular leaf spot',
-    14: 'The above leaf is bean healthy',
-    15: 'The above leaf is bean rust'
+   1: 'The above leaf is Cassava CB (Cassava Bacterial Blight)',
+   2: 'The above leaf is Cassava Healthy leaf',
+   3: 'The above leaf is Tomato Bacterial spot',
+   4: 'The above leaf is Tomato early blight',
+   5: 'The above leaf is Tomato Late blight',
+   6: 'The above leaf is Tomato Leaf Mold',
+   7: 'The above leaf is Tomato Septoria leaf spot',
+   8: 'The above leaf is Tomato Spider mites Two-spotted spider mite',
+   9: 'The above leaf is Tomato Target Spot',
+   10: 'The above leaf is Tomato Yellow Leaf Curl Virus',
+   11: 'The above leaf is Tomato mosaic virus',
+   12: 'The above leaf is Tomato healthy',
+   13: 'The above leaf is bean angular leaf spot',
+   14: 'The above leaf is bean healthy',
+   15: 'The above leaf is bean rust'
 }
 remedies = {
     'The above leaf is Cassava (Cassava Mosaic)': [
@@ -84,7 +84,8 @@ def add_bg_from_local(image_file):
         <style>
         .stApp {{
             background-image: url(data:image/{"jpg"};base64,{encoded_string.decode()});
-            background-size: cover
+            background-size: cover;
+            backdrop-filter: blur(10px);
         }}
         </style>
         """,
@@ -105,6 +106,7 @@ def display_remedies(pred):
             st.success(f" {remedy[0]}")
         else:
             st.success(f" {remedy[1]}")
+
 def display_remedies_malayalam(pred):
     remedy = remedies.get(pred)
     if remedy:
@@ -113,6 +115,7 @@ def display_remedies_malayalam(pred):
         with open(audio_file, 'rb') as audio:
             st.audio(audio.read(), format='audio/mp3')
         st.success(f" {remedy[1]}")
+
 # Initialize SessionState
 def init_session_state():
     if 'session_state' not in st.session_state:
@@ -143,18 +146,22 @@ def main():
             st.session_state.session_state['language_selected'] = False
 
     if st.session_state.session_state['pred'] is not None:
-      st.markdown(f"<p style='color: red;'>Prediction: {st.session_state.session_state['pred']}</p>", unsafe_allow_html=True)
-      st.markdown(f"<p style='color: red;'>Probability: {st.session_state.session_state['probs']}</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='color: red;'>Prediction: {st.session_state.session_state['pred']}</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='color: red;'>Probability: {st.session_state.session_state['probs']}</p>", unsafe_allow_html=True)
+
     if st.session_state.session_state['pred'] is not None:
-      selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
-      st.session_state.session_state['selected_language'] = selected_language
-    if st.session_state.session_state['pred'] is not None:
-      if st.session_state.session_state['selected_language'] == 'Malayalam':
-         display_remedies_malayalam(st.session_state.session_state['pred'])
-      else:
-         display_remedies(st.session_state.session_state['pred'])
+        selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
+        st.session_state.session_state['selected_language'] = selected_language
+        st.session_state.session_state['language_selected'] = True
+
+    if st.session_state.session_state['pred'] is not None and st.session_state.session_state['language_selected']:
+        if st.session_state.session_state['selected_language'] == 'Malayalam':
+            display_remedies_malayalam(st.session_state.session_state['pred'])
+        else:
+            display_remedies(st.session_state.session_state['pred'])
 
 if __name__ == "__main__":
     main()
-        
+
+
 
