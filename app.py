@@ -88,10 +88,10 @@ def add_bg_from_local(image_file):
     )
 
 
-def get_remedy(pred, selected_language_remedy):
+def get_remedy(pred, selected_language):
     remedy = remedies.get(pred)
     if remedy:
-        if selected_language_remedy == 'English':
+        if selected_language == 'English':
             return remedy[0]
         else:
             return remedy[1]
@@ -116,9 +116,9 @@ def main():
             st.markdown(f"<p style='color: red;'>Probability: {probs.item()}</p>", unsafe_allow_html=True)
             
             # Language selection for remedy
-            selected_language_remedy = st.selectbox("Select Remedy Language", ['English', 'Malayalam'], index=0)
+            selected_language= st.selectbox("Select Remedy Language", ['English', 'Malayalam'], index=0)
             
-            remedy = get_remedy(pred, selected_language_remedy)
+            remedy = get_remedy(pred, selected_language)
             st.markdown("<p style= 'color:red;'>Remedy:</p>", unsafe_allow_html=True)
             st.info(f" {remedy}")
 
