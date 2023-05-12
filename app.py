@@ -9,6 +9,8 @@ import torch.nn.functional as F
 from PIL import Image
 import streamlit as st
 import base64
+from streamlit.server.server import Server
+from streamlit.report_thread import get_report_ctx
 
 # Load the model
 model = torchvision.models.resnet18(pretrained=True)
@@ -100,36 +102,44 @@ def display_remedies_malayalam(pred):
     if remedy:
         st.markdown("<p style= 'color:red;'>Remedy (Malayalam):</p>", unsafe_allow_html=True)
         st.info(f" {remedy[1]}")
+
+# Create a SessionState class
+class SessionState:
+    def __init__(self, **kwargs):
+        self.__dict__.update(kwargs)
+
+# Initialize SessionState
+session_state = SessionState(pred=None, probs=None, selected_language='English')
+
 def main():
-    global selected_language
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
     st.markdown("<h1 style='color: green;'>AI Leaf Disease Detection</h1>", unsafe_allow_html=True)
     add_bg_from_local('background.jpg')
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
-    classify_button_clicked = False
-    pred = ""
-    probs = 0.0
-
+    
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
         st.image(image, caption='Uploaded Image', width=300)
         st.write("")
 
         if st.button("Classify", key="classify_btn"):
-            classify_button_clicked = True
             pred, probs = model_predict(image, model, transform)
-            st.markdown(f"<p style='color: red;'>Prediction: {pred}</p>", unsafe_allow_html=True)
-            st.markdown(f"<p style='color: red;'>Probability: {probs.item()}</p>", unsafe_allow_html=True)
+            session_state.pred = pred
+            session_state.probs = probs.item()
 
-    if classify_button_clicked:
+    if session_state.pred is not None:
+        st.markdown(f"<p style='color: red;'>Prediction: {session_state.pred}</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='color: red;'>Probability: {session_state.probs}</p>", unsafe_allow_html=True)
+        
+    if session_state.pred is not None:
         lang_button_clicked = st.button("Select Language", key="language_btn")
         if lang_button_clicked:
             selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
-            if selected_language == 'Malayalam':
-                display_remedies_malayalam(pred)
+            session_state.selected_language = selected_language
+            if session_state.selected_language == 'Malayalam':
+                display_remedies_malayalam(session_state.pred)
             else:
-                display_remedies(pred)
+                display_remedies(session_state.pred)
 
 if __name__ == "__main__":
     main()
-
