@@ -108,7 +108,7 @@ def add_bg_from_local(image_file):
         unsafe_allow_html=True
     )
 def play_audio(audio_path):
-    audio = AudioSegment.from_file(audio_path, format="mp3")
+    audio = AudioSegment.from_file(audio_path, format="m4a")
     play(audio)
 def display_remedies(pred):
     remedy = remedies.get(pred)
