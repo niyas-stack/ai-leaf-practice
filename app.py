@@ -60,7 +60,7 @@ transform=transforms.Compose([
      transforms.RandomVerticalFlip(0.5),
      transforms.Normalize((0.5,0.5,0.5),(1,1,1))
 ])
-
+@st.cache(allow_output_mutation=True)
 def model_predict(image, model_func, transform):
     image_tensor = transform(image).float()
     image_tensor = image_tensor.unsqueeze(0)
