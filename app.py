@@ -105,29 +105,24 @@ def add_bg_from_local(image_file):
         unsafe_allow_html=True
     )
 
-def display_remedies(pred):
+def display_remedies(pred, language):
     remedy = remedies.get(pred)
     if remedy:
         st.markdown("<p style='color:red;'>Remedy:</p>", unsafe_allow_html=True)
-        if selected_language == 'English':
+        if language == 'English':
             st.info(f" {remedy['English']['text']}")
             play_audio(remedy['English']['audio'])
         else:
             st.info(f" {remedy['Malayalam']['text']}")
             play_audio(remedy['Malayalam']['audio'])
 
-
-def display_remedies_malayalam(pred):
+def display_remedies_malayalam(pred, language):
     remedy = remedies.get(pred)
     if remedy:
         st.markdown("<p style='color:red;'>Remedy (Malayalam):</p>", unsafe_allow_html=True)
         st.info(f" {remedy['Malayalam']['text']}")
-        audio_path = remedy['Malayalam']['audio']  # Specify the correct audio path
-        st.audio(open(audio_path, 'rb').read(), format='audio/mp3')
-def play_audio(audio_path):
-    audio = AudioSegment.from_file(audio_path)
-    audio.export('temp.wav', format='wav')
-    play(AudioSegment.from_file('temp.wav'))
+        play_audio(remedy['Malayalam']['audio'])
+
 
 # Initialize SessionState
 def init_session_state():
