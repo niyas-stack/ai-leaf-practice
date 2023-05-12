@@ -100,7 +100,6 @@ def display_remedies_malayalam(pred):
     if remedy:
         st.markdown("<p style= 'color:red;'>Remedy (Malayalam):</p>", unsafe_allow_html=True)
         st.info(f" {remedy[1]}")
-
 def main():
     global selected_language
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
@@ -115,15 +114,15 @@ def main():
             pred, probs = model_predict(image, model, transform)
             st.markdown(f"<p style='color: red;'>Prediction: {pred}</p>", unsafe_allow_html=True)
             st.markdown(f"<p style='color: red;'>Probability: {probs.item()}</p>", unsafe_allow_html=True)
+
+            # Language selection
+            selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0)
+
             if selected_language == 'Malayalam':
                 display_remedies_malayalam(pred)
             else:
                 display_remedies(pred)
 
-            # Language selection
-            selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0)
-
 if __name__ == "__main__":
     main()
-
 
