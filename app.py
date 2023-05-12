@@ -146,7 +146,7 @@ def main():
     if st.session_state.session_state['pred'] is not None:
         st.markdown(f"<h6 style='color: red;'>Prediction: {st.session_state.session_state['pred']}</h6>", unsafe_allow_html=True)
         st.markdown(f"<h6 style='color: red;'>Probability: {st.session_state.session_state['probs']}</h6>", unsafe_allow_html=True)
-        selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
+        selected_language = st.selectbox("Select the prefered language for remedy", ['English', 'Malayalam'], index=0, key="language_select")
         st.session_state.session_state['selected_language'] = selected_language
         if st.session_state.session_state['selected_language'] == 'Malayalam':
             display_remedies_malayalam(st.session_state.session_state['pred'])
