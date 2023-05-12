@@ -102,8 +102,7 @@ def display_remedies_malayalam(pred):
         st.info(f" {remedy[1]}")
 
 def main():
-    global selected_language, pred  # Make selected_language and pred global
-    pred = None  # Initialize pred variable
+    global selected_language
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
     st.markdown("<h1 style='color: green;'>AI Leaf Disease Detection</h1>", unsafe_allow_html=True)
     add_bg_from_local('background.jpg')
@@ -116,13 +115,13 @@ def main():
             pred, probs = model_predict(image, model, transform)
             st.markdown(f"<p style='color: red;'>Prediction: {pred}</p>", unsafe_allow_html=True)
             st.markdown(f"<p style='color: red;'>Probability: {probs.item()}</p>", unsafe_allow_html=True)
-            display_remedies(pred)
-
-            # Language selection
-            selected_language = st.selectbox("Select Remedy Language", ['English', 'Malayalam'], index=0)
-
             if selected_language == 'Malayalam':
                 display_remedies_malayalam(pred)
+            else:
+                display_remedies(pred)
+
+            # Language selection
+            selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0)
 
 if __name__ == "__main__":
     main()
