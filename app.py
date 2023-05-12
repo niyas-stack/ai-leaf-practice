@@ -78,7 +78,7 @@ transform = transforms.Compose([
     transforms.RandomRotation(25),
     transforms.RandomHorizontalFlip(0.5),
     transforms.RandomVerticalFlip(0.5),
-   ransforms.Normalize((0.5, 0.5, 0.5), (1, 1, 1))
+    transforms.Normalize((0.5, 0.5, 0.5), (1, 1, 1))
 ])
 
 def model_predict(image, model_func, transform):
