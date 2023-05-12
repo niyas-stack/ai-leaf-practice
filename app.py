@@ -103,20 +103,26 @@ def display_remedies_malayalam(pred):
         st.info(f" {remedy[1]}")
 
 
-# Create a SessionState class
-class SessionState:
-    def __init__(self, **kwargs):
-        self.__dict__.update(kwargs)
-
 # Initialize SessionState
-session_state = SessionState(pred=None, probs=None, selected_language='English')
+def init_session_state():
+    if 'session_state' not in st.session_state:
+        st.session_state.session_state = {
+            'pred': None,
+            'probs': None,
+            'selected_language': 'English'
+        }
+
+# Load the model and define classes and remedies
+# ...
 
 def main():
+    init_session_state()
+
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
     st.markdown("<h1 style='color: green;'>AI Leaf Disease Detection</h1>", unsafe_allow_html=True)
     add_bg_from_local('background.jpg')
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
-    
+
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
         st.image(image, caption='Uploaded Image', width=300)
@@ -124,22 +130,22 @@ def main():
 
         if st.button("Classify", key="classify_btn"):
             pred, probs = model_predict(image, model, transform)
-            session_state.pred = pred
-            session_state.probs = probs.item()
+            st.session_state.session_state['pred'] = pred
+            st.session_state.session_state['probs'] = probs.item()
 
-    if session_state.pred is not None:
-        st.markdown(f"<p style='color: red;'>Prediction: {session_state.pred}</p>", unsafe_allow_html=True)
-        st.markdown(f"<p style='color: red;'>Probability: {session_state.probs}</p>", unsafe_allow_html=True)
-        
-    if session_state.pred is not None:
+    if st.session_state.session_state['pred'] is not None:
+        st.markdown(f"<p style='color: red;'>Prediction: {st.session_state.session_state['pred']}</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='color: red;'>Probability: {st.session_state.session_state['probs']}</p>", unsafe_allow_html=True)
+
+    if st.session_state.session_state['pred'] is not None:
         lang_button_clicked = st.button("Select Language", key="language_btn")
         if lang_button_clicked:
             selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
-            session_state.selected_language = selected_language
-            if session_state.selected_language == 'Malayalam':
-                display_remedies_malayalam(session_state.pred)
+            st.session_state.session_state['selected_language'] = selected_language
+            if st.session_state.session_state['selected_language'] == 'Malayalam':
+                display_remedies_malayalam(st.session_state.session_state['pred'])
             else:
-                display_remedies(session_state.pred)
+                display_remedies(st.session_state.session_state['pred'])
 
 if __name__ == "__main__":
     main()
