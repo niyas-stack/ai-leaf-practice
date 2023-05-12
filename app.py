@@ -87,14 +87,16 @@ def add_bg_from_local(image_file):
     unsafe_allow_html=True
     )
 
-def display_remedies(pred):
+
+def get_remedy(pred, selected_language_remedy):
     remedy = remedies.get(pred)
     if remedy:
-        st.markdown("<p style= 'color:red;'>Remedy:</p>", unsafe_allow_html=True)
-        if selected_language == 'English':
-            st.info(f" {remedy[0]}")
+        if selected_language_remedy == 'English':
+            return remedy[0]
         else:
-            st.info(f" {remedy[1]}")
+            return remedy[1]
+    else:
+        return "Remedy not available"
 
 def main():
     global selected_language  # Make selected_language global
@@ -102,9 +104,7 @@ def main():
     st.markdown("<h1 style='color: green;'>AI Leaf Disease Detection</h1>", unsafe_allow_html=True)
     add_bg_from_local('background.jpg')  
 
-    # Language selection
-    selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0)
-
+   
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
@@ -114,8 +114,13 @@ def main():
             pred, probs = model_predict(image, model, transform)
             st.markdown(f"<p style='color: red;'>Prediction: {pred}</p>", unsafe_allow_html=True)
             st.markdown(f"<p style='color: red;'>Probability: {probs.item()}</p>", unsafe_allow_html=True)
-            display_remedies(pred)
-
+            
+            # Language selection for remedy
+            selected_language_remedy = st.selectbox("Select Remedy Language", ['English', 'Malayalam'], index=0)
+            
+            remedy = get_remedy(pred, selected_language_remedy)
+            st.markdown("<p style= 'color:red;'>Remedy:</p>", unsafe_allow_html=True)
+            st.info(f" {remedy}")
 
 
 
