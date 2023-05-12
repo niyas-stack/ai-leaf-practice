@@ -39,10 +39,10 @@ remedies = {
         'കാസവ മോസായികയുടെ പരിഹാരം',
         {
             'English': {
-                'audio': 'cassava.m4a'
+                'audio': 'cassava.wav'
             },
             'Malayalam': {
-                'audio': 'cassava.m4a'
+                'audio': 'cassava.wav'
             }
         }
     ],
@@ -51,15 +51,16 @@ remedies = {
         'കാസവ ബാക്ടീരിയൽ ബ്ലൈറ്റിന്റെ പരിഹാരം',
         {
             'English': {
-                'audio': 'cassava.m4a'
+                'audio': 'cassava.wav'
             },
             'Malayalam': {
-                'audio': 'cassava.m4a'
+                'audio': 'cassava.wav'
             }
         }
     ],
     # Add remedies for other diseases in both English and Malayalam with their corresponding audio paths
 }
+
 
 selected_language = 'English'  # Set the default language
 
@@ -108,8 +109,15 @@ def add_bg_from_local(image_file):
         unsafe_allow_html=True
     )
 def play_audio(audio_path):
+    # Convert M4A to WAV
+    wav_path = audio_path.replace(".m4a", ".wav")
     audio = AudioSegment.from_file(audio_path, format="m4a")
-    play(audio)
+    audio.export(wav_path, format="wav")
+
+    # Play the WAV file
+    wav_audio = AudioSegment.from_file(wav_path, format="wav")
+    play(wav_audio)
+
 def display_remedies(pred):
     remedy = remedies.get(pred)
     if remedy:
