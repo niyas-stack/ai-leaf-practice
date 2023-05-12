@@ -101,8 +101,6 @@ def main():
     st.markdown("<h1 style='color: green;'>AI Leaf Disease Detection</h1>", unsafe_allow_html=True)
     add_bg_from_local('background.jpg')  
 
-    # Language selection
-    selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0)
 
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
     if uploaded_file is not None:
@@ -113,6 +111,8 @@ def main():
             pred, probs = model_predict(image, model, transform)
             st.markdown(f"<p style='color: red;'>Prediction: {pred}</p>", unsafe_allow_html=True)
             st.markdown(f"<p style='color: red;'>Probability: {probs.item()}</p>", unsafe_allow_html=True)
+             # Language selection
+            selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0)
             display_remedies(pred)
 
 
