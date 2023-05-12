@@ -9,8 +9,7 @@ import torch.nn.functional as F
 from PIL import Image
 import streamlit as st
 import base64
-from streamlit.server.server import Server
-from streamlit.report_thread import get_report_ctx
+
 
 # Load the model
 model = torchvision.models.resnet18(pretrained=True)
@@ -102,6 +101,7 @@ def display_remedies_malayalam(pred):
     if remedy:
         st.markdown("<p style= 'color:red;'>Remedy (Malayalam):</p>", unsafe_allow_html=True)
         st.info(f" {remedy[1]}")
+
 
 # Create a SessionState class
 class SessionState:
