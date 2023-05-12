@@ -107,7 +107,9 @@ def main():
     add_bg_from_local('background.jpg')
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
     classify_button_clicked = False
-    
+    pred = None
+    probs = None
+
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
         st.image(image, caption='Uploaded Image', width=300)
@@ -121,10 +123,11 @@ def main():
 
     if classify_button_clicked:
         selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0)
-        if selected_language == 'Malayalam':
-            display_remedies_malayalam(pred)
-        else:
-            display_remedies(pred)
+        if pred:
+            if selected_language == 'Malayalam':
+                display_remedies_malayalam(pred)
+            else:
+                display_remedies(pred)
     else:
         selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0)
 
