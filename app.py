@@ -97,6 +97,7 @@ def display_remedies(pred):
             st.info(f" {remedy[1]}")
 
 def main():
+    global selected_language  # Make selected_language global
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
     st.markdown("<h1 style='color: green;'>AI Leaf Disease Detection</h1>", unsafe_allow_html=True)
     add_bg_from_local('background.jpg')  
@@ -114,6 +115,7 @@ def main():
             st.markdown(f"<p style='color: red;'>Prediction: {pred}</p>", unsafe_allow_html=True)
             st.markdown(f"<p style='color: red;'>Probability: {probs.item()}</p>", unsafe_allow_html=True)
             display_remedies(pred)
+
 
 
 
