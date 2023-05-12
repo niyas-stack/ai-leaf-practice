@@ -90,28 +90,31 @@ def add_bg_from_local(image_file):
         """,
         unsafe_allow_html=True
     )
+
 def display_remedies(pred):
     remedy = remedies.get(pred)
     if remedy:
-        st.markdown("<h3 style='color:red;'>Remedy:</h3>", unsafe_allow_html=True)
+        st.markdown("<p style='color:red;'>Remedy:</p>", unsafe_allow_html=True)
+        if selected_language == 'English':
+            st.info(f" {remedy[0]}")
+        else:
+            st.info(f" {remedy[1]}")
         if selected_language == 'English':
             audio_file = remedy[2]
         else:
             audio_file = remedy[3]
-        audio = open(audio_file, 'rb').read()
-        st.audio(audio, format='audio/mp3')
-        if selected_language == 'English':
-            st.info(f"<span style='color:blue;'>{remedy[0]}</span>", unsafe_allow_html=True)
-        else:
-            st.info(f"<span style='color:blue;'>{remedy[1]}</span>", unsafe_allow_html=True)
+        with open(audio_file, 'rb') as audio:
+            st.audio(audio.read(), format='audio/mp3')
+
 def display_remedies_malayalam(pred):
     remedy = remedies.get(pred)
     if remedy:
-        st.markdown("<h3 style='color:red;'>Remedy (Malayalam):</h3>", unsafe_allow_html=True)
+        st.markdown("<p style='color:red;'>Remedy (Malayalam):</p>", unsafe_allow_html=True)
+        st.info(f" {remedy[1]}")
         audio_file = remedy[3]
-        audio = open(audio_file, 'rb').read()
-        st.audio(audio, format='audio/mp3')
-        st.info(f"<span style='color:blue;'>{remedy[1]}</span>", unsafe_allow_html=True) 
+        with open(audio_file, 'rb') as audio:
+            st.audio(audio.read(), format='audio/mp3')
+
 # Initialize SessionState
 def init_session_state():
     if 'session_state' not in st.session_state:
@@ -142,17 +145,18 @@ def main():
             st.session_state.session_state['language_selected'] = False
 
     if st.session_state.session_state['pred'] is not None:
-        st.markdown(f"<h6 style='color: red;'>Prediction: {st.session_state.session_state['pred']}</h6>", unsafe_allow_html=True)
-        st.markdown(f"<h6 style='color: red;'>Probability: {st.session_state.session_state['probs']}</h6>", unsafe_allow_html=True)
-        selected_language = st.selectbox("Select the prefered language for remedy", ['English', 'Malayalam'], index=0, key="language_select")
-        st.session_state.session_state['selected_language'] = selected_language
-        if st.session_state.session_state['selected_language'] == 'Malayalam':
-            display_remedies_malayalam(st.session_state.session_state['pred'])
-        else:
-            display_remedies(st.session_state.session_state['pred'])
+      st.markdown(f"<p style='color: red;'>Prediction: {st.session_state.session_state['pred']}</p>", unsafe_allow_html=True)
+      st.markdown(f"<p style='color: red;'>Probability: {st.session_state.session_state['probs']}</p>", unsafe_allow_html=True)
+    if st.session_state.session_state['pred'] is not None:
+      selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
+      st.session_state.session_state['selected_language'] = selected_language
+    if st.session_state.session_state['pred'] is not None:
+      if st.session_state.session_state['selected_language'] == 'Malayalam':
+         display_remedies_malayalam(st.session_state.session_state['pred'])
+      else:
+         display_remedies(st.session_state.session_state['pred'])
 
 if __name__ == "__main__":
     main()
-      
         
 
