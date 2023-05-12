@@ -103,17 +103,17 @@ def display_remedies_malayalam(pred):
         st.info(f" {remedy[1]}")
 
 
+
 # Initialize SessionState
 def init_session_state():
     if 'session_state' not in st.session_state:
         st.session_state.session_state = {
             'pred': None,
             'probs': None,
-            'selected_language': 'English'
+            'selected_language': 'English',
+            'language_selected': False
         }
 
-# Load the model and define classes and remedies
-# ...
 
 def main():
     init_session_state()
@@ -132,20 +132,25 @@ def main():
             pred, probs = model_predict(image, model, transform)
             st.session_state.session_state['pred'] = pred
             st.session_state.session_state['probs'] = probs.item()
+            st.session_state.session_state['language_selected'] = False
 
     if st.session_state.session_state['pred'] is not None:
         st.markdown(f"<p style='color: red;'>Prediction: {st.session_state.session_state['pred']}</p>", unsafe_allow_html=True)
         st.markdown(f"<p style='color: red;'>Probability: {st.session_state.session_state['probs']}</p>", unsafe_allow_html=True)
 
-    if st.session_state.session_state['pred'] is not None:
+    if st.session_state.session_state['pred'] is not None and not st.session_state.session_state['language_selected']:
         lang_button_clicked = st.button("Select Language", key="language_btn")
         if lang_button_clicked:
             selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
             st.session_state.session_state['selected_language'] = selected_language
-            if st.session_state.session_state['selected_language'] == 'Malayalam':
-                display_remedies_malayalam(st.session_state.session_state['pred'])
-            else:
-                display_remedies(st.session_state.session_state['pred'])
+            st.session_state.session_state['language_selected'] = True
+
+    if st.session_state.session_state['pred'] is not None and st.session_state.session_state['language_selected']:
+        if st.session_state.session_state['selected_language'] == 'Malayalam':
+            display_remedies_malayalam(st.session_state.session_state['pred'])
+        else:
+            display_remedies(st.session_state.session_state['pred'])
 
 if __name__ == "__main__":
     main()
+
