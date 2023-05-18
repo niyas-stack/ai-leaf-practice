@@ -143,7 +143,7 @@ def main():
     <nav class="navbar bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
-     <img src="" class="d-inline-block align-text-top">
+     <img src="https://github.com/niyas-stack/ai-leaf-practice/blob/main/logo.png" class="d-inline-block align-text-top">
                 AI Leaf Disease Detection
             </a>
         </div>
