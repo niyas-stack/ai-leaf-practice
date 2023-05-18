@@ -143,12 +143,12 @@ def main():
     <nav class="navbar bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
-      <img src="logo.png"  width="30" height="24" class="d-inline-block align-text-top">
-     AI Leaf Disease Detection
-    </a>
-  </div>
-</nav>
-""",unsafe_allow_html=True)
+     <img src="" class="d-inline-block align-text-top">
+                AI Leaf Disease Detection
+            </a>
+        </div>
+    </nav>
+    """, unsafe_allow_html=True)
     st.markdown(
         "<h1 style='color: green; font-family: Playfair Display;'>AI Leaf Disease Detection</h1>",
         unsafe_allow_html=True)
