@@ -133,7 +133,7 @@ def main():
         unsafe_allow_html=True)
     add_bg_from_local('tropical-plant-with-green-leaves-color-tone-black-background_24972-455.png')
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
-    st.markdown(
+     st.markdown(
         """
         <style>
         body {
@@ -142,11 +142,16 @@ def main():
             background-position: center;
             background-size: cover;
         }
+
+        @media (max-width: 768px) {
+            body {
+                background-size: contain;
+            }
+        }
         </style>
         """,
         unsafe_allow_html=True
     )
-
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
         st.image(image, caption='Uploaded Image', width=300)
