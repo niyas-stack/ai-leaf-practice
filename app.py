@@ -141,22 +141,22 @@ def main():
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
 
     st.markdown(
-        f"""
+        """
         <style>
-        .title-wrapper {{
+        .title-wrapper {
             display: flex;
             align-items: center;
-        }}
-        .title-wrapper img {{
+        }
+        .title-wrapper img {
             margin-left: 10px;
-        }}
+        }
         </style>
         """,
         unsafe_allow_html=True
     )
 
     st.markdown(
-        f"""
+        """
         <div class="title-wrapper">
             <h1 style='color: green; font-family: Playfair Display;'>AI Leaf Disease Detection</h1>
             <img src="logo app1_115435.png" alt="Logo" width="100">
@@ -215,6 +215,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-        
-
