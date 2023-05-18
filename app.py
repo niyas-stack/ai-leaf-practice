@@ -12,12 +12,19 @@ st.markdown(
     <style>
     .navbar {
         display: flex;
-        flex-wrap: wrap;
         align-items: center;
-        justify-content: space-between;
-        padding: 10px;
         background-color: #3498DB;
         color: white;
+        padding: 10px 0;
+        width: 100%;
+    }
+    .nav-item {
+        margin: 0 10px;
+    }
+    .nav-item a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
     }
     </style>
     """,
@@ -28,9 +35,9 @@ st.markdown(
 st.markdown(
     """
     <div class="navbar">
-        <div><a href="#">Home</a></div>
-        <div><a href="#">About</a></div>
-        <div><a href="#">Contact</a></div>
+        <div class="nav-item"><a href="#">Home</a></div>
+        <div class="nav-item"><a href="#">About</a></div>
+        <div class="nav-item"><a href="#">Contact</a></div>
     </div>
     """,
     unsafe_allow_html=True
