@@ -79,21 +79,30 @@ def model_predict(image, model_func, transform):
 
 
 def add_bg_from_local(image_file):
-    with open(image_file, "rb") as image_file:
-        encoded_string = base64.b64encode(image_file.read())
+    file_extension = os.path.splitext(image_file)[1].lower()
+    with open(image_file, "rb") as file:
+        encoded_string = base64.b64encode(file.read()).decode()
+
+    if file_extension == ".jpg" or file_extension == ".jpeg":
+        image_type = "jpeg"
+    elif file_extension == ".png":
+        image_type = "png"
+    else:
+        raise ValueError("Unsupported image file format. Only JPEG and PNG are supported.")
+
     st.markdown(
         f"""
         <style>
         @media (max-width: 768px) {{
             .stApp {{
-                background-image: url(data:image/jpg;base64,{encoded_string.decode()});
+                background-image: url(data:image/{image_type};base64,{encoded_string});
                 background-size: contain;
                 backdrop-filter: blur(25px);
             }}
         }}
         @media (min-width: 769px) {{
             .stApp {{
-                background-image: url(data:image/jpg;base64,{encoded_string.decode()});
+                background-image: url(data:image/{image_type};base64,{encoded_string});
                 background-repeat: no-repeat;
                 background-position: center;
                 background-size: cover;
@@ -104,8 +113,6 @@ def add_bg_from_local(image_file):
         """,
         unsafe_allow_html=True
     )
-
-
 def display_remedies(pred):
     remedy = remedies.get(pred)
     if remedy:
