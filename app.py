@@ -82,10 +82,21 @@ def add_bg_from_local(image_file):
     st.markdown(
         f"""
         <style>
-        .stApp {{
-            background-image: url(data:image/{"jpg"};base64,{encoded_string.decode()});
-            background-size: cover;
-            backdrop-filter: blur(25px);
+        @media (max-width: 768px) {{
+            .stApp {{
+                background-image: url(data:image/jpg;base64,{encoded_string.decode()});
+                background-size: contain;
+                backdrop-filter: blur(25px);
+            }}
+        }}
+        @media (min-width: 769px) {{
+            .stApp {{
+                background-image: url(data:image/jpg;base64,{encoded_string.decode()});
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+                backdrop-filter: blur(25px);
+            }}
         }}
         </style>
         """,
@@ -131,9 +142,27 @@ def main():
     st.markdown(
         "<h1 style='color: green; font-family: Playfair Display;'>AI Leaf Disease Detection</h1>",
         unsafe_allow_html=True)
-    add_bg_from_local('background app1.jpg')
+    add_bg_from_local('background app2.jpg')
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+    st.markdown(
+        """
+        <style>
+        body {
+            background-image: url("path_to_your_image.jpg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
 
+        @media (max-width: 768px) {
+            body {
+                background-size: contain;
+            }
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
         st.image(image, caption='Uploaded Image', width=300)
