@@ -139,28 +139,69 @@ def main():
     init_session_state()
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")  
     st.markdown('<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">', unsafe_allow_html=True)
-    st.markdown("""
+     st.markdown("""
     <style>
+    .navbar {
+        background-color: #F8F9FA; /* Customize the background color */
+        /* Add any other desired styling properties */
+    }
+    
+    .navbar-brand {
+        color: #000000; /* Customize the text color */
+        /* Add any other desired styling properties */
+    }
+    
     .navbar-brand img {
         width: 30px;
         height: 24px;
-        /* Other styling properties */
+        /* Add any other desired styling properties */
+    }
+    
+    /* Hamburger menu styles */
+    .navbar-toggler {
+        border: none;
+        outline: none;
+        background-color: transparent;
+        padding: 0;
+        cursor: pointer;
+    }
+    
+    .navbar-toggler-icon {
+        width: 24px;
+        height: 24px;
+        background-image: url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/assets/img/toggler-icons.svg'); /* Customize the hamburger menu icon */
+        /* Add any other desired styling properties */
     }
     </style>
     """, unsafe_allow_html=True)
+    
     st.markdown("""
-    <nav class="navbar bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-     <img src="https://github.com/niyas-stack/ai-leaf-practice/blob/main/logo.png" class="d-inline-block align-text-top">
+    <nav class="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
                 AI Leaf Disease Detection
             </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
     """, unsafe_allow_html=True)
-    st.markdown(
-        "<h1 style='color: green; font-family: Playfair Display;'>AI Leaf Disease Detection</h1>",
-        unsafe_allow_html=True)
+
     add_bg_from_local('background app2a.jpg')
    # Add logo
     logo = Image.open("logo.png")
