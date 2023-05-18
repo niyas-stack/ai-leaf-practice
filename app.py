@@ -139,13 +139,41 @@ def main():
     init_session_state()
 
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
+
     st.markdown(
-        "<h1 style='color: green; font-family: Playfair Display;'>AI Leaf Disease Detection</h1>",
-        unsafe_allow_html=True)
+        """
+        <style>
+        .title-wrapper {
+            display: flex;
+            align-items: center;
+        }
+        .title-wrapper img {
+            margin-left: 10px;
+        }
+        .logo-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: -80px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        """
+        <div class="title-wrapper">
+            <h1 style='color: green; font-family: Playfair Display;'>AI Leaf Disease Detection</h1>
+        </div>
+        <br>
+        <div class="logo-wrapper">
+            <img src="logo app1_115435.png" alt="Logo" width="100">
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
     add_bg_from_local('background app2a.jpg')
-   # Add logo
-    logo = Image.open("logo app1_115435.png")
-    st.image(logo,width=100)
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
     st.markdown(
         """
