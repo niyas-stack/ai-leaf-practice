@@ -14,7 +14,7 @@ import base64
 # Load the model
 model = torchvision.models.resnet18(pretrained=True)
 classes = {
-   0: 'The above leaf is Cassava (Cassava Mosaic)',
+    0: 'The above leaf is Cassava (Cassava Mosaic)',
     1: 'The above leaf is Cassava CB (Cassava Bacterial Blight)',
     2: 'The above leaf is Cassava Healthy leaf',
     3: 'The above leaf is Tomato Bacterial spot',
@@ -33,12 +33,12 @@ classes = {
 }
 remedies = {
     'The above leaf is Cassava (Cassava Mosaic)': [
-         'Remedy for Cassava Mosaic', 'കാസവ മോസായികയുടെ പരിഹാരം',
-         '96_Songs_The_Life_of_Ram_Video_Song_Vijay_Sethupathi,_Trisha_Govind.mp3', 'cassava.m4a'
+        'Remedy for Cassava Mosaic', 'കാസവ മോസായികയുടെ പരിഹാരം',
+        'cassava.m4a', 'cassava.m4a'
     ],
     'The above leaf is Cassava CB (Cassava Bacterial Blight)': [
-       'Remedy for Cassava Bacterial Blight', 'കാസവ ബാക്ടീരിയൽ ബ്ലൈറ്റിന്റെ പരിഹാരം',
-       'cassava.m4a', 'cassava.m4a'
+        'Remedy for Cassava Bacterial Blight', 'കാസവ ബാക്ടീരിയൽ ബ്ലൈറ്റിന്റെ പരിഹാരം',
+        'cassava.m4a', 'cassava.m4a'
     ]
     # add remedies for other diseases in both English and Malayalam
 }
@@ -64,6 +64,7 @@ transform = transforms.Compose([
     transforms.Normalize((0.5, 0.5, 0.5), (1, 1, 1))
 ])
 
+
 def model_predict(image, model_func, transform):
     image_tensor = transform(image).float()
     image_tensor = image_tensor.unsqueeze(0)
@@ -75,6 +76,7 @@ def model_predict(image, model_func, transform):
         return "not defined", probs
     else:
         return pred, probs
+
 
 def add_bg_from_local(image_file):
     with open(image_file, "rb") as image_file:
@@ -103,6 +105,7 @@ def add_bg_from_local(image_file):
         unsafe_allow_html=True
     )
 
+
 def display_remedies(pred):
     remedy = remedies.get(pred)
     if remedy:
@@ -117,6 +120,8 @@ def display_remedies(pred):
             st.success(f" {remedy[0]}")
         else:
             st.success(f" {remedy[1]}")
+
+
 def display_remedies_malayalam(pred):
     remedy = remedies.get(pred)
     if remedy:
@@ -125,6 +130,8 @@ def display_remedies_malayalam(pred):
         with open(audio_file, 'rb') as audio:
             st.audio(audio.read(), format='audio/mp3')
         st.success(f" {remedy[1]}")
+
+
 # Initialize SessionState
 def init_session_state():
     if 'session_state' not in st.session_state:
@@ -134,6 +141,7 @@ def init_session_state():
             'selected_language': 'English',
             'language_selected': False
         }
+
 
 def main():
     init_session_state()
@@ -164,16 +172,14 @@ def main():
         """
         <div class="title-wrapper">
             <h1 style='color: green; font-family: Playfair Display;'>AI Leaf Disease Detection</h1>
-        </div>
-        <br>
-        <div class="logo-wrapper">
-            <img src="logo.png"  width="100">
+            <img src="logo.png" alt="Logo" width="100">
         </div>
         """,
         unsafe_allow_html=True
     )
 
     add_bg_from_local('background app2a.jpg')
+
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
     st.markdown(
         """
@@ -194,6 +200,7 @@ def main():
         """,
         unsafe_allow_html=True
     )
+
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
         st.image(image, caption='Uploaded Image', width=300)
@@ -206,16 +213,21 @@ def main():
             st.session_state.session_state['language_selected'] = False
 
     if st.session_state.session_state['pred'] is not None:
-      st.markdown(f"<p style='color: red;'>Prediction: {st.session_state.session_state['pred']}</p>", unsafe_allow_html=True)
-      st.markdown(f"<p style='color: red;'>Probability: {st.session_state.session_state['probs']}</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='color: red;'>Prediction: {st.session_state.session_state['pred']}</p>",
+                    unsafe_allow_html=True)
+        st.markdown(f"<p style='color: red;'>Probability: {st.session_state.session_state['probs']}</p>",
+                    unsafe_allow_html=True)
+
     if st.session_state.session_state['pred'] is not None:
-      selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
-      st.session_state.session_state['selected_language'] = selected_language
+        selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
+        st.session_state.session_state['selected_language'] = selected_language
+
     if st.session_state.session_state['pred'] is not None:
-      if st.session_state.session_state['selected_language'] == 'Malayalam':
-         display_remedies_malayalam(st.session_state.session_state['pred'])
-      else:
-         display_remedies(st.session_state.session_state['pred'])
+        if st.session_state.session_state['selected_language'] == 'Malayalam':
+            display_remedies_malayalam(st.session_state.session_state['pred'])
+        else:
+            display_remedies(st.session_state.session_state['pred'])
+
 
 if __name__ == "__main__":
-   main()
+    main()
