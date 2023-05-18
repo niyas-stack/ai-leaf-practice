@@ -172,7 +172,7 @@ def main():
         """
         <div class="title-wrapper">
             <h1 style='color: green; font-family: Playfair Display;'>AI Leaf Disease Detection</h1>
-            <img src="logo.png" alt="Logo" width="100">
+            <img src="logo.png"  width="100">
         </div>
         """,
         unsafe_allow_html=True
