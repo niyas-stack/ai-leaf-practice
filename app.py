@@ -4,7 +4,7 @@ import streamlit as st
 st.title("My Streamlit App")
 
 # Set page logo
-st.image("path/to/logo.png", use_column_width=True)
+st.image("logo.png", use_column_width=True)
 
 # Set navigation bar
 st.markdown(
