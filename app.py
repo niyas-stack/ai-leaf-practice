@@ -167,7 +167,7 @@ def main():
         </div>
         <br>
         <div class="logo-wrapper">
-            <img src="logo app1_115435.png" alt="Logo" width="100">
+            <img src="logo app1_115435.png"  width="100">
         </div>
         """,
         unsafe_allow_html=True
