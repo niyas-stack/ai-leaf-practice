@@ -64,59 +64,7 @@ transform = transforms.Compose([
     transforms.Normalize((0.5, 0.5, 0.5), (1, 1, 1))
 ])
 
-def add_navigation_bar():
-    st.markdown(
-        """
-        <style>
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #f8f9fa;
-            padding: 10px;
-        }
 
-        .navbar-logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .navbar-logo img {
-            margin-right: 10px;
-        }
-
-        .navbar-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #000;
-        }
-
-        .navbar-menu {
-            display: flex;
-        }
-
-        .navbar-menu-item {
-            margin-right: 20px;
-        }
-
-        .navbar-menu-item:last-child {
-            margin-right: 0;
-        }
-        </style>
-        """
-        "<div class='navbar'>"
-        "<div class='navbar-logo'>"
-        "<img src='logo.png' width='50'>"
-        "<span class='navbar-title'>AI Leaf Disease Detection</span>"
-        "</div>"
-        "<div class='navbar-menu'>"
-        "<div class='navbar-menu-item'><a href='#' class='navbar-link'>Home</a></div>"
-        "<div class='navbar-menu-item'><a href='#' class='navbar-link'>About</a></div>"
-        "<div class='navbar-menu-item'><a href='#' class='navbar-link'>Contact</a></div>"
-        "</div>"
-        "</div>",
-        unsafe_allow_html=True
-    )
 def model_predict(image, model_func, transform):
     image_tensor = transform(image).float()
     image_tensor = image_tensor.unsqueeze(0)
@@ -206,27 +154,31 @@ def main():
     init_session_state()
 
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
-    add_navigation_bar()
-    st.markdown(
-        """
-        <style>
-        .title-wrapper {
-            display: flex;
-            align-items: center;
-        }
-        .title-wrapper img {
-            margin-left: 10px;
-        }
-        .logo-wrapper {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: -80px;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+    
+    st.markdown('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">', unsafe_allow_html=True)
 
+    st.markdown("""
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #3498DB;">
+      <a class="navbar-brand" href="https://youtube.com/dataprofessor" target="_blank">Data Professor</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link disabled" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://youtube.com/dataprofessor" target="_blank">YouTube</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://twitter.com/thedataprof" target="_blank">Twitter</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    """, unsafe_allow_html=True)
+   
     st.markdown(
         """
         <div class="title-wrapper">
