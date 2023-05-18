@@ -133,7 +133,7 @@ def main():
         unsafe_allow_html=True)
     add_bg_from_local('tropical-plant-with-green-leaves-color-tone-black-background_24972-455.png')
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
-     st.markdown(
+    st.markdown(
         """
         <style>
         body {
