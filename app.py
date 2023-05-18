@@ -139,34 +139,13 @@ def main():
     init_session_state()
 
     st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
-
     st.markdown(
-        """
-        <style>
-        .title-wrapper {
-            display: flex;
-            align-items: center;
-        }
-        .title-wrapper img {
-            margin-left: 10px;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-
-    st.markdown(
-        """
-        <div class="title-wrapper">
-            <h1 style='color: green; font-family: Playfair Display;'>AI Leaf Disease Detection</h1>
-            <img src="logo app1_115435.png" alt="Logo" width="100">
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
+        "<h1 style='color: green; font-family: Playfair Display;'>AI Leaf Disease Detection</h1>",
+        unsafe_allow_html=True)
     add_bg_from_local('background app2a.jpg')
-
+   # Add logo
+    logo = Image.open("logo app1_115435.png")
+    st.image(logo, caption='Logo', width=100)
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
     st.markdown(
         """
@@ -187,7 +166,6 @@ def main():
         """,
         unsafe_allow_html=True
     )
-
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
         st.image(image, caption='Uploaded Image', width=300)
@@ -200,18 +178,16 @@ def main():
             st.session_state.session_state['language_selected'] = False
 
     if st.session_state.session_state['pred'] is not None:
-        st.markdown(f"<p style='color: red;'>Prediction: {st.session_state.session_state['pred']}</p>", unsafe_allow_html=True)
-        st.markdown(f"<p style='color: red;'>Probability: {st.session_state.session_state['probs']}</p>", unsafe_allow_html=True)
-
+      st.markdown(f"<p style='color: red;'>Prediction: {st.session_state.session_state['pred']}</p>", unsafe_allow_html=True)
+      st.markdown(f"<p style='color: red;'>Probability: {st.session_state.session_state['probs']}</p>", unsafe_allow_html=True)
     if st.session_state.session_state['pred'] is not None:
-        selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
-        st.session_state.session_state['selected_language'] = selected_language
-
+      selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
+      st.session_state.session_state['selected_language'] = selected_language
     if st.session_state.session_state['pred'] is not None:
-        if st.session_state.session_state['selected_language'] == 'Malayalam':
-            display_remedies_malayalam(st.session_state.session_state['pred'])
-        else:
-            display_remedies(st.session_state.session_state['pred'])
+      if st.session_state.session_state['selected_language'] == 'Malayalam':
+         display_remedies_malayalam(st.session_state.session_state['pred'])
+      else:
+         display_remedies(st.session_state.session_state['pred'])
 
-if __name__ == "__main__":
-    main()
+if _name_ == "_main_":
+    main()
