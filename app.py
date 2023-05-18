@@ -143,6 +143,9 @@ def main():
         "<h1 style='color: green; font-family: Playfair Display;'>AI Leaf Disease Detection</h1>",
         unsafe_allow_html=True)
     add_bg_from_local('background app2a.jpg')
+   # Add logo
+    logo = Image.open("logo app1_115435.png")
+    st.image(logo, caption='Logo', width=100)
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
     st.markdown(
         """
