@@ -143,7 +143,7 @@ def main():
     <nav class="navbar bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
-      <img src="logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+      <img src="logo.png"  width="30" height="24" class="d-inline-block align-text-top">
      AI Leaf Disease Detection
     </a>
   </div>
@@ -154,7 +154,7 @@ def main():
         unsafe_allow_html=True)
     add_bg_from_local('background app2a.jpg')
    # Add logo
-    logo = Image.open("logo app1_115435.png")
+    logo = Image.open("logo.png")
     st.image(logo,  width=100)
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
     st.markdown(
