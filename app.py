@@ -131,7 +131,7 @@ def main():
     st.markdown(
         "<h1 style='color: green; font-family: Playfair Display;'>AI Leaf Disease Detection</h1>",
         unsafe_allow_html=True)
-    add_bg_from_local('istockphoto-1155254428-170667a.jpg')
+    add_bg_from_local('background app2.jpg')
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
     if uploaded_file is not None:
