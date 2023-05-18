@@ -82,10 +82,21 @@ def add_bg_from_local(image_file):
     st.markdown(
         f"""
         <style>
-        .stApp {{
-            background-image: url(data:image/{"jpg"};base64,{encoded_string.decode()});
-            background-size: cover;
-            backdrop-filter: blur(25px);
+        @media (max-width: 768px) {{
+            .stApp {{
+                background-image: url(data:image/jpg;base64,{encoded_string.decode()});
+                background-size: contain;
+                backdrop-filter: blur(25px);
+            }}
+        }}
+        @media (min-width: 769px) {{
+            .stApp {{
+                background-image: url(data:image/jpg;base64,{encoded_string.decode()});
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+                backdrop-filter: blur(25px);
+            }}
         }}
         </style>
         """,
