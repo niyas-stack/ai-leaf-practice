@@ -71,91 +71,14 @@ def model_predict(image, model_func, transform):
     output = model_func(image_tensor)
     index = torch.argmax(output)
     pred = classes[index.item()]
-    probs, _ = torch.max(F.softmax(output, dim=1), 1)
-    if probs < 0.93:
-        return "not defined", probs
-    else:
-        return pred, probs
+    probs, indices = torch.topk(F.softmax(output, dim=1), 3)
+    pred_prob = [(classes[indices[i].item()], probs[0][i].item() * 100) for i in range(3)]
+    return pred, pred_prob
 
 
-def add_bg_from_local(image_file):
-    file_extension = os.path.splitext(image_file)[1].lower()
-    with open(image_file, "rb") as file:
-        encoded_string = base64.b64encode(file.read()).decode()
-
-    if file_extension == ".jpg" or file_extension == ".jpeg":
-        image_type = "jpeg"
-    elif file_extension == ".png":
-        image_type = "png"
-    else:
-        raise ValueError("Unsupported image file format. Only JPEG and PNG are supported.")
-
-    st.markdown(
-        f"""
-        <style>
-        @media (max-width: 768px) {{
-            .stApp {{
-                background-image: url(data:image/{image_type};base64,{encoded_string});
-                background-size: contain;
-                backdrop-filter: blur(25px);
-            }}
-        }}
-        @media (min-width: 769px) {{
-            .stApp {{
-                background-image: url(data:image/{image_type};base64,{encoded_string});
-                background-repeat: no-repeat;
-                background-position: center;
-                background-size: cover;
-                backdrop-filter: blur(25px);
-            }}
-        }}
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-def display_remedies(pred):
-    remedy = remedies.get(pred)
-    if remedy:
-        st.markdown("<p style='color:red;'>Remedy:</p>", unsafe_allow_html=True)
-        if selected_language == 'English':
-            audio_file = remedy[2]
-        else:
-            audio_file = remedy[3]
-        with open(audio_file, 'rb') as audio:
-            st.audio(audio.read(), format='audio/mp3')
-        if selected_language == 'English':
-            st.success(f" {remedy[0]}")
-        else:
-            st.success(f" {remedy[1]}")
-
-
-def display_remedies_malayalam(pred):
-    remedy = remedies.get(pred)
-    if remedy:
-        st.markdown("<p style='color:red;'>Remedy (Malayalam):</p>", unsafe_allow_html=True)
-        audio_file = remedy[3]
-        with open(audio_file, 'rb') as audio:
-            st.audio(audio.read(), format='audio/mp3')
-        st.success(f" {remedy[1]}")
-
-
-# Initialize SessionState
-def init_session_state():
-    if 'session_state' not in st.session_state:
-        st.session_state.session_state = {
-            'pred': None,
-            'probs': None,
-            'selected_language': 'English',
-            'language_selected': False
-        }
-
-
-def main():
-    init_session_state()
-
-    st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")
-    
-    st.markdown('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">', unsafe_allow_html=True)
+def run_app():
+    st.markdown('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">',
+                unsafe_allow_html=True)
 
     st.markdown("""
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #3498DB;">
@@ -178,49 +101,74 @@ def main():
       </div>
     </nav>
     """, unsafe_allow_html=True)
-   
-    st.markdown(
-        """
-        <div class="title-wrapper">
-            <h1 style='color: green; font-family: Playfair Display;'>AI Leaf Disease Detection</h1>
-            <img src="logo.png"  width="50">
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
 
-    add_bg_from_local('background app2a.jpg')
+    st.title("Leaf Disease Classification")
 
-    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
-   
+    st.set_option('deprecation.showfileUploaderEncoding', False)
 
-    if uploaded_file is not None:
-        image = Image.open(uploaded_file)
-        st.image(image, caption='Uploaded Image', width=300)
-        st.write("")
+    def load_image(image_file):
+        img = Image.open(image_file)
+        return img
 
-        if st.button("Classify", key="classify_btn"):
-            pred, probs = model_predict(image, model, transform)
-            st.session_state.session_state['pred'] = pred
-            st.session_state.session_state['probs'] = probs.item()
-            st.session_state.session_state['language_selected'] = False
+    def process_image(image):
+        img = image.convert('RGB')
+        return img
 
-    if st.session_state.session_state['pred'] is not None:
-        st.markdown(f"<p style='color: red;'>Prediction: {st.session_state.session_state['pred']}</p>",
-                    unsafe_allow_html=True)
-        st.markdown(f"<p style='color: red;'>Probability: {st.session_state.session_state['probs']}</p>",
-                    unsafe_allow_html=True)
+    def predict(image):
+        pred, pred_prob = model_predict(image, model, transform)
+        return pred, pred_prob
 
-    if st.session_state.session_state['pred'] is not None:
-        selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
-        st.session_state.session_state['selected_language'] = selected_language
+    st.sidebar.title("What to do")
+    app_mode = st.sidebar.selectbox("Choose the app mode",
+                                    ["Show instructions", "Run the app"])
 
-    if st.session_state.session_state['pred'] is not None:
-        if st.session_state.session_state['selected_language'] == 'Malayalam':
-            display_remedies_malayalam(st.session_state.session_state['pred'])
-        else:
-            display_remedies(st.session_state.session_state['pred'])
+    if app_mode == "Show instructions":
+        st.sidebar.success('To continue select "Run the app".')
+    elif app_mode == "Run the app":
+        st.sidebar.success('To change the image, browse again from the top.')
+
+        st.info("1. Upload an image of a leaf.")
+        st.info("2. The app will predict the disease on the leaf.")
+        st.info("3. The app will provide remedies to the predicted disease.")
+        st.info("4. Select the language (English/Malayalam) for the remedies.")
+
+        uploaded_file = st.file_uploader("Upload an image...", type=["jpg", "jpeg", "png"])
+
+        if uploaded_file is not None:
+            image = load_image(uploaded_file)
+            st.image(image, caption='Uploaded Image.', use_column_width=True)
+            image = process_image(image)
+
+            if st.button("Predict"):
+                pred, pred_prob = predict(image)
+                st.success(f"Prediction: {pred}")
+                st.info(f"Confidence: {pred_prob[0][1]:.2f}%")
+                st.info(f"Top 3 Predictions:")
+                for i, (pred, prob) in enumerate(pred_prob):
+                    st.write(f"{i + 1}. {pred}: {prob:.2f}%")
+
+                if pred in remedies:
+                    remedy_info = remedies[pred]
+                    st.info("Remedies:")
+                    st.write(f"{remedy_info[0]}")
+                    if selected_language == 'English':
+                        st.audio(remedy_info[2], format='audio/m4a')
+                    elif selected_language == 'Malayalam':
+                        st.audio(remedy_info[3], format='audio/m4a')
+
+        st.sidebar.title("Language")
+        selected_language = st.sidebar.selectbox("Select the language for the remedies",
+                                                 ["English", "Malayalam"])
+
+        st.sidebar.title("About")
+        st.sidebar.info(
+            """
+            This app is a simple leaf disease classification application.
+            The model is trained to predict diseases on leaves from three different plant types: cassava, tomato, and bean.
+            """
+        )
 
 
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    run_app()
+
