@@ -137,7 +137,7 @@ def init_session_state():
 
 def main():
     init_session_state()
-    st.set_page_config(page_title="AI Leaf Disease Detection", page_icon=":leaves:")  
+    st.set_page_config(page_title="Doctor Leaf", page_icon=":leaves:")  
     st.markdown('<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">', unsafe_allow_html=True)
     st.markdown("""
     <style>
@@ -180,7 +180,7 @@ def main():
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-                AI Leaf Disease Detection
+                Doctor Leaf
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
