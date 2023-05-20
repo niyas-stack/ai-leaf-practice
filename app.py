@@ -15,21 +15,6 @@ with header_columns[0]:
 with header_columns[1]:
     st.title('My Website')
 
-# Add custom CSS for the navigation bar
-st.markdown(
-    """
-    <style>
-    .sidebar .sidebar-content {
-        background-image: url('logo.png');
-        background-repeat: no-repeat;
-        background-position: 20px 20px;
-        padding-top: 120px; /* Adjust the padding as needed */
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
 # Navigation options
 nav_option = st.sidebar.radio('Go to', ('Home', 'About', 'Contact'))
 
@@ -42,5 +27,4 @@ elif nav_option == 'About':
     # Add content for the about page
 elif nav_option == 'Contact':
     st.title('Contact Page')
-    # Add content for the contact page
-
+    # Add content for the contact page
