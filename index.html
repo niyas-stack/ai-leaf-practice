@@ -1,21 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
-        iframe {
-            width: 100%;
-            height: 100vh;
-            border: none;
-        }
-    </style>
-</head>
-<body>
-    <iframe src="https://github.com/niyas-stack/ai-leaf-practice" frameborder="0"></iframe>
-</body>
-</html>
+import streamlit as st
+
+hide_streamlit_style = """
+<style>
+.css-hi6a2p {padding-top: 0rem;}
+</style>
+
+"""
+st.title("Test")
+if st.checkbox('Remove padding'):
+    st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
