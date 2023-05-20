@@ -1,5 +1,5 @@
 import streamlit as st
-from navlog.py import add_logo
+from navlog import add_logo
 if st.checkbox("Use url", value=True):
     add_logo("http://placekitten.com/120/120")
 else:
