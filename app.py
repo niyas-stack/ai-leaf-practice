@@ -23,8 +23,8 @@ logo_style = """
 # Hide Streamlit default header elements
 hide_header_style = """
     <style>
-    #MainMenu, header, footer {
-        visibility: hidden;
+    #MainMenu, .element-container:nth-child(1) {
+        display: none !important;
     }
     </style>
 """
@@ -49,4 +49,5 @@ st.markdown(
 # Rest of your Streamlit app code goes here
 st.title("Welcome to My Streamlit App")
 st.write("This is the content of your app.")
+
 
