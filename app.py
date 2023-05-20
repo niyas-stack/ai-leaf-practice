@@ -2,8 +2,10 @@ import streamlit as st
 import base64
 from PIL import Image
 import torch
+import torchvision
 import torchvision.transforms as transforms
 import torch.nn.functional as F
+
 # Load the model
 model = torchvision.models.resnet18(pretrained=True)
 classes = {
@@ -90,8 +92,8 @@ def add_bg_from_local(image_file):
         """,
         unsafe_allow_html=True
     )
+
 def main():
-    
     # Set page title and favicon
     st.set_page_config(page_title='My Website', page_icon='logo.png')
 
@@ -103,6 +105,7 @@ def main():
     </style>
     ''', unsafe_allow_html=True)
     add_bg_from_local('background.jpg')
+
     # Create the header section
     header_container = st.beta_container()
 
@@ -120,8 +123,8 @@ def main():
 
     # Render different content based on the selected navigation option
     if nav_option == 'Home':
-       uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
-       if uploaded_file is not None:
+        uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+        if uploaded_file is not None:
             image = Image.open(uploaded_file)
             st.image(image, caption='Uploaded Image', width=300)
             st.write("")
@@ -145,13 +148,16 @@ def main():
                 display_remedies_malayalam(st.session_state['pred'])
             else:
                 display_remedies(st.session_state['pred'])
-        # Add content for the home page
+
     elif nav_option == 'About':
         st.title('About Page')
         # Add content for the about page
+
     elif nav_option == 'Contact':
         st.title('Contact Page')
         # Add content for the contact page
+
 if __name__ == "__main__":
     main()
+
                
