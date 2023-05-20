@@ -3,7 +3,7 @@ import streamlit as st
 # Custom CSS styles
 header_style = """
     position: fixed;
-    top: 0;
+    top: 60px; /* Adjust the top position to leave space for the default header */
     left: 0;
     right: 0;
     height: 60px;
@@ -46,4 +46,3 @@ st.markdown(
 # Rest of your Streamlit app code goes here
 st.title("Welcome to My Streamlit App")
 st.write("This is the content of your app.")
-
