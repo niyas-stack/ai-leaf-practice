@@ -20,8 +20,17 @@ logo_style = """
     width: auto;
 """
 
-# Remove Streamlit default header
-st.beta_set_page_config(header_visible=False)
+# Hide Streamlit header using CSS
+st.markdown(
+    """
+    <style>
+    .streamlit-container .main {
+        padding-top: 0rem;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Render the fixed header
 st.markdown(
