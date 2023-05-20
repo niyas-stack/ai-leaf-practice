@@ -1,28 +1,60 @@
 import streamlit as st
 
 # Custom CSS styles
-header_style = """
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    background-color: yellow;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    z-index: 999;
+custom_css = """
+<style>
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.stApp {
+    background-color: transparent;
+}
+
+.stButton>button {
+    background-color: transparent;
+    color: inherit;
+}
+
+.stButton>button:hover {
+    background-color: transparent;
+}
+
+.stTextInput>div>div {
+    background-color: transparent;
+}
+
+.stTextInput>div>input {
+    color: inherit;
+}
+
+.stMarkdown {
+    background-color: transparent;
+    color: inherit;
+}
+
+.stMarkdown p {
+    margin: 0;
+    padding: 0;
+}
+
+.stMarkdown a {
+    color: inherit;
+}
+
+.stMarkdown a:hover {
+    text-decoration: underline;
+}
+</style>
 """
 
-logo_style = """
-    height: 40px;
-    width: auto;
-"""
+# Render the custom CSS
+st.markdown(custom_css, unsafe_allow_html=True)
 
 # Render the fixed header
 st.markdown(
-    f"""
+    """
     <header style="{header_style}">
         <h1>Project Title</h1>
         <img src="logo.png" alt="Logo" style="{logo_style}">
@@ -40,16 +72,6 @@ st.markdown(
 st.title("Welcome to My Streamlit App")
 st.write("This is the content of your app.")
 
-
-# Custom CSS styles
-hide_header_style = """
-    <style>
-    #MainMenu {visibility: hidden;}
-    </style>
-"""
-
-# Render the custom CSS to hide the default Streamlit header
-st.markdown(hide_header_style, unsafe_allow_html=True)
 
 
 
