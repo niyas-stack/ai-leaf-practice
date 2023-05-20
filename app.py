@@ -20,7 +20,7 @@ logo_style = """
     width: auto;
 """
 
-# Render the fixed header
+# Render custom CSS styles
 st.markdown(
     f"""
     <style>
@@ -29,6 +29,13 @@ st.markdown(
         display: none;
     }}
     </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Render the fixed header
+st.markdown(
+    f"""
     <header style="{header_style}">
         <h1>Project Title</h1>
         <img src="logo.png" alt="Logo" style="{logo_style}">
@@ -44,4 +51,5 @@ st.markdown(
 
 # Rest of your Streamlit app code goes here
 st.title("Welcome to My Streamlit App")
-st.write("This is the content of your app.")
+st.write("This is the content of your app.")
+
