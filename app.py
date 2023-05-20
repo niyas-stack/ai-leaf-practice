@@ -19,11 +19,11 @@ st.markdown('''
 
 @media (max-width: 600px) {
   .header-container {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
   }
   .header-container img {
-    margin-bottom: 10px;
+    margin-right: 10px;
   }
 }
 </style>
@@ -34,7 +34,7 @@ header_container = st.container()
 
 # Add logo and title to the header
 with header_container:
-    st.image('logo.png')
+    st.image('logo.png', width=100)
     st.title('My Website')
 
 # Navigation options
