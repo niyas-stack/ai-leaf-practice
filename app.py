@@ -6,10 +6,17 @@ st.set_page_config(page_title='My Website', page_icon='logo.png')
 # Add custom CSS styles
 header_style = """
     <style>
-        .header-container {
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background-color: #f8f8f8;
+            z-index: 9999;
+            padding: 10px;
             display: flex;
             align-items: center;
-            height: 80px;
         }
 
         .header-logo {
@@ -25,7 +32,7 @@ header_style = """
 """
 st.markdown(header_style, unsafe_allow_html=True)
 
-# Create the header section
+# Create the fixed header section
 header_container = st.beta_container()
 
 # Add logo and title to the header
@@ -50,3 +57,4 @@ elif nav_option == 'About':
 elif nav_option == 'Contact':
     st.title('Contact Page')
     # Add content for the contact page
+
