@@ -1,7 +1,8 @@
 import streamlit as st
-from navlog import add_logo
 
-
+def add_logo(logo_url, height):
+    # Add your logo customization code here
+    pass
 
 # Set page title and favicon
 st.set_page_config(page_title='My Website', page_icon='logo.png')
@@ -31,4 +32,4 @@ elif nav_option == 'About':
     # Add content for the about page
 elif nav_option == 'Contact':
     st.title('Contact Page')
-    # Add content for the contact page
+    # Add content for the contact page
