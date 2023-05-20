@@ -81,7 +81,7 @@ def main():
     }
     </style>
     ''', unsafe_allow_html=True)
-    add_bg_from_local('background.jpg')
+    add_bg_from_local('background app2a.jpg')
 
     # Create the header section
     header_container = st.beta_container()
