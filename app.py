@@ -10,7 +10,19 @@ header_container = st.beta_container()
 header_columns = header_container.beta_columns([1, 6])  # Adjust column widths as needed
 
 with header_columns[0]:
-    st.image('logo.png')
+    st.markdown(
+        """
+        <style>
+        .logo-image {
+            width: 100px;
+            height: auto;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+    st.image('logo.png', caption='', use_column_width=False, output_format='PNG', 
+             width=100, output_class='logo-image')
 
 with header_columns[1]:
     st.title('My Website')
@@ -28,5 +40,3 @@ elif nav_option == 'About':
 elif nav_option == 'Contact':
     st.title('Contact Page')
     # Add content for the contact page
-
-
