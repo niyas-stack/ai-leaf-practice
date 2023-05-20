@@ -1,4 +1,11 @@
 import streamlit as st
+from streamlit_extras.app_logo import add_logo
+
+if st.checkbox("Use url", value=True):
+    add_logo("http://placekitten.com/120/120")
+else:
+    add_logo("gallery/kitty.jpeg", height=300)
+st.write("👈 Check out the cat in the nav-bar!")
 
 # Set page title and favicon
 st.set_page_config(page_title='My Website', page_icon='logo.png')
