@@ -1,13 +1,16 @@
 import streamlit as st
 
-# Set page title
-st.title("My Streamlit App")
-
-# Add logo and title to sidebar
-st.sidebar.image('logo.png', use_column_width=True)
-st.sidebar.title('Navigation')
+# Set page title and favicon
+st.set_page_config(page_title='My Website', page_icon='logo.png')
 
 # Create the navigation bar
+st.sidebar.title('Navigation')
+
+# Add logo and title to the navigation bar
+st.sidebar.image('logo.png', use_column_width=True)
+st.sidebar.title('My Website')
+
+# Navigation options
 nav_option = st.sidebar.radio('Go to', ('Home', 'About', 'Contact'))
 
 # Render different content based on the selected navigation option
@@ -20,4 +23,3 @@ elif nav_option == 'About':
 elif nav_option == 'Contact':
     st.title('Contact Page')
     # Add content for the contact page
-
