@@ -1,4 +1,4 @@
-import streamlit as st
+mport streamlit as st
 
 # Custom CSS styles
 header_style = """
@@ -20,18 +20,18 @@ logo_style = """
     width: auto;
 """
 
-st.markdown("""
-<style>
-    #MainMenu, header, footer {visibility: hidden;}
-
-    /* This code gets the first element on the sidebar,
-    and overrides its default styling */
-    section[data-testid="stSidebar"] div:first-child {
-        top: 0;
-        height: 100vh;
-    }
-</style>
-""", unsafe_allow_html=True)
+# Render custom CSS styles
+st.markdown(
+    f"""
+    <style>
+    /* Hide Streamlit header */
+    .stAppHeader {{
+        display: none;
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Render the fixed header
 st.markdown(
@@ -49,7 +49,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.title('This is a test app')
-
-st.sidebar.markdown('After hiding streamlit header there is still a thin white space on top, noticeable when the sidebar is open.')
+# Rest of your Streamlit app code goes here
+st.title("Welcome to My Streamlit App")
+st.write("This is the content of your app.")
 
