@@ -24,11 +24,12 @@ logo_style = """
 st.markdown(
     f"""
     <style>
-    /* Hide Streamlit header */
-    .stAppHeader {{
-        display: none;
+    /* Hide the default Streamlit header */
+    .element-container:nth-child(1) {{
+        display: none !important;
     }}
     </style>
+
     <header style="{header_style}">
         <h1>Project Title</h1>
         <img src="logo.png" alt="Logo" style="{logo_style}">
