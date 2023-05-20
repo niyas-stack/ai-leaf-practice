@@ -1,75 +1,42 @@
 import streamlit as st
 
-def main():
-    # Add custom CSS styles to create a sticky header
-    st.markdown(
-        """
-        <style>
-        .sticky {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .navbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 20px;
-            background-color: #F8D700;
-            color: black;
-        }
-        .navbar-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: bold;
-        }
-        .navbar-logo img {
-            width: 40px;
-            height: 40px;
-        }
-        .navbar-menu {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            list-style-type: none;
-            margin: 0;
-        }
-        .navbar-menu li {
-            padding: 5px;
-            cursor: pointer;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+# Custom CSS styles
+header_style = """
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: yellow;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 999;
+"""
 
-    # Create the sticky header
-    st.beta_container().markdown(
-        """
-        <div class="sticky">
-            <div class="navbar">
-                <div class="navbar-logo">
-                    <img src="logo.png" alt="Logo">
-                    <h1>Project Title</h1>
-                </div>
-                <div class="navbar-menu">
-                    <li>Home</li>
-                    <li>About</li>
-                    <li>Contact</li>
-                </div>
-                <div class="navbar-hamburger">
-                    <!-- Add your hamburger menu icon here -->
-                </div>
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+logo_style = """
+    height: 40px;
+    width: auto;
+"""
 
-    # Add your Streamlit app content below the sticky header
-    st.title('Welcome to my Streamlit App')
-    st.write('This is the content of your app.')
+# Render the fixed header
+st.markdown(
+    f"""
+    <header style="{header_style}">
+        <h1>Project Title</h1>
+        <img src="logo.png" alt="Logo" style="{logo_style}">
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+    """,
+    unsafe_allow_html=True
+)
 
-if __name__ == '__main__':
-    main()
+# Rest of your Streamlit app code goes here
+st.title("Welcome to My Streamlit App")
+st.write("This is the content of your app.")
+
