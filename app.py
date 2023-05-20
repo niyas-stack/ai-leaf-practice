@@ -10,7 +10,7 @@ st.markdown('''
 }
 .header-container {
     display: flex;
-    align-items: right;
+    align-items: center;
 }
 .header-container img {
     width: 100px;
