@@ -3,6 +3,28 @@ import streamlit as st
 # Set page title and favicon
 st.set_page_config(page_title='My Website', page_icon='logo.png')
 
+# Add custom CSS styles
+header_style = """
+    <style>
+        .header-container {
+            display: flex;
+            align-items: center;
+            height: 80px;
+        }
+
+        .header-logo {
+            width: 100px;
+            margin-right: 10px;
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+"""
+st.markdown(header_style, unsafe_allow_html=True)
+
 # Create the header section
 header_container = st.beta_container()
 
@@ -10,7 +32,7 @@ header_container = st.beta_container()
 header_columns = header_container.beta_columns([1, 6])  # Adjust column widths as needed
 
 with header_columns[0]:
-    st.image('logo.png', use_column_width=True)
+    st.image('logo.png', use_column_width=True, caption='Logo', output_format='PNG')
 
 with header_columns[1]:
     st.title('My Website')
