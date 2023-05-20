@@ -3,6 +3,13 @@ import streamlit as st
 # Set page title and favicon
 st.set_page_config(page_title='My Website', page_icon='logo.png')
 
+st.markdown('''
+<style>
+.stApp [data-testid="stToolbar"]{
+    display:none;
+}
+</style>
+''', unsafe_allow_html=True)
 # Create the header section
 header_container = st.beta_container()
 
