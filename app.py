@@ -10,14 +10,15 @@ st.markdown('''
 }
 </style>
 ''', unsafe_allow_html=True)
+
 # Create the header section
 header_container = st.beta_container()
 
 # Add logo and title to the header
-header_columns = header_container.beta_columns([1, 6])  # Adjust column widths as needed
+header_columns = header_container.beta_columns([2, 6])  # Adjust column widths as needed
 
 with header_columns[0]:
-    st.image('logo.png', use_column_width=True)
+    st.image('logo.png', width=100)
 
 with header_columns[1]:
     st.title('My Website')
