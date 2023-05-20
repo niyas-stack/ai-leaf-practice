@@ -15,7 +15,7 @@ st.markdown('''
 header_container = st.beta_container()
 
 # Add logo and title to the header
-header_columns = header_container.beta_columns([2, 7])  # Adjust column widths as needed
+header_columns = header_container.beta_columns([1, 7])  # Adjust column widths as needed
 
 with header_columns[0]:
     st.image('logo.png', width=70)
