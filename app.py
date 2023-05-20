@@ -14,7 +14,7 @@ st.markdown('''
 }
 .logo {
     width: 100px;
-    margin-right: 20px;
+    margin-right: 50px;
 }
 </style>
 ''', unsafe_allow_html=True)
