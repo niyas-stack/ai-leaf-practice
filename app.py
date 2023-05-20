@@ -1,12 +1,14 @@
 import streamlit as st
 
-hide_streamlit_style = """
+enable_scroll = """
 <style>
-.stApp > div {
-   .css-1y0tads {padding-top: 0rem;}
+.main {
+    overflow: auto;
 }
 </style>
 """
+
+st.markdown(enable_scroll, unsafe_allow_html=True)
 
 st.title("Test")
 if st.checkbox('Remove padding'):
