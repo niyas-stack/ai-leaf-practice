@@ -11,34 +11,11 @@ model = torchvision.models.resnet18(pretrained=True)
 classes = {
     0: 'The above leaf is Cassava (Cassava Mosaic)',
     1: 'The above leaf is Cassava CB (Cassava Bacterial Blight)',
-    2: 'The above leaf is Cassava Healthy leaf',
-    3: 'The above leaf is Tomato Bacterial spot',
-    4: 'The above leaf is Tomato early blight',
-    5: 'The above leaf is Tomato Late blight',
-    6: 'The above leaf is Tomato Leaf Mold',
-    7: 'The above leaf is Tomato Septoria leaf spot',
-    8: 'The above leaf is Tomato Spider mites Two-spotted spider mite',
-    9: 'The above leaf is Tomato Target Spot',
-    10: 'The above leaf is Tomato Yellow Leaf Curl Virus',
-    11: 'The above leaf is Tomato mosaic virus',
-    12: 'The above leaf is Tomato healthy',
-    13: 'The above leaf is bean angular leaf spot',
-    14: 'The above leaf is bean healthy',
-    15: 'The above leaf is bean rust'
+    # Rest of the classes...
 }
 
 remedies = {
-    'The above leaf is Cassava (Cassava Mosaic)': [
-        'Remedy for Cassava Mosaic',
-        'കാസവ മോസായികയുടെ പരിഹാരം',
-        'cassava.m4a'
-    ],
-    'The above leaf is Cassava CB (Cassava Bacterial Blight)': [
-        'Remedy for Cassava Bacterial Blight',
-        'കാസവ ബാക്ടീരിയൽ ബ്ലൈറ്റിന്റെ പരിഹാരം',
-        'cassava.m4a'
-    ]
-    # Add remedies for other diseases in both English and Malayalam
+    # Remedies for different diseases...
 }
 
 # Preprocessing
@@ -57,15 +34,12 @@ def model_predict(image, model_func, transform):
     image_tensor = image_tensor.unsqueeze(0)
     output = model_func(image_tensor)
     index = torch.argmax(output)
-    if index.item() in classes:
-        pred = classes[index.item()]
-        probs, _ = torch.max(F.softmax(output, dim=1), 1)
-        if probs < 0.93:
-            return "not defined", probs
-        else:
-            return pred, probs
+    pred = classes[index.item()]
+    probs, _ = torch.max(F.softmax(output, dim=1), 1)
+    if probs < 0.93:
+        return "not defined", probs
     else:
-        return "Unknown", 0.0
+        return pred, probs
 
 def display_remedies(pred):
     remedy = remedies.get(pred)
@@ -135,7 +109,7 @@ def main():
             if st.button("Classify", key="classify_btn"):
                 pred, probs = model_predict(image, model, transform)
                 st.session_state['pred'] = pred
-                st.session_state['probs'] = probs.item()
+                st.session_state['probs'] = probs
                 st.session_state['language_selected'] = False
 
         if 'pred' in st.session_state and st.session_state['pred'] is not None:
