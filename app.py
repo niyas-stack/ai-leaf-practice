@@ -2,7 +2,7 @@ import streamlit as st
 
 st.markdown("""
 <style>
-    #MainMenu, header, footer {visibility: hidden;}
+    #MainMenu,  footer {visibility: hidden;}
 
     /* This code gets the first element on the sidebar,
     and overrides its default styling */
