@@ -15,17 +15,17 @@ header_style = """
     z-index: 999;
 """
 
-logo_style = """
-    height: 40px;
-    width: auto;
-"""
-
 # Render the custom header
 st.markdown(
     f"""
+    <style>
+    /* Hide Streamlit header */
+    .stAppHeader {{
+        display: none;
+    }}
+    </style>
     <header style="{header_style}">
         <h1>Project Title</h1>
-        <img src="logo.png" alt="Logo" style="{logo_style}">
         <nav>
             <a href="#">Home</a>
             <a href="#">About</a>
@@ -39,5 +39,3 @@ st.markdown(
 # Rest of your Streamlit app code goes here
 st.title("Welcome to My Streamlit App")
 st.write("This is the content of your app.")
-
-
