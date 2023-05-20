@@ -2,7 +2,7 @@ import streamlit as st
 
 st.markdown("""
 <style>
-    #MainMenu, header, footer {visibility: hidden;}
+    #MainMenu,  footer {visibility: hidden;}
 </style>
 """,unsafe_allow_html=True)
 
