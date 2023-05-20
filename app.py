@@ -7,12 +7,12 @@ st.set_page_config(page_title='My Website', page_icon='logo.png')
 header_style = """
     <style>
         .header {
-            position: fixed;
+            position: sticky;
             top: 0;
             left: 0;
             width: 100%;
             height: 80px;
-            background-color: #f8f8f8;
+            background-color: yellow;
             z-index: 9999;
             padding: 10px;
             display: flex;
