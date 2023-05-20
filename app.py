@@ -14,7 +14,7 @@ st.markdown('''
 }
 .logo {
     width: 100px;
-    margin-right: 100px;
+    margin-right: 20px;
 }
 </style>
 ''', unsafe_allow_html=True)
@@ -26,7 +26,7 @@ header_container = st.beta_container()
 header_columns = header_container.beta_columns([1, 6])  # Adjust column widths as needed
 
 with header_columns[0]:
-    st.markdown('<img src="logo.png" class="logo">', unsafe_allow_html=True)
+    st.image('logo.png', use_column_width=True, caption='Logo', width=100, class_='logo')
 
 with header_columns[1]:
     st.title('My Website')
