@@ -3,6 +3,14 @@ import streamlit as st
 # Set page title and favicon
 st.set_page_config(page_title='My Website', page_icon='logo.png')
 
+hide_streamlit_style = """
+<style>
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+</style>
+
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 # Create the header section
 header_container = st.beta_container()
 
