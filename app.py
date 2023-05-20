@@ -90,7 +90,7 @@ def main():
     header_columns = header_container.beta_columns([1, 8])  # Adjust column widths as needed
 
     with header_columns[0]:
-        st.image('logo.png', width=70)
+        st.image('logo.png', width=80)
 
     with header_columns[1]:
         st.title('My Website')
