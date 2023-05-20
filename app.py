@@ -20,13 +20,15 @@ logo_style = """
     width: auto;
 """
 
-# Hide Streamlit default styles
-hide_menu_style = """
+# Hide Streamlit default header elements
+hide_header_style = """
     <style>
-    .element-container { visibility: hidden; }
+    #MainMenu, .element-container:nth-child(1) {
+        display: none !important;
+    }
     </style>
 """
-st.markdown(hide_menu_style, unsafe_allow_html=True)
+st.markdown(hide_header_style, unsafe_allow_html=True)
 
 # Render the fixed header
 st.markdown(
@@ -47,4 +49,3 @@ st.markdown(
 # Rest of your Streamlit app code goes here
 st.title("Welcome to My Streamlit App")
 st.write("This is the content of your app.")
-
