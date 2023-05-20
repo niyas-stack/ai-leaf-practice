@@ -1,45 +1,37 @@
 import streamlit as st
+import base64
 
-# Add custom CSS styles
-header_style = """
-    <style>
+def add_sticky_header():
+    st.markdown(
+        """
+        <style>
         .sticky {
-            position: fixed;
+            position: sticky;
             top: 0;
-            width: 100%;
-            background-color: blue;
+            z-index: 100;
+            background-color: yellow;
             padding: 10px;
-            z-index: 9999;
         }
+        </style>
+        """
+        , unsafe_allow_html=True
+    )
+    st.markdown(
+        """
+        <div class="sticky">
+            <!-- Add your title and logo here -->
+            <h1>AI Leaf Disease Detection</h1>
+        </div>
+        """
+        , unsafe_allow_html=True
+    )
 
-        .header-logo {
-            width: 100px;
-            margin-right: 10px;
-        }
+def main():
+    add_sticky_header()
 
-        .header-title {
-            font-size: 24px;
-            font-weight: bold;
-        }
+    # Rest of your Streamlit app code
+    st.title("Welcome to my app")
+    st.write("This is the content of my app.")
 
-        .content {
-            margin-top: 100px;
-        }
-    </style>
-"""
-st.markdown(header_style, unsafe_allow_html=True)
-
-# Create the sticky header section
-header_container = st.beta_container()
-
-# Add logo and title to the header
-header_columns = header_container.beta_columns([1, 6])  # Adjust column widths as needed
-
-with header_columns[0]:
-    st.image('logo.png', use_column_width=True, caption='Logo', output_format='PNG')
-
-with header_columns[1]:
-    st.title('My Website')
-
-# Render the content below the sticky header
-st.markdown('<div class="content"></div>', unsafe_allow_html=True)
+if __name__ == "__main__":
+    main()
