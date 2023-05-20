@@ -15,12 +15,7 @@ st.markdown('''
 header_container = st.beta_container()
 
 # Add logo and title to the header
-header_columns = header_container.beta_columns([1, 6])  # Adjust column widths as needed
-
-# Check screen size and adjust layout
-if st.sidebar._is_running_on_mobile_device:
-    # Use single column layout for mobile devices
-    header_columns = [st.beta_columns([1])[0], st.beta_columns([1])[0]]
+header_columns = header_container.beta_columns([2, 6])  # Adjust column widths as needed
 
 with header_columns[0]:
     st.image('logo.png', width=100)
