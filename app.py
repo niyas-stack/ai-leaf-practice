@@ -1,22 +1,15 @@
 import streamlit as st
 
-# Set page title and favicon
-st.set_page_config(page_title='My Website', page_icon='logo.png')
-
 # Add custom CSS styles
 header_style = """
     <style>
-        .header {
-            position: sticky;
+        .sticky {
+            position: fixed;
             top: 0;
-            left: 0;
             width: 100%;
-            height: 80px;
             background-color: yellow;
-            z-index: 9999;
             padding: 10px;
-            display: flex;
-            align-items: center;
+            z-index: 9999;
         }
 
         .header-logo {
@@ -28,11 +21,15 @@ header_style = """
             font-size: 24px;
             font-weight: bold;
         }
+
+        .content {
+            margin-top: 100px;
+        }
     </style>
 """
 st.markdown(header_style, unsafe_allow_html=True)
 
-# Create the fixed header section
+# Create the sticky header section
 header_container = st.beta_container()
 
 # Add logo and title to the header
@@ -44,17 +41,5 @@ with header_columns[0]:
 with header_columns[1]:
     st.title('My Website')
 
-# Navigation options
-nav_option = st.sidebar.radio('Go to', ('Home', 'About', 'Contact'))
-
-# Render different content based on the selected navigation option
-if nav_option == 'Home':
-    st.title('Home Page')
-    # Add content for the home page
-elif nav_option == 'About':
-    st.title('About Page')
-    # Add content for the about page
-elif nav_option == 'Contact':
-    st.title('Contact Page')
-    # Add content for the contact page
-
+# Render the content below the sticky header
+st.markdown('<div class="content"></div>', unsafe_allow_html=True)
