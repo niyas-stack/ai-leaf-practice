@@ -1,24 +1,5 @@
 import streamlit as st
 
-st.markdown("""
-<style>
-    /* Hide Streamlit default header */
-    .stAppHeader, .css-1l02zno {
-        display: none;
-    }
-    
-    /* Adjust padding to compensate for the hidden header */
-    .stApp {
-        padding-top: 0 !important;
-    }
-    
-    /* Adjust sidebar top position to align with the custom header */
-    section[data-testid="stSidebar"] {
-        top: 60px !important;
-    }
-</style>
-""", unsafe_allow_html=True)
-
 # Custom CSS styles
 header_style = """
     position: fixed;
@@ -38,6 +19,9 @@ logo_style = """
     height: 40px;
     width: auto;
 """
+
+# Remove Streamlit default header
+st.beta_set_page_config(header_visible=False)
 
 # Render the fixed header
 st.markdown(
