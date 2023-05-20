@@ -7,7 +7,7 @@ header_style = """
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: yellow;
+            background-color: blue;
             padding: 10px;
             z-index: 9999;
         }
