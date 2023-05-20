@@ -57,12 +57,15 @@ def model_predict(image, model_func, transform):
     image_tensor = image_tensor.unsqueeze(0)
     output = model_func(image_tensor)
     index = torch.argmax(output)
-    pred = classes[index.item()]
-    probs, _ = torch.max(F.softmax(output, dim=1), 1)
-    if probs < 0.93:
-        return "not defined", probs
+    if index.item() in classes:
+        pred = classes[index.item()]
+        probs, _ = torch.max(F.softmax(output, dim=1), 1)
+        if probs < 0.93:
+            return "not defined", probs
+        else:
+            return pred, probs
     else:
-        return pred, probs
+        return "Unknown", 0.0
 
 def display_remedies(pred):
     remedy = remedies.get(pred)
@@ -104,7 +107,7 @@ def main():
     }
     </style>
     ''', unsafe_allow_html=True)
-    add_bg_from_local('background app2a.jpg')
+    add_bg_from_local('background.jpg')
 
     # Create the header section
     header_container = st.beta_container()
@@ -159,5 +162,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-               
