@@ -23,7 +23,7 @@ logo_style = """
 # Hide Streamlit default styles
 hide_menu_style = """
     <style>
-    #MainMenu,Header { visibility: hidden; }
+    #Header { visibility: hidden; }
     </style>
 """
 st.markdown(hide_menu_style, unsafe_allow_html=True)
