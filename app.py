@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Set page title and favicon
-st.set_page_config(page_title='My Website', page_icon='logo.png')
+st.set_page_config(page_title='My Website', page_icon='logo (1) (1).png')
 
 # Create the header section
 header_container = st.beta_container()
