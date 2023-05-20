@@ -20,17 +20,7 @@ logo_style = """
     width: auto;
 """
 
-# Hide hamburger menu and other elements
-hide_header_style = """
-    <style>
-    .sidebar-content .block-container:nth-child(1) {
-        display: none;
-    }
-    </style>
-"""
-st.markdown(hide_header_style, unsafe_allow_html=True)
-
-# Render the fixed header
+# Render the custom header
 st.markdown(
     f"""
     <header style="{header_style}">
