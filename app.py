@@ -1,38 +1,11 @@
 import streamlit as st
 
-# Custom CSS styles
-header_style = """
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    background-color: yellow;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    z-index: 999;
+hide_streamlit_style = """
+<style>
+.css-hi6a2p {padding-top: 0rem;}
+</style>
+
 """
-
-# Render the custom header using HTML and CSS
-st.write(f"""
-    <style>
-    /* Hide Streamlit header */
-    .stAppHeader {{
-        display: none;
-    }}
-    </style>
-    <div style="{header_style}">
-        <h1>Project Title</h1>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-        </nav>
-    </div>
-""", unsafe_allow_html=True)
-
-# Rest of your Streamlit app code goes here
-st.title("Welcome to My Streamlit App")
-st.write("This is the content of your app.")
+st.title("Test")
+if st.checkbox('Remove padding'):
+    st.markdown(hide_streamlit_style, unsafe_allow_html=True)
