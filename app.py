@@ -61,7 +61,15 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+enable_scroll = """
+<style>
+.main {
+    overflow: auto;
+}
+</style>
+"""
 
+st.markdown(enable_scroll, unsafe_allow_html=True)
 # Render the fixed header
 st.markdown(
     f"""
