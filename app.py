@@ -8,9 +8,9 @@ header_container = st.beta_container()
 
 # Add logo and title to the header
 header_columns = header_container.beta_columns([1, 6])  # Adjust column widths as needed
-
 with header_columns[0]:
-    st.image('logo.png', use_column_width=True)
+    st.image('logo.png', width=200, height=100)
+
 
 with header_columns[1]:
     st.title('My Website')
