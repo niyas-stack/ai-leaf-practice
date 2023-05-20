@@ -1,5 +1,11 @@
 import streamlit as st
 
+st.markdown("""
+<style>
+    #MainMenu, header, footer {visibility: hidden;}
+</style>
+""",unsafe_allow_html=True)
+
 # Custom CSS styles
 header_style = """
     position: fixed;
