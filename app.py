@@ -20,13 +20,15 @@ logo_style = """
     width: auto;
 """
 
-# Hide Streamlit default styles
-hide_menu_style = """
+# Hide Streamlit default header elements
+hide_header_style = """
     <style>
-    .element-container { visibility: hidden; }
+    #MainMenu, header, footer {
+        visibility: hidden;
+    }
     </style>
 """
-st.markdown(hide_menu_style, unsafe_allow_html=True)
+st.markdown(hide_header_style, unsafe_allow_html=True)
 
 # Render the fixed header
 st.markdown(
