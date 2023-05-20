@@ -15,28 +15,24 @@ header_style = """
     z-index: 999;
 """
 
-# Render the custom header
-st.markdown(
-    f"""
+# Render the custom header using HTML and CSS
+st.write(f"""
     <style>
     /* Hide Streamlit header */
     .stAppHeader {{
         display: none;
     }}
     </style>
-    <header style="{header_style}">
+    <div style="{header_style}">
         <h1>Project Title</h1>
         <nav>
             <a href="#">Home</a>
             <a href="#">About</a>
             <a href="#">Contact</a>
         </nav>
-    </header>
-    """,
-    unsafe_allow_html=True
-)
+    </div>
+""", unsafe_allow_html=True)
 
 # Rest of your Streamlit app code goes here
 st.title("Welcome to My Streamlit App")
 st.write("This is the content of your app.")
-
