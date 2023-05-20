@@ -2,16 +2,22 @@ import streamlit as st
 
 st.markdown("""
 <style>
-    #MainMenu,header {visibility: hidden;}
-
-    /* This code gets the first element on the sidebar,
-    and overrides its default styling */
-    section[data-testid="stSidebar"] div:first-child {
-        top: 0;
-        height: 100vh;
+    /* Hide Streamlit default header */
+    .stAppHeader, .css-1l02zno {
+        display: none;
+    }
+    
+    /* Adjust padding to compensate for the hidden header */
+    .stApp {
+        padding-top: 0 !important;
+    }
+    
+    /* Adjust sidebar top position to align with the custom header */
+    section[data-testid="stSidebar"] {
+        top: 60px !important;
     }
 </style>
-""",unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 # Custom CSS styles
 header_style = """
@@ -33,9 +39,6 @@ logo_style = """
     width: auto;
 """
 
-# Render custom CSS styles
-
-
 # Render the fixed header
 st.markdown(
     f"""
@@ -54,5 +57,5 @@ st.markdown(
 
 # Rest of your Streamlit app code goes here
 st.title("Welcome to My Streamlit App")
-st.write("This is the content of your app.")
+st.write("This is the content of your app.")
 
