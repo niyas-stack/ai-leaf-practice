@@ -34,17 +34,7 @@ logo_style = """
 """
 
 # Render custom CSS styles
-st.markdown(
-    f"""
-    <style>
-    /* Hide Streamlit header */
-    .stAppHeader {{
-        display: none;
-    }}
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+
 
 # Render the fixed header
 st.markdown(
