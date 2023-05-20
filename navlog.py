@@ -1,6 +1,8 @@
 import validators
 import base64
 from pathlib import Path
+import streamlit as st
+
 def add_logo(logo_url: str, height: int = 120):
     """Add a logo (from logo_url) on the top of the navigation page of a multipage app.
     Taken from https://discuss.streamlit.io/t/put-logo-and-title-above-on-top-of-page-navigation-in-sidebar-of-multipage-app/28213/6
