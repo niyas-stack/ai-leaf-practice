@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Set page title and favicon
-st.set_page_config(page_title='My Website', page_icon='logo.png')
+st.set_page_config(page_title='My Website', page_icon='logo (1) (1).jpg')
 
 # Create the header section
 header_container = st.beta_container()
@@ -10,19 +10,7 @@ header_container = st.beta_container()
 header_columns = header_container.beta_columns([1, 6])  # Adjust column widths as needed
 
 with header_columns[0]:
-    st.markdown(
-        """
-        <style>
-        .logo-image {
-            width: 100px;
-            height: auto;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-    st.image('logo.png', use_column_width=False, output_format='PNG', 
-             width=100, output_class='logo-image')
+    st.image('logo (1) (1).jpg', use_column_width=True)
 
 with header_columns[1]:
     st.title('My Website')
@@ -39,4 +27,4 @@ elif nav_option == 'About':
     # Add content for the about page
 elif nav_option == 'Contact':
     st.title('Contact Page')
-    # Add content for the contact page
+    # Add content for the contact page
