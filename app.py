@@ -3,7 +3,7 @@ import streamlit as st
 hide_streamlit_style = """
 <style>
 .stApp > div {
-    padding-top: 0rem !important;
+   .css-1y0tads {padding-top: 0rem;}
 }
 </style>
 """
