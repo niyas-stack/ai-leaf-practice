@@ -5,7 +5,7 @@ from navlog import add_logo
 
 # Set page title and favicon
 st.set_page_config(page_title='My Website', page_icon='logo.png')
-add_logo("logo.png", height=300)
+add_logo("logo.png", height=120)
 
 # Create the header section
 header_container = st.beta_container()
