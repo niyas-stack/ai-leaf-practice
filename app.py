@@ -1,11 +1,11 @@
 import streamlit as st
 from navlog import add_logo
 
-add_logo("logo.png", height=300)
 
 
 # Set page title and favicon
 st.set_page_config(page_title='My Website', page_icon='logo.png')
+add_logo("logo.png", height=300)
 
 # Create the header section
 header_container = st.beta_container()
