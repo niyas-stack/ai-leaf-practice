@@ -8,6 +8,14 @@ st.markdown('''
 .stApp [data-testid="stToolbar"]{
     display:none;
 }
+.header-container {
+    display: flex;
+    align-items: center;
+}
+.logo {
+    width: 100px;
+    margin-right: 20px;
+}
 </style>
 ''', unsafe_allow_html=True)
 
@@ -15,10 +23,10 @@ st.markdown('''
 header_container = st.beta_container()
 
 # Add logo and title to the header
-header_columns = header_container.beta_columns([2, 6])  # Adjust column widths as needed
+header_columns = header_container.beta_columns([1, 6])  # Adjust column widths as needed
 
 with header_columns[0]:
-    st.image('logo.png', width=100)
+    st.image('logo.png', use_column_width=True, caption='Logo', output_format='JPEG', width=100, class_='logo')
 
 with header_columns[1]:
     st.title('My Website')
