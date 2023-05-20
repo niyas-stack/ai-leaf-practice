@@ -8,8 +8,19 @@ st.markdown('''
 .stApp [data-testid="stToolbar"]{
     display:none;
 }
+.stApp .sidebar .sidebar-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.stApp .sidebar .sidebar-content .sidebar-collapse-icon {
+    margin-left: 10px;
+}
 </style>
 ''', unsafe_allow_html=True)
+
 # Create the header section
 header_container = st.beta_container()
 
@@ -34,4 +45,4 @@ elif nav_option == 'About':
     # Add content for the about page
 elif nav_option == 'Contact':
     st.title('Contact Page')
-    # Add content for the contact page
+    # Add content for the contact page
