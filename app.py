@@ -1,18 +1,28 @@
 import streamlit as st
 
 # Custom CSS styles
-hide_header_style = """
-    <style>
-    #MainMenu {visibility: hidden;}
-    </style>
+header_style = """
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: yellow;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 999;
 """
 
-# Render the custom CSS to hide the default Streamlit header
-st.markdown(hide_header_style, unsafe_allow_html=True)
+logo_style = """
+    height: 40px;
+    width: auto;
+"""
 
 # Render the fixed header
 st.markdown(
-    """
+    f"""
     <header style="{header_style}">
         <h1>Project Title</h1>
         <img src="logo.png" alt="Logo" style="{logo_style}">
