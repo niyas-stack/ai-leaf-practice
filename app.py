@@ -16,6 +16,16 @@ st.markdown('''
     width: 100px;
     margin-right: 20px;
 }
+
+@media (max-width: 600px) {
+  .header-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .header-container img {
+    margin-bottom: 10px;
+  }
+}
 </style>
 ''', unsafe_allow_html=True)
 
