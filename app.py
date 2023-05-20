@@ -21,7 +21,7 @@ with header_columns[0]:
         """,
         unsafe_allow_html=True
     )
-    st.image('logo.png', use_column_width=False, output_format='PNG', 
+    st.image('logo (1) (1).jpg', use_column_width=False, output_format='PNG', 
              width=100, output_class='logo-image')
 
 with header_columns[1]:
