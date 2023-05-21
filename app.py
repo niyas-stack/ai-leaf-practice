@@ -186,5 +186,3 @@ elif nav_option == 'About':
     about_page()
 elif nav_option == 'Contact':
     contact_page()
-if __name__ == "__main__":
-      main()
