@@ -87,9 +87,10 @@ def add_bg_from_local(image_file):
     )
     
 def clear_session_state():
-    st.session_state['pred'] = None
-    st.session_state['probs'] = None
-    st.session_state['language_selected'] = False
+    st.session_state.session_state['pred'] = None
+    st.session_state.session_state['probs'] = None
+    st.session_state.session_state['language_selected'] = False
+
     
 def display_remedies(pred):
     remedy = remedies.get(pred)
