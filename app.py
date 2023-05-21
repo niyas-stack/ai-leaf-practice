@@ -171,9 +171,11 @@ def home_page():
 
 
 def about_page():
+  st.titlr("About page')
     # Your code for the "About" page
 
 def contact_page():
+  st.title('Contact Page')
     # Your code for the "Contact" page
 
 # Navigation options
