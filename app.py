@@ -171,6 +171,6 @@ def main():
             display_remedies(st.session_state['pred'])
 
 if __name__ == "__main__":
-  main()# Your code for the "Home" page
+  main()
 
 
