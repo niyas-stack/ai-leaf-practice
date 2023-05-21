@@ -109,10 +109,11 @@ def display_remedies_malayalam(pred):
     remedy = remedies.get(pred)
     if remedy:
         st.markdown("<p style='color:red;'>Remedy (Malayalam):</p>", unsafe_allow_html=True)
-        audio_file = remedy[3]
+        audio_file = remedy[2]  # Update the index to [2] for audio file
         with open(audio_file, 'rb') as audio:
-            st.audio(audio.read(), format='audio/mp3')
-        st.info(f" {remedy[1]}")
+            st.audio(audio.read(), format='audio/m4a')  # Update the format to 'audio/m4a'
+        st.info(f" {remedy[1]}")  # Update the index to [1] for the remedy text
+
 
 # Initialize SessionState
 def init_session_state():
@@ -161,12 +162,15 @@ def main():
           st.markdown(f"<p style='color: white;'>Prediction: {st.session_state['pred']}</p>", unsafe_allow_html=True)
           st.markdown(f"<p style='color: white;'>Probability: {st.session_state['probs']}</p>", unsafe_allow_html=True)
 
-      if 'language_selected' in st.session_state and st.session_state['language_selected'] == 'Malayalam':
+      if 'selected_language' in st.session_state and st.session_state['selected_language'] == 'Malayalam':
+          selected_language = 'Malayalam'
           if 'pred' in st.session_state and st.session_state['pred'] is not None:
               display_remedies_malayalam(st.session_state['pred'])
       else:
+          selected_language = 'English'
           if 'pred' in st.session_state and st.session_state['pred'] is not None:
               display_remedies(st.session_state['pred'])
+
 
     def about_page():
       st.title("About page")
