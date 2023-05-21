@@ -36,7 +36,7 @@ remedies = {
     ],
     'The above leaf is Cassava CB (Cassava Bacterial Blight)': [
        'Chemical control is not effective. Use of resistant or tolerant varieties is the only method of control. Among improved varieties, H-97, H-226, H-1687 and H-2304 are tolerant to the disease while H-165 is highly susceptible. Among the local varieties, M-4 is tolerant to the disease.', 'രാസ നിയന്ത്രണം ഫലപ്രദമല്ല. പ്രതിരോധശേഷിയുള്ളതോ സഹിഷ്ണുതയുള്ളതോ ആയ ഇനങ്ങളുടെ ഉപയോഗം മാത്രമാണ് നിയന്ത്രണ മാർഗ്ഗം. മെച്ചപ്പെട്ട ഇനങ്ങളിൽ, H-97, H-226, H-1687, H-2304 എന്നിവ രോഗത്തെ സഹിഷ്ണുതയുള്ളവയാണ്, അതേസമയം H-165 വളരെ രോഗസാധ്യതയുള്ളവയാണ്. പ്രാദേശിക ഇനങ്ങളിൽ, M-4 രോഗത്തോട് സഹിഷ്ണുത പുലർത്തുന്നു',
-       'cassava.m4a', 'cassava.m4a'
+       'cassava.m4a', 'cassava bacterialblight mal.m4a'
     ]
     # add remedies for other diseases in both English and Malayalam
 }
