@@ -148,7 +148,7 @@ def home_page():
     if st.session_state.session_state['pred'] is not None:
         st.markdown(f"<p style='color: white;'>Prediction: {st.session_state.session_state['pred']}</p>", unsafe_allow_html=True)
         st.markdown(f"<p style='color: white;'>Probability: {st.session_state.session_state['probs']}</p>", unsafe_allow_html=True)
-        if st.session_state.session_state['pred'] != 'This is not trained yet':
+        if st.session_state.session_state['pred'] != 'This is not trained yet' or st.session_state.session_state['pred'] != 'The above leaf is Cassava Healthy leaf' or st.session_state.session_state['pred'] != ' The above leaf is Tomato healthy' or  st.session_state.session_state['pred'] != 'The above leaf is bean healthy':
             selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
             st.session_state.session_state['selected_language'] = selected_language
 
