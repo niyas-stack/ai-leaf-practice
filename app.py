@@ -149,6 +149,5 @@ def main():
       display_remedies(st.session_state.session_state['pred'])
     else:
       display_remedies_malayalam(st.session_state.session_state['pred'])
-
-if _name=='__main_':
-    main()
+if __name__ == "__main__":
+      main()# Your code for the "Home" page
