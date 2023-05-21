@@ -181,7 +181,7 @@ def main():
 
     with header_columns[1]:
         st.title('Dr.Leaf')
-
+    add_bg_from_local("background app2a.jpg")
     # Navigation panel
     nav_selection = st.sidebar.radio("Navigation", ["Home", "About", "Contact"])
 
@@ -192,5 +192,5 @@ def main():
     elif nav_selection == "Contact":
         contact_page()
 
-if _name_ == "_main_":
-    main()
+if __name__ == "__main__":
+  main()
