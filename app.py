@@ -149,12 +149,12 @@ def home_page():
 
 def about_page():
     st.title("About Dr.Leaf")
-    st.write("Dr.Leaf is an AI-powered application that helps identify plant diseases based on leaf images. It utilizes a deep learning model trained on various plant diseases to provide accurate predictions.")
+    st.write("Dr.Leaf is an simple but poerful application that helps identify plant diseases based on leaf images and give remedies for diseases in two languages malayalam our mother toungue and english.Our focus is on people who engage in kitchen gardening..This app is an hardwork of our team memebers Laura,Niyas,Poornima and Pranv")
 
 def contact_page():
     st.title("Contact Dr.Leaf")
     st.write("For any inquiries or support, please contact us at:")
-    st.write("- Email: info@drleaf.com")
+    st.write("- Email ids: laura.saleena@gmail.com/n niyasmohammad16@gmail.com\n poornimababus2001gmail.com\n pranavrajiv2000@gmail.com\n"
     st.write("- Phone: 123-456-7890")
 
 # Initialize SessionState
