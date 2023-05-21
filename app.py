@@ -7,6 +7,6 @@ text_area_style = """
 """
 
 # Add the text area with the modified style
-text_input = st.text_area("Enter your text", value="", height=200, style=text_area_style)
+text_input = st.text_area("Enter your text", value="", height=200)
 
 # You can continue with the rest of your Streamlit app code
