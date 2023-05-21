@@ -136,15 +136,15 @@ def main():
       st.title('Dr.Leaf')
 
     add_bg_from_local('background app2a.jpg')
-def home_page():
-  # Load the model
+    def home_page():
+      # Load the model
       st.write("Instructions:")
       st.write("👉 Take a clear photo of a single leaf.")
       st.write("👉 Ensure that the leaf doesn't have any dust or other unwanted things.")
       uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+
       if uploaded_file is not None:
           clear_session_state()  # Clear session state when a new file is uploaded
-
           image = Image.open(uploaded_file)
           st.image(image, caption='Uploaded Image', width=300)
           st.write("")
@@ -155,39 +155,33 @@ def home_page():
               st.session_state['probs'] = probs.item()
               st.session_state['language_selected'] = False
 
-      if st.session_state['pred'] is not None:
+      if 'pred' in st.session_state and st.session_state['pred'] is not None:
           st.markdown(f"<p style='color: white;'>Prediction: {st.session_state['pred']}</p>", unsafe_allow_html=True)
           st.markdown(f"<p style='color: white;'>Probability: {st.session_state['probs']}</p>", unsafe_allow_html=True)
 
-      if st.session_state['pred'] is not None and st.session_state['pred'] != 'This is not trained yet' :
-          selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
-          st.session_state['selected_language'] = selected_language
-
-      if st.session_state['pred'] is not None:
+      if 'pred' in st.session_state and st.session_state['pred'] is not None:
           if st.session_state['selected_language'] == 'Malayalam':
               display_remedies_malayalam(st.session_state['pred'])
           else:
               display_remedies(st.session_state['pred'])
+    def about_page():
+      st.title("About page")
+        # Your code for the "About" page
 
-
-def about_page():
-  st.title("About page")
-    # Your code for the "About" page
-
-def contact_page():
-  st.title('Contact Page')
-    # Your code for the "Contact" page
+    def contact_page():
+      st.title('Contact Page')
+        # Your code for the "Contact" page
 
 # Navigation options
-nav_option = st.sidebar.radio('Go to', ('Home', 'About', 'Contact'))
+    nav_option = st.sidebar.radio('Go to', ('Home', 'About', 'Contact'))
 
 # Render different content based on the selected navigation option
-if nav_option == 'Home':
-    home_page()
-elif nav_option == 'About':
-    about_page()
-elif nav_option == 'Contact':
-    contact_page()
+    if nav_option == 'Home':
+        home_page()
+    elif nav_option == 'About':
+        about_page()
+    elif nav_option == 'Contact':
+        contact_page()
 if __name__ == "__main__":
       main()    
     
