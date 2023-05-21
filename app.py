@@ -149,11 +149,11 @@ def home_page():
 
 def about_page():
     st.title("About Dr.Leaf")
-    st.write("Dr.Leaf is a sophisticated and powerful application designed to accurately identify plant diseases based on leaf images. It offers comprehensive remedies for these diseases in both English and Malayalam, catering to a wide range of users. Our primary focus is on individuals actively involved in kitchen gardening, ensuring that they have the necessary tools to maintain the health of their plants.
+    st.write("Dr.Leaf is a sophisticated and powerful application designed to accurately identify plant diseases based on leaf images. It offers comprehensive remedies for these diseases in both English and Malayalam, catering to a wide range of users. Our primary focus is on individuals actively involved in kitchen gardening, ensuring that they have the necessary tools to maintain the health of their plants.")
+    st.write("Dr.Leaf is the result of diligent teamwork by our dedicated team members: Laura, Niyas, Poornima, and Pranav. Their collective efforts have culminated in an application that seamlessly combines advanced technology with practical solutions for plant disease identification and management.")
+    st.write("We are committed to providing a user-friendly experience, empowering kitchen gardening enthusiasts to make informed decisions and take appropriate actions to safeguard their plants. Dr.Leaf strives to be a reliable companion for individuals seeking expert guidance in plant disease detection and treatment.")
 
-Dr.Leaf is the result of diligent teamwork by our dedicated team members: Laura, Niyas, Poornima, and Pranav. Their collective efforts have culminated in an application that seamlessly combines advanced technology with practical solutions for plant disease identification and management.
 
-We are committed to providing a user-friendly experience, empowering kitchen gardening enthusiasts to make informed decisions and take appropriate actions to safeguard their plants. Dr.Leaf strives to be a reliable companion for individuals seeking expert guidance in plant disease detection and treatment.")
 
 def contact_page():
     st.title("Contact Dr.Leaf")
