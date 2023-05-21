@@ -159,11 +159,13 @@ def main():
           st.markdown(f"<p style='color: white;'>Prediction: {st.session_state['pred']}</p>", unsafe_allow_html=True)
           st.markdown(f"<p style='color: white;'>Probability: {st.session_state['probs']}</p>", unsafe_allow_html=True)
 
-      if 'pred' in st.session_state and st.session_state['pred'] is not None:
-          if st.session_state['selected_language'] == 'Malayalam':
+      if 'selected_language' in st.session_state and st.session_state['selected_language'] == 'Malayalam':
+          if 'pred' in st.session_state and st.session_state['pred'] is not None:
               display_remedies_malayalam(st.session_state['pred'])
-          else:
+      else:
+          if 'pred' in st.session_state and st.session_state['pred'] is not None:
               display_remedies(st.session_state['pred'])
+
     def about_page():
       st.title("About page")
         # Your code for the "About" page
