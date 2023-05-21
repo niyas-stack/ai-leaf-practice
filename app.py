@@ -9,34 +9,41 @@ import torch.nn.functional as F
 from PIL import Image
 import streamlit as st
 import base64
+
 # Load the model
 model = torchvision.models.resnet18(pretrained=True)
-classes = dict({0:'The above leaf is Cassava (Cassava Mosaic) ', 
-                1:'The above leaf is Cassava CB (Cassava Bacterial Blight)', 
-                2:'The above leaf is Cassava Healthy leaf', 
-                3:'This is not trained yet',
-                4:'The above leaf is Tomato Bacterial spot', 
-                5:'The above leaf is Tomato early blight',
-                6:'The above leaf is Tomato Late blight',
-                7:'The above leaf is Tomato Leaf Mold', 
-                8:'The above leaf is Tomato Septoria leaf spot',
-                9:'The above leaf is Tomato Spider mites Two-spotted spider mite', 
-                10:'The above leaf is Tomato Target Spot',
-                11:'The above leaf is Tomato Yellow Leaf Curl Virus', 
-                12:'The above leaf is Tomato mosaic virus', 
-                13:' The above leaf is Tomato healthy', 
-                14:'The above leaf is bean angular leaf spot',
-                15:'The above leaf is bean healthy', 
-                16:'The above leaf is bean rust'})
+classes = {
+    0: 'The above leaf is Cassava (Cassava Mosaic)',
+    1: 'The above leaf is Cassava CB (Cassava Bacterial Blight)',
+    2: 'The above leaf is Cassava Healthy leaf',
+    3: 'This is not trained yet',
+    4: 'The above leaf is Tomato Bacterial spot',
+    5: 'The above leaf is Tomato early blight',
+    6: 'The above leaf is Tomato Late blight',
+    7: 'The above leaf is Tomato Leaf Mold',
+    8: 'The above leaf is Tomato Septoria leaf spot',
+    9: 'The above leaf is Tomato Spider mites Two-spotted spider mite',
+    10: 'The above leaf is Tomato Target Spot',
+    11: 'The above leaf is Tomato Yellow Leaf Curl Virus',
+    12: 'The above leaf is Tomato mosaic virus',
+    13: 'The above leaf is Tomato healthy',
+    14: 'The above leaf is bean angular leaf spot',
+    15: 'The above leaf is bean healthy',
+    16: 'The above leaf is bean rust'
+}
 
 remedies = {
-    'The above leaf is Cassava (Cassava Mosaic) ': [
-         'Remedy for Cassava Mosaic', 'കാസവ മോസായികയുടെ പരിഹാരം',
-         'CASSAVA(MOSAIC)(ENG).mp3', 'CASSAVA(MOSAIC)(MAL).m4a'
+    'The above leaf is Cassava (Cassava Mosaic)': [
+        'Remedy for Cassava Mosaic',
+        'കാസവ മോസായികയുടെ പരിഹാരം',
+        'CASSAVA(MOSAIC)(ENG).mp3',
+        'CASSAVA(MOSAIC)(MAL).m4a'
     ],
     'The above leaf is Cassava CB (Cassava Bacterial Blight)': [
-       'Remedy for Cassava Bacterial Blight', 'കാസവ ബാക്ടീരിയൽ ബ്ലൈറ്റിന്റെ പരിഹാരം',
-       'cassava.m4a', 'cassava.m4a'
+        'Remedy for Cassava Bacterial Blight',
+        'കാസവ ബാക്ടീരിയൽ ബ്ലൈറ്റിന്റെ പരിഹാരം',
+        'cassava.m4a',
+        'cassava.m4a'
     ]
     # add remedies for other diseases in both English and Malayalam
 }
@@ -49,15 +56,17 @@ model.fc = torch.nn.Linear(num_ftrs, len(classes))
 model_path = "epoch-8.pt"
 model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
 model.eval()
-transform=transforms.Compose([
+transform = transforms.Compose([
     transforms.ToTensor(),
-    transforms.Resize((224,224)),
+    transforms.Resize((224, 224)),
     transforms.ColorJitter(brightness=0.2, contrast=0.1, saturation=0.1, hue=0.1),
     transforms.RandomAffine(degrees=40, translate=None, scale=(1, 2), shear=15),
     transforms.RandomHorizontalFlip(),
     transforms.RandomVerticalFlip(),
-    transforms.Normalize((0.485, 0.456, 0.406),(0.229, 0.224, 0.225))
+    transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
 ])
+
+
 def model_predict(image, model_func, transform):
     image_tensor = transform(image).float()
     image_tensor = image_tensor.unsqueeze(0)
@@ -66,6 +75,7 @@ def model_predict(image, model_func, transform):
     pred = classes[index.item()]
     probs, _ = torch.max(F.softmax(output, dim=1), 1)
     return pred, probs
+
 
 def add_bg_from_local(image_file):
     with open(image_file, "rb") as image_file:
@@ -82,6 +92,7 @@ def add_bg_from_local(image_file):
         unsafe_allow_html=True
     )
 
+
 def display_remedies(pred):
     remedy = remedies.get(pred)
     if remedy:
@@ -97,6 +108,7 @@ def display_remedies(pred):
         else:
             st.info(f" {remedy[1]}")
 
+
 def display_remedies_malayalam(pred):
     remedy = remedies.get(pred)
     if remedy:
@@ -106,15 +118,6 @@ def display_remedies_malayalam(pred):
             st.audio(audio.read(), format='audio/mp3')
         st.info(f" {remedy[1]}")
 
-# Initialize SessionState
-def init_session_state():
-    if 'session_state' not in st.session_state:
-        st.session_state.session_state = {
-            'pred': None,
-            'probs': None,
-            'selected_language': 'English',
-            'language_selected': False
-        }
 
 def home_page():
     st.title("Welcome to Dr.Leaf")
@@ -130,26 +133,31 @@ def home_page():
 
         if st.button("Classify"):
             pred, probs = model_predict(image, model, transform)
-            st.session_state.session_state['pred'] = pred
-            st.session_state.session_state['probs'] = probs.item()
-            st.session_state.session_state['language_selected'] = False
+            st.session_state['pred'] = pred
+            st.session_state['probs'] = probs.item()
+            st.session_state['language_selected'] = False
 
-    if st.session_state.session_state['pred'] is not None:
-        st.markdown(f"<p style='color: white;'>Prediction: {st.session_state.session_state['pred']}</p>", unsafe_allow_html=True)
-        st.markdown(f"<p style='color: white;'>Probability: {st.session_state.session_state['probs']}</p>", unsafe_allow_html=True)
-        if st.session_state.session_state['pred'] != 'This is not trained yet':
+    if st.session_state['pred'] is not None:
+        st.markdown(f"<p style='color: white;'>Prediction: {st.session_state['pred']}</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='color: white;'>Probability: {st.session_state['probs']}</p>", unsafe_allow_html=True)
+        if st.session_state['pred'] != 'This is not trained yet':
             selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
-            st.session_state.session_state['selected_language'] = selected_language
+            st.session_state['selected_language'] = selected_language
 
-    if st.session_state.session_state['pred'] is not None and not st.session_state.session_state['language_selected']:
-        if st.session_state.session_state['selected_language'] == 'Malayalam':
-            display_remedies_malayalam(st.session_state.session_state['pred'])
+    if st.session_state['pred'] is not None and not st.session_state['language_selected']:
+        if st.session_state['selected_language'] == 'Malayalam':
+            display_remedies_malayalam(st.session_state['pred'])
         else:
-            display_remedies(st.session_state.session_state['pred'])
+            display_remedies(st.session_state['pred'])
+
 
 def about_page():
     st.title("About Dr.Leaf")
-    st.write("Dr.Leaf is an AI-powered application that helps identify plant diseases based on leaf images. It utilizes a deep learning model trained on various plant diseases to provide accurate predictions.")
+    st.write(
+        "Dr.Leaf is an AI-powered application that helps identify plant diseases based on leaf images. "
+        "It utilizes a deep learning model trained on various plant diseases to provide accurate predictions."
+    )
+
 
 def contact_page():
     st.title("Contact Dr.Leaf")
@@ -157,15 +165,16 @@ def contact_page():
     st.write("- Email: info@drleaf.com")
     st.write("- Phone: 123-456-7890")
 
-# Initialize SessionState
+
 def init_session_state():
     if 'session_state' not in st.session_state:
-        st.session_state.session_state = {
+        st.session_state['session_state'] = {
             'pred': None,
             'probs': None,
             'selected_language': 'English',
             'language_selected': False
         }
+
 
 def main():
     init_session_state()
@@ -192,5 +201,7 @@ def main():
     elif nav_selection == "Contact":
         contact_page()
 
+
 if __name__ == "__main__":
     main()
+
