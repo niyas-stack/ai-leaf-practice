@@ -164,6 +164,7 @@ def main():
       elif nav_option == 'Contact':
           st.title('Contact Page')
           # Add content for the contact page
-
+nav_option = st.sidebar.selectbox("Navigation", ["Home", "About", "Contact"])
+main(nav_option)
 if __name__ == "__main__":
     main()
