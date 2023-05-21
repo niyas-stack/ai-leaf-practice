@@ -104,6 +104,7 @@ def display_remedies(pred):
             st.info(f" {remedy[0]}")
         else:
             st.info(f" {remedy[1]}")
+
 def display_remedies_malayalam(pred):
     remedy = remedies.get(pred)
     if remedy:
@@ -112,6 +113,7 @@ def display_remedies_malayalam(pred):
         with open(audio_file, 'rb') as audio:
             st.audio(audio.read(), format='audio/mp3')
         st.info(f" {remedy[1]}")
+
 # Initialize SessionState
 def init_session_state():
     if 'session_state' not in st.session_state:
@@ -159,7 +161,7 @@ def main():
           st.markdown(f"<p style='color: white;'>Prediction: {st.session_state['pred']}</p>", unsafe_allow_html=True)
           st.markdown(f"<p style='color: white;'>Probability: {st.session_state['probs']}</p>", unsafe_allow_html=True)
 
-      if 'selected_language' in st.session_state and st.session_state['selected_language'] == 'Malayalam':
+      if 'language_selected' in st.session_state and st.session_state['language_selected'] == 'Malayalam':
           if 'pred' in st.session_state and st.session_state['pred'] is not None:
               display_remedies_malayalam(st.session_state['pred'])
       else:
