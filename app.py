@@ -171,7 +171,7 @@ def home_page():
 
 
 def about_page():
-  st.titlr("About page')
+  st.titlr("About page")
     # Your code for the "About" page
 
 def contact_page():
