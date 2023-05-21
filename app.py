@@ -158,8 +158,13 @@ def about_page():
 def contact_page():
     st.title("Contact Dr.Leaf")
     st.write("For any inquiries or support, please contact us at:")
-    st.write("- Email ids: laura.saleena@gmail.com/n niyasmohammad16@gmail.com\n poornimababus2001gmail.com\n pranavrajiv2000@gmail.com\n")
-    st.write("- Phone: 123-456-7890")
+    st.write("- Email ids:")
+    st.write("  - laura.saleena@gmail.com")
+    st.write("  - niyasmohammad16@gmail.com")
+    st.write("  - poornimababus2001@gmail.com")
+    st.write("  - pranavrajiv2000@gmail.com")
+
+
 
 # Initialize SessionState
 def init_session_state():
