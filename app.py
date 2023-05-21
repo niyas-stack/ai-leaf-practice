@@ -65,7 +65,12 @@ def model_predict(image, model_func, transform):
     index = torch.argmax(output)
     pred = classes[index.item()]
     probs, _ = torch.max(F.softmax(output, dim=1), 1)
-    return pred, probs
+    if probs < 0.93:
+        pred = 'This is not trained yet'
+        return pred, probs
+    else:
+        return pred, probs
+
 
 def add_bg_from_local(image_file):
     with open(image_file, "rb") as image_file:
