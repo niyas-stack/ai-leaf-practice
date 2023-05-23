@@ -179,7 +179,6 @@ def home_page():
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
     if uploaded_file is not None:
-        init_session_state()
         image = Image.open(uploaded_file)
         st.image(image, caption='Uploaded Image', width=300)
         st.write("")
@@ -190,18 +189,18 @@ def home_page():
             st.session_state.session_state['probs'] = probs.item()
             st.session_state.session_state['language_selected'] = False
 
-    if st.session_state.session_state['pred'] is not None:
-        st.markdown(f"<p style='color: white;'>Prediction: {st.session_state.session_state['pred']}</p>", unsafe_allow_html=True)
-        st.markdown(f"<p style='color: white;'>Probability: {st.session_state.session_state['probs']}</p>", unsafe_allow_html=True)
-        if st.session_state.session_state['pred'] != 'This is not trained yet' and st.session_state.session_state['pred'] != 'The above leaf is Cassava Healthy leaf' and st.session_state.session_state['pred'] != ' The above leaf is Tomato healthy' and st.session_state.session_state['pred'] != 'The above leaf is bean healthy':
-            selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
-            st.session_state.session_state['selected_language'] = selected_language
+        if st.session_state.session_state['pred'] is not None:
+            st.markdown(f"<p style='color: white;'>Prediction: {st.session_state.session_state['pred']}</p>", unsafe_allow_html=True)
+            st.markdown(f"<p style='color: white;'>Probability: {st.session_state.session_state['probs']}</p>", unsafe_allow_html=True)
+            if st.session_state.session_state['pred'] != 'This is not trained yet' and st.session_state.session_state['pred'] != 'The above leaf is Cassava Healthy leaf' and st.session_state.session_state['pred'] != ' The above leaf is Tomato healthy' and st.session_state.session_state['pred'] != 'The above leaf is bean healthy':
+                selected_language = st.selectbox("Select Language", ['English', 'Malayalam'], index=0, key="language_select")
+                st.session_state.session_state['selected_language'] = selected_language
 
-    if st.session_state.session_state['pred'] is not None and not st.session_state.session_state['language_selected']:
-        if st.session_state.session_state['selected_language'] == 'Malayalam':
-            display_remedies_malayalam(st.session_state.session_state['pred'])
-        else:
-            display_remedies(st.session_state.session_state['pred'])
+        if st.session_state.session_state['pred'] is not None and not st.session_state.session_state['language_selected']:
+            if st.session_state.session_state['selected_language'] == 'Malayalam':
+                display_remedies_malayalam(st.session_state.session_state['pred'])
+            else:
+                display_remedies(st.session_state.session_state['pred'])
 
 def about_page():
     st.title("About Dr.Leaf")
