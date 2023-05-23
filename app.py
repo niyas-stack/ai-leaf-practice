@@ -249,7 +249,7 @@ def main():
     # Navigation panel
     st.sidebar.title("Niyas")
     st.sidebar.image("logo.png", use_column_width=True)
-    nav_selection = st.sidebar.radio("Navigation", ["Home", "About", "Contact"])
+    nav_selection = st.sidebar.radio("", ["Home", "About", "Contact"])
 
     if nav_selection == "Home":
         home_page()
