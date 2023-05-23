@@ -248,6 +248,7 @@ def main():
     add_bg_from_local("background app2a.jpg")
     # Navigation panel
     st.sidebar.title("Niyas")
+    st.sidebar.image("logo.png", use_column_width=True)
     nav_selection = st.sidebar.radio("Navigation", ["Home", "About", "Contact"])
 
     if nav_selection == "Home":
