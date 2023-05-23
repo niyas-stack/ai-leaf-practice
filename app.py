@@ -221,16 +221,6 @@ def contact_page():
 
 
 
-# Initialize SessionState
-def init_session_state():
-    if 'session_state' not in st.session_state:
-        st.session_state.session_state = {
-            'pred': None,
-            'probs': None,
-            'selected_language': 'English',
-            'language_selected': False
-        }
-
 def main():
     init_session_state()
 
