@@ -225,7 +225,7 @@ def main():
     init_session_state()
     # Custom CSS styles
     # Custom CSS styles
-header_style = """
+    header_style = """
     position: fixed;
     top: 0;
     left: 0;
