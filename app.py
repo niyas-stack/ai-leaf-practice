@@ -223,6 +223,37 @@ def contact_page():
 
 def main():
     init_session_state()
+    # Custom CSS styles
+    # Custom CSS styles
+header_style = """
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: yellow;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 999;
+    """
+
+    logo_style = """
+        height: 40px;
+        width: auto;
+    """
+    # Render the fixed header
+    st.markdown(
+        f"""
+        <header style="{header_style}">
+            <h1>Project Title</h1>
+            <img src="logo.png" alt="Logo" style="{logo_style}">
+        </header>
+        """,
+        unsafe_allow_html=True
+    )
+
 
     st.set_page_config(page_title="Dr.Leaf", page_icon="logo.png")
     header_container = st.beta_container()
