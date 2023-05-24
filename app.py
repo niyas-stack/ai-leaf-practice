@@ -225,6 +225,7 @@ def main():
     init_session_state()
     # Custom CSS styles
     # Custom CSS styles
+    st.set_page_config(page_title="Dr.Leaf", page_icon="logo.png")
     header_style = """
     position: fixed;
     top: 0;
@@ -255,7 +256,7 @@ def main():
     )
 
 
-    st.set_page_config(page_title="Dr.Leaf", page_icon="logo.png")
+   
     header_container = st.beta_container()
 
     # Add logo and title to the header
